@@ -1,32 +1,239 @@
-┌──────────────────┬───────────────────────────────────────────────────────────────────┐
-│ On this page     │ Річний курс «Медична латина» 2026–2027                            │
-│ (sticky, cols    │ Старт групи: 11.01.2027                                           │
-│  1–3)            │                                                                   │
-│ Річний курс      │  Lesson                                         Basis Medium Maxi │
-│ Експрес-курс     │  1  Вимова літер і буквосполучень. Наголос        ┃     ┃     ┃   │
-│ Впевнена вимова  │  2  Nomen substantivum. Неузгоджене озн.          ┃     ┃     ┃   │
-│ Пробне заняття   │  …                                                ┃     ┃     ┃   │
-│ Діагностика      │  8  Ступені порівняння прикметників               ┃     ┃     ┃   │
-│ Індивідуально    │  9  Рецептура. Хімічна номенклатура                     ┃     ┃   │
-│                  │  …                                                      ┃     ┃   │
-│                  │  12 Рецепти на м’які та рідкі форми                     ┃     ┃   │
-│                  │  13 Клінічна термінологія. Словотвір                          ┃   │
-│                  │  …                                                            ┃   │
-│                  │  16 50 найчастотніших діагнозів. Репетиція ПК                 ┃   │
-│                  │                                                                   │
-│                  │  Prices          Basis      Medium     Maxi                       │
-│                  │                  8 занять   12 занять  16 занять                  │
-│                  │  У записі        899 грн    —          —                          │
-│                  │  Міні-група 3–5  4400 грн   6600 грн   9000 грн                   │
-│                  │  Індивідуально   8000 грн   11000 грн  16000 грн                  │
-│                  │  Telegram 24/6   1 міс.     1,5 міс.   2 міс.                     │
-│                  │                                                                   │
-│                  │ Експрес-курс: 6 днів перед ПК                                     │
-│                  │  Дні 1–2 / 3–4 / 5–6, format, prices, FAQ (<details>)             │
-│                  │ Інтенсив «Впевнена вимова»: 3 дні                                 │
-│                  │  День 1 / 2 / 3, for whom, mini-groups 5–10, prices               │
-│                  │ Пробне заняття, Діагностика рівня знань, Індивідуально            │
-└──────────────────┴───────────────────────────────────────────────────────────────────┘
+# Design plan: medicallatin.com
+
+Status: **approved** (21 Nov 2026). The answers to the open questions are in §12.
+
+## 1. The brief, restated
+
+- **Subject.** Галина Шпинта (Halyna Shpynta), brand **LinguaLatina**. She is a
+  кандидат філологічних наук (PhD equivalent, classical languages, KNU, 2013) and
+  доцент (associate professor). She taught Latin at Bogomolets National Medical
+  University (НМУ) for 17 years (2007–2024) and has examined there since 2011. She is
+  co-author of Latin workbooks and author of a monograph on Latin entomological
+  nomenclature. She now teaches online (Zoom + Telegram) from Czechia.
+- **Audience.**
+  1. Ukrainian-speaking students of medical, dental and pharmacy faculties, plus
+     medical-lyceum pupils, applicants and interns. Most arrive from Instagram on a
+     phone, often anxious before the ПК (final module test).
+  2. English-speaking students of any medical school. They get the same courses in
+     English, with no prices.
+- **Main job.** Turn a worried student into a booking request: a message in
+  Instagram Direct or the Google Form. The page earns that by showing her method,
+  her credentials, the offers and real student results.
+
+## 2. Decisions already made
+
+| Topic | Decision |
+|---|---|
+| Hosting | Cloudflare Pages, connected to this GitHub repo; domain `medicallatin.com` is in Cloudflare (the Pages project must live in the same Cloudflare account). |
+| Stack | Plain HTML + CSS, one small JS file (the hero term switcher). No build step, no framework. |
+| Languages | Ukrainian at `/`, English at `/en/`. Every text is translated. |
+| Prices | Ukrainian site only: per-lesson range ($18–22) and the UAH packages. English site: no prices. |
+| Dates | Show the next group start (11.01.2027); updated by hand via Git. |
+| Offers | Year course (Basis / Medium / Maxi), Express course (6 days), Pronunciation intensive (3 days), Trial lesson (half price, same length as a regular lesson), Level test (separate service). |
+| Contacts | Instagram Direct, Telegram, WhatsApp / phone, email. |
+| Booking form | Google Form, one per language, created by Halyna in her Google account; questions drafted in [google-form.md](google-form.md). |
+| Students | Consent given: names, photos and review screenshots may be used. |
+| Images | Her own photos and screenshots from the supplied materials, used as they are (cropped only to remove phone UI). |
+| Editing | Volodymyr edits via Git. |
+| Privacy | No analytics, trackers, cookies or third-party scripts. Contacts and the form are plain links. |
+
+## 3. Concept: «Розбір терміна» (a term, taken apart)
+
+Her whole pitch is one moment: a frightening term turns out to be a few small parts
+with plain meanings, and the student says «Аааа… тепер я зрозумів!». The site opens
+with exactly that moment, so the first screen *demonstrates* the method instead of
+claiming it.
+
+The hero shows one real term from her level test, set large, split into its parts.
+Thin red leader lines run from each part to its meaning, like labels in an anatomy
+atlas, and the whole term's meaning sits below:
+
+```
+  endo   card   ítis
+  └─┬┘   └─┬┘   └─┬┘
+    │      │      │
+всередині серце запалення
+
+= запалення внутрішніх шарів серця
+```
+
+A small button, «Розібрати інший термін», swaps in the next term. The same part,
+*card-*, reappears in the second one, which shows the logic without saying it:
+
+1. **endocarditis**: endo- (всередині) + card- (серце) + -itis (запалення):
+   «запалення внутрішніх шарів серця».
+2. **tachycardia**: tachy- (швидкий) + card- (серце) + -ia (стан):
+   «пришвидшене серцебиття».
+3. **chlorodontia**: chlor- (зелений) + odont- (зуб) + -ia (стан):
+   «поява зеленого відтінку у кольорі молочних зубів».
+
+The whole-term meanings are her own wording from the level test. The part glosses
+and stress marks are for Halyna to confirm before launch (see §11).
+
+## 4. Colour
+
+| Name | Hex | Role |
+|---|---|---|
+| Ward white | `#F5F7F7` | Page background. A cool, clinical white, not cream. |
+| Atlas grey | `#E3E9EC` | Secondary surfaces: price table, case blocks, review quotes. |
+| Iron-gall ink | `#1E2230` | Text and headings (blue-black, like fountain-pen ink). |
+| Slate | `#4E5566` | Secondary text: captions, glosses, meta lines. |
+| Praktikum maroon | `#6F1D2C` | The brand colour, taken from her workbook covers and diplomas. Buttons, links, the booking bar. |
+| Correction red | `#B83226` | The teacher's red pen. Only for annotations: leader lines, stress marks, the focus ring. Never for decoration. |
+
+Contrast (WCAG 2.x, measured):
+
+| Pair | Ratio |
+|---|---|
+| Ink on ward white / on atlas grey | 14.7 / 12.9 |
+| Slate on ward white / on atlas grey | 6.9 / 6.1 |
+| Maroon on ward white (links) | 10.3 |
+| White on maroon (buttons) | 11.1 |
+| Correction red on ward white / on atlas grey | 5.5 / 4.9 |
+
+**Dark mode** follows the system setting (`prefers-color-scheme`), with no toggle.
+Many students read at night inside Instagram's dark in-app browser.
+
+| Light token | Dark value | Check |
+|---|---|---|
+| Ward white | `#171B25` | |
+| Atlas grey | `#232937` | |
+| Iron-gall ink | `#E8EBEF` | 14.4 on background |
+| Slate | `#AAB1BF` | 8.0 on background |
+| Praktikum maroon | `#E6A1AC` | Links and button fill. Button text uses the dark background colour (8.3). |
+| Correction red | `#FF8B7B` | 7.6 on background |
+
+## 5. Type
+
+Two families, with one rule that carries meaning: **Latin is set in the serif;
+Ukrainian and English are set in the sans.** Throughout the site the reader can spot
+the Latin at a glance, just as in her lessons. Every Latin span also gets `lang="la"`,
+so screen readers switch pronunciation.
+
+| Typeface | Licence | Role |
+|---|---|---|
+| **EB Garamond** (Georg Duffner, Octavio Pardo) | SIL OFL 1.1 | Latin only: the hero term, the wordmark *LinguaLatina*, course names (*Grammatica*, *Receptum*, *Clinica*), inline terms in lesson titles, the motto *Repetitio est mater studiorum*. Roman for the hero, italic inline. It descends from Garamond's 16th-century romans, the age when anatomical Latin was first printed. |
+| **Fixel** (MacPaw, Kyiv) | SIL OFL 1.1 | Everything else. *Fixel Display* (width 87.5) at weight 600 for headings, *Fixel Text* (width 100) at weight 400 for body. It is a Ukrainian-made grotesque drawn for Ukrainian Cyrillic. |
+
+Both are self-hosted and subset to Latin, Latin Extended-A and Cyrillic. Glyph
+coverage was checked against her materials, including the stress marks and vowel
+marks (*á é í ó ú ý*, *ä ë ö*, *ā ē ī ō ū*, *ĭ*) and Ukrainian *ґ є і ї*. EB Garamond
+covers them all. Fixel lacks only *ȳ* and the modifier apostrophe *ʼ*: Latin never uses
+Fixel, and Ukrainian copy uses the typographic apostrophe *’*.
+
+Scale (following *The Elements of Typographic Style*; rem at a 16px root):
+
+| Step | Mobile | Desktop | Use |
+|---|---|---|---|
+| Hero term | 3.75rem (60px) | 8rem (128px) | EB Garamond 400 |
+| H1 | 2.25rem (36px) | 3rem (48px) | Fixel Display 600, line-height 1.1 |
+| H2 | 1.75rem (28px) | 2.25rem (36px) | Fixel Display 600 |
+| H3 | 1.3125rem (21px) | 1.5rem (24px) | Fixel Display 600 |
+| Body | 1.0625rem (17px) | 1.125rem (18px) | Fixel Text 400, line-height 1.55, measure ≤ 68ch |
+| Small | 0.875rem (14px) | 0.875rem (14px) | Glosses, captions |
+
+Rules:
+- Inline Latin in EB Garamond italic is set at 1.12em, so its smaller x-height matches Fixel's.
+- Sentence case everywhere: no all-caps labels and no eyebrow labels above headings.
+- Headings are a single colour, with no highlighted words.
+
+## 6. Layout
+
+**Alignment:** left-aligned, ragged right, never justified. Ukrainian words are long,
+and justified text would open rivers.
+
+**Grid:**
+- **Mobile:** one column with 1.25rem side padding (320px of content at 360px).
+- **Desktop:** a 12-column grid inside a 72rem container. Text blocks never exceed
+  68ch.
+- **Spacing:** only the layout wrappers carry vertical spacing between sections;
+  components have no outer margins. This keeps CSS specificity from fighting over
+  padding.
+
+**Booking actions are always one tap away, never a popup.** On mobile, a fixed bottom
+bar holds two buttons: «Написати в Direct» and «Заповнити анкету». On desktop the
+same two sit in the sticky header. Their names never change across the site.
+
+**Pages (same structure in both languages):**
+
+| Ukrainian | English | Content |
+|---|---|---|
+| `/` | `/en/` | Home: term hero, who I am, how lessons work, offers overview, student results, teaching in English (UA only), how to sign up |
+| `/courses/` | `/en/courses/` | Each offer in full: programme, format, prices (UA only), FAQ |
+| `/about/` | `/en/about/` | Her story, diplomas, publications, Google Scholar |
+| `/404.html` | | One bilingual "page not found" with links to both home pages |
+
+### Home: mobile (390px)
+
+```
+┌────────────────────────────────┐
+│ LinguaLatina               EN  │ header: wordmark in EB Garamond
+│ Курси і ціни  Про мене  Відгуки│ nav row; no hamburger, no JS
+├────────────────────────────────┤
+│ Медична латина —               │ H1
+│ просто і зрозуміло             │
+│                                │
+│ Пояснюю логіку термінів,       │ lede
+│ щоб ви розуміли, а не зубрили. │
+│                                │
+│ endo  card  ítis               │ hero term, 60px
+│ └┬─┘  └┬─┘  └┬─┘               │ red leader lines
+│ все-  серце запа-              │ glosses, 14px
+│ редині      лення              │
+│ = запалення внутрішніх шарів   │
+│   серця                        │
+│ Розібрати інший термін         │ text button
+│                                │
+│ Галина Шпинта — кандидат       │ credentials in one sentence
+│ філологічних наук, доцент,     │
+│ 17 років у НМУ ім. Богомольця. │
+├────────────────────────────────┤
+│ Хто я                          │ H2
+│ ┌────────────────────────────┐ │
+│ │ her photo, 4:5             │ │
+│ └────────────────────────────┘ │
+│ 2–3 short paragraphs           │
+│ Моя історія                    │ link to /about/
+├────────────────────────────────┤
+│ Як проходять заняття           │ plain list, no cards:
+│ 80% практики …                 │ practice, exercises made for you,
+│ Інтерактивні вправи …          │ Zoom recordings for the year,
+│ Підтримка в Telegram 24/6 …    │ Telegram support, PDFs and screenshots
+├────────────────────────────────┤
+│ Курси і ціни                   │ list rows: name / what for / length / from
+│ Річний курс        від 899 грн │
+│ Експрес-курс       від 2222 грн│
+│ Впевнена вимова    від 499 грн │
+│ Пробне заняття  ½ ціни заняття │
+│ Діагностика        [ціна]      │
+│ Індивідуально     18–22 $/зан. │
+│ Усі деталі курсів              │ link to /courses/
+├────────────────────────────────┤
+│ Результати студентів           │ id="vidhuky"
+│ ┌ photo ┐ Настя, «Медицина»    │ case: request, then what we did,
+│ └───────┘ 14 занять → 164 бали │ then result
+│ … 2 more cases + the honest one│
+│ “quote text” — Валерія         │ transcribed review quotes,
+│ [screenshot]                   │ screenshot as evidence
+├────────────────────────────────┤
+│ Навчаю й англійською           │ UA only: one paragraph and a
+│ English version of the site    │ link to /en/
+├────────────────────────────────┤
+│ Як записатися                  │ a real sequence, so numbered:
+│ 1 Напишіть у Direct або        │
+│   заповніть анкету             │
+│ 2 Пробне заняття або діагност. │
+│ 3 Обираємо формат і графік     │
+│ Instagram                      │ contact links, one per line
+│ Telegram                       │
+│ WhatsApp                       │
+│ Email                          │
+├────────────────────────────────┤
+│ Repetitio est mater studiorum. │ footer motto in EB Garamond italic
+│ © LinguaLatina   УКР / EN      │
+╞════════════════════════════════╡
+│ [Написати в Direct][Анкета]    │ fixed bottom bar, maroon
+└────────────────────────────────┘
 ```
 
 On the mobile bar the second button is shortened to «Анкета». The full label
@@ -77,35 +284,35 @@ nested.
 
 ```
 Desktop
-┌──────────────────────────────────────────────────────────────────────────────┐
-│ On this page     │ Річний курс «Медична латина» 2026–2027                    │
-│ (sticky, cols    │ Старт групи: 11.01.2027                                   │
-│  1–3)            │                                                           │
-│ Річний курс      │  Lesson                                   Basis Medium Maxi│
-│ Експрес-курс     │  1  Вимова літер і буквосполучень. Наголос  ┃     ┃     ┃ │
-│ Впевнена вимова  │  2  Nomen substantivum. Неузгоджене озн.    ┃     ┃     ┃ │
-│ Пробне заняття   │  …                                          ┃     ┃     ┃ │
-│ Діагностика      │  8  Ступені порівняння прикметників         ┃     ┃     ┃ │
-│ Індивідуально    │  9  Рецептура. Хімічна номенклатура               ┃     ┃ │
-│                  │  …                                                ┃     ┃ │
-│                  │  12 Рецепти на м’які та рідкі форми               ┃     ┃ │
-│                  │  13 Клінічна термінологія. Словотвір                    ┃ │
-│                  │  …                                                      ┃ │
-│                  │  16 50 найчастотніших діагнозів. Репетиція ПК           ┃ │
-│                  │                                                           │
-│                  │  Prices          Basis      Medium     Maxi               │
-│                  │                  8 занять   12 занять  16 занять          │
-│                  │  У записі        899 грн    —          —                  │
-│                  │  Міні-група 3–5  4400 грн   6600 грн   9000 грн           │
-│                  │  Індивідуально   8000 грн   11000 грн  16000 грн          │
-│                  │  Telegram 24/6   1 міс.     1,5 міс.   2 міс.             │
-│                  │                                                           │
-│                  │ Експрес-курс: 6 днів перед ПК                             │
-│                  │  Дні 1–2 / 3–4 / 5–6, format, prices, FAQ (<details>)     │
-│                  │ Інтенсив «Впевнена вимова»: 3 дні                         │
-│                  │  День 1 / 2 / 3, for whom, mini-groups 5–10, prices       │
-│                  │ Пробне заняття, Діагностика рівня знань, Індивідуально    │
-└──────────────────────────────────────────────────────────────────────────────┘
+┌──────────────────┬───────────────────────────────────────────────────────────────────┐
+│ On this page     │ Річний курс «Медична латина» 2026–2027                            │
+│ (sticky, cols    │ Старт групи: 11.01.2027                                           │
+│  1–3)            │                                                                   │
+│ Річний курс      │  Lesson                                         Basis Medium Maxi │
+│ Експрес-курс     │  1  Вимова літер і буквосполучень. Наголос        ┃     ┃     ┃   │
+│ Впевнена вимова  │  2  Nomen substantivum. Неузгоджене озн.          ┃     ┃     ┃   │
+│ Пробне заняття   │  …                                                ┃     ┃     ┃   │
+│ Діагностика      │  8  Ступені порівняння прикметників               ┃     ┃     ┃   │
+│ Індивідуально    │  9  Рецептура. Хімічна номенклатура                     ┃     ┃   │
+│                  │  …                                                      ┃     ┃   │
+│                  │  12 Рецепти на м’які та рідкі форми                     ┃     ┃   │
+│                  │  13 Клінічна термінологія. Словотвір                          ┃   │
+│                  │  …                                                            ┃   │
+│                  │  16 50 найчастотніших діагнозів. Репетиція ПК                 ┃   │
+│                  │                                                                   │
+│                  │  Prices          Basis      Medium     Maxi                       │
+│                  │                  8 занять   12 занять  16 занять                  │
+│                  │  У записі        899 грн    —          —                          │
+│                  │  Міні-група 3–5  4400 грн   6600 грн   9000 грн                   │
+│                  │  Індивідуально   8000 грн   11000 грн  16000 грн                  │
+│                  │  Telegram 24/6   1 міс.     1,5 міс.   2 міс.                     │
+│                  │                                                                   │
+│                  │ Експрес-курс: 6 днів перед ПК                                     │
+│                  │  Дні 1–2 / 3–4 / 5–6, format, prices, FAQ (<details>)             │
+│                  │ Інтенсив «Впевнена вимова»: 3 дні                                 │
+│                  │  День 1 / 2 / 3, for whom, mini-groups 5–10, prices               │
+│                  │ Пробне заняття, Діагностика рівня знань, Індивідуально            │
+└──────────────────┴───────────────────────────────────────────────────────────────────┘
 
 Mobile: the page index becomes a short link list at the top. The lesson list is
 grouped into three blocks with a maroon left rule: "Basis: заняття 1–8",
@@ -224,21 +431,16 @@ Each appears on the site as a visibly marked `[…]` and is listed here.
 | 5 | `[EXPRESS_NEXT_DATES]`: next express-course dates | Courses (UA and EN) |
 | 6 | Stress marks and part glosses for the three hero terms: Halyna to confirm | Hero (both languages) |
 
-## 12. Open questions for you
+## 12. Open questions: answered
 
-1. **Prices consistency.** The 1:1 packages work out to about 1000 грн per lesson
-   (8000 ÷ 8, 16000 ÷ 16). Please check that this matches the "$18–22 per lesson" line
-   shown next to it.
-2. **Trial lesson on the English site.** Is "half the regular rate" acceptable there,
-   or should that page carry no price wording at all?
-3. **Google Form.** One form per language (recommended: each site links to its own,
-   with simpler questions), or one bilingual form?
-4. **Titles.** «кандидат філологічних наук, доцент» (as on the diplomas) or the
-   feminine forms «кандидатка …, доцентка»? Her slides mix both.
-5. **English proofreading.** I will write all the English text. Will Halyna (or
-   someone) check it for her voice and terminology before launch?
-6. **Levels and lessons.** I read the year course as Basis = lessons 1–8,
-   Medium = 1–12, Maxi = 1–16 (from the lesson counts). Is that right?
+| Question | Answer |
+|---|---|
+| Do the 1:1 package prices (about 1000 грн per lesson) match "$18–22 per lesson"? | Yes. Show both. |
+| "Half the regular rate" for the trial lesson on the English site? | Yes, acceptable. |
+| Google Forms | One form per language. |
+| Titles in Ukrainian | «кандидат філологічних наук, доцент», as on the diplomas. |
+| English proofreading | None planned; the English text ships as written. |
+| Year-course levels | Basis = lessons 1–8, Medium = 1–12, Maxi = 1–16. |
 
 ## 13. Build notes (after approval)
 
