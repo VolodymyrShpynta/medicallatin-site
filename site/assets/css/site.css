@@ -300,13 +300,13 @@ strong { font-weight: 600; }
   inset: auto 0 0 0;
   z-index: 20;
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: minmax(0, 1fr) auto;
   gap: 0.5rem;
   padding: 0.625rem var(--gutter) calc(0.625rem + env(safe-area-inset-bottom));
   background: var(--paper);
   border-top: 1px solid var(--rule);
 }
-.booking-bar .btn { padding-inline: 0.5rem; }
+.booking-bar .btn { padding-inline: 0.875rem; }
 
 @media (min-width: 64em) {
   .booking-bar { display: none; }
@@ -332,7 +332,7 @@ strong { font-weight: 600; }
 }
 
 @media (min-width: 64em) {
-  .hero { padding-top: 4.5rem; }
+  .hero { padding-block: 4.5rem 3rem; }
   .hero__inner {
     grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
     grid-template-areas: "text term" "cred term";
@@ -596,23 +596,27 @@ strong { font-weight: 600; }
   margin-top: 1rem;
 }
 .case__facts div {
-  display: grid;
-  grid-template-columns: 6.5rem minmax(0, 1fr);
-  gap: 1rem;
   padding-block: 0.5rem;
   border-top: 1px solid var(--rule);
 }
 .case__facts dt {
-  padding-top: 0.15rem;
   color: var(--slate);
   font-size: 0.875rem;
+}
+@media (min-width: 30em) {
+  .case__facts div {
+    display: grid;
+    grid-template-columns: 6.5rem minmax(0, 1fr);
+    gap: 1rem;
+  }
+  .case__facts dt { padding-top: 0.15rem; }
 }
 .case__result { font-weight: 600; }
 .case--honest { grid-template-columns: minmax(0, 1fr); }
 .case--honest .case__facts { grid-column: 1; }
 .case__proof {
-  display: inline-block;
-  margin-top: 0.5rem;
+  display: table;
+  margin-top: 0.375rem;
   font-size: 0.875rem;
 }
 
@@ -782,13 +786,19 @@ strong { font-weight: 600; }
   max-width: var(--measure);
 }
 .facts div {
-  display: grid;
-  grid-template-columns: 8.5rem minmax(0, 1fr);
-  gap: 1rem;
   padding-block: 0.5rem;
   border-top: 1px solid var(--rule);
 }
 .facts dt { color: var(--slate); }
+@media (min-width: 30em) {
+  .facts div {
+    display: grid;
+    grid-template-columns: 8.5rem minmax(0, 1fr);
+    gap: 1rem;
+  }
+}
+
+.nowrap { white-space: nowrap; }
 
 .list {
   max-width: var(--measure);
@@ -832,7 +842,7 @@ strong { font-weight: 600; }
 }
 .ladder__block ol {
   margin: 0;
-  padding-left: 1.75rem;
+  padding-left: 2.25rem;
 }
 .ladder__block li + li { margin-top: 0.35rem; }
 .ladder__block li::marker {
