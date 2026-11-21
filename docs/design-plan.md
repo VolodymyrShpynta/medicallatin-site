@@ -420,16 +420,18 @@ Halyna, her students, her documents and her books are used.
 
 ## 11. Placeholders waiting for your content
 
-Each appears on the site as a visibly marked `[…]` and is listed here.
+Each appears on the site with a dashed red outline and a `data-placeholder="NAME"`
+attribute; `grep -rn "data-placeholder" site` lists them all.
 
 | # | Placeholder | Where |
 |---|---|---|
-| 1 | `[EMAIL]`: her email address | Contacts, footer (both languages) |
-| 2 | `[GOOGLE_SCHOLAR_URL]` | About (both languages) |
-| 3 | `[GOOGLE_FORM_UA_URL]`, `[GOOGLE_FORM_EN_URL]` | Booking bar, header, sign-up section |
-| 4 | `[LEVEL_TEST_PRICE]`, plus its length and format | Courses (UA); format also in EN |
-| 5 | `[EXPRESS_NEXT_DATES]`: next express-course dates | Courses (UA and EN) |
-| 6 | Stress marks and part glosses for the three hero terms: Halyna to confirm | Hero (both languages) |
+| 1 | `EMAIL`: her email address | Sign-up section, home pages (both languages) |
+| 2 | `GOOGLE_SCHOLAR_URL` | About (both languages) |
+| 3 | `GOOGLE_FORM_UA_URL`, `GOOGLE_FORM_EN_URL` | Header, mobile booking bar, sign-up and course call-to-action buttons |
+| 4 | `LEVEL_TEST_PRICE` | Home and Courses (UA only) |
+| 5 | `LEVEL_TEST_FORMAT`: length and format | Courses (UA and EN), home offers list (EN) |
+| 6 | `EXPRESS_NEXT_DATES`: next express-course dates | Courses (UA and EN) |
+| 7 | Stress marks and part glosses for the three hero terms: Halyna to confirm (not marked on the page) | Hero (both languages) |
 
 ## 12. Open questions: answered
 
