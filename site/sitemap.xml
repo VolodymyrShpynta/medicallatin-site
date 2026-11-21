@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <url>
+    <loc>https://medicallatin.com/</loc>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://medicallatin.com/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://medicallatin.com/en/"/>
+  </url>
+  <url>
+    <loc>https://medicallatin.com/courses/</loc>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://medicallatin.com/courses/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://medicallatin.com/en/courses/"/>
+  </url>
+  <url>
+    <loc>https://medicallatin.com/about/</loc>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://medicallatin.com/about/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://medicallatin.com/en/about/"/>
+  </url>
+  <url>
+    <loc>https://medicallatin.com/en/</loc>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://medicallatin.com/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://medicallatin.com/en/"/>
+  </url>
+  <url>
+    <loc>https://medicallatin.com/en/courses/</loc>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://medicallatin.com/courses/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://medicallatin.com/en/courses/"/>
+  </url>
+  <url>
+    <loc>https://medicallatin.com/en/about/</loc>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://medicallatin.com/about/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://medicallatin.com/en/about/"/>
+  </url>
+</urlset>

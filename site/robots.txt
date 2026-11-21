@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://medicallatin.com/sitemap.xml
