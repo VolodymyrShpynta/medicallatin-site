@@ -5,7 +5,7 @@ Status: **approved** (21 Nov 2026). The answers to the open questions are in §1
 ## 1. The brief, restated
 
 - **Subject.** Галина Шпинта (Halyna Shpynta), brand **LinguaLatina**. She is a
-  кандидат філологічних наук (PhD equivalent, classical languages, KNU, 2013) and
+  кандидат філологічних наук (PhD equivalent; diploma from KNU) and
   доцент (associate professor). She taught Latin at Bogomolets National Medical
   University (НМУ) for 17 years (2007–2024) and has examined there since 2011. She is
   co-author of Latin workbooks and author of a monograph on Latin entomological
