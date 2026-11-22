@@ -173,9 +173,16 @@ would block the analytics script anyway.
 2. Enter `medicallatin.com` → **Continue**, and confirm the DNS record Cloudflare
    proposes. Because the domain is in this account, Cloudflare creates the record
    itself; don't add it by hand.
-3. Wait until the domain shows **Active**. This usually takes a few minutes while the
-   certificate is issued.
+3. Wait until the domain shows **Active** and **SSL enabled**. It shows **Verifying**
+   for a few minutes while the certificate is issued. The "Add the following CNAME
+   record" form that may stay under the domain is generic help: ignore it.
 4. Open <https://medicallatin.com>.
+
+In **DNS** → **Records** you'll now see the record Cloudflare created. Leave it as it is:
+
+| Type | Name | Content | Proxy status |
+|---|---|---|---|
+| `CNAME` | `medicallatin.com` | `medicallatin-site.pages.dev` | Proxied |
 
 ## 5. Redirect www to the main address
 
@@ -183,36 +190,48 @@ The site's canonical address is `https://medicallatin.com`. These steps make
 `www.medicallatin.com` forward to it, keeping the path
 (`www.medicallatin.com/courses/` → `medicallatin.com/courses/`).
 
-1. Open the **Bulk redirects** page (account level:
-   <https://dash.cloudflare.com/?to=/:account/bulk-redirects>).
-2. Under **Bulk Redirect Lists**, select **Create Bulk Redirect List**. Name it
-   `medicallatin_redirects` → **Next** → **Or, manually add URL redirects**, and add:
-
-   | Source URL | Target URL | Status |
-   |---|---|---|
-   | `www.medicallatin.com` | `https://medicallatin.com` | `301` |
-
-   Expand **Edit parameters** and tick **Preserve query string**,
-   **Subpath matching**, **Preserve path suffix** and **Include subdomains**.
-3. **Next** → **Next** → **Continue to Redirect Rules**. Name the rule
-   `www to apex`, select the list `medicallatin_redirects`, then
-   **Save and Deploy**.
-4. Open the domain → **DNS** → **Records** → **Add record**:
+1. Open the domain **medicallatin.com** → **DNS** → **Records** → **Add record**:
 
    | Type | Name | IPv4 address | Proxy status |
    |---|---|---|---|
    | `A` | `www` | `192.0.2.1` | **Proxied** (orange cloud) |
 
    `192.0.2.1` is a reserved dummy address. Cloudflare answers the redirect itself,
-   so no visitor ever reaches it, but the record must exist and be **Proxied**. If a
-   `www` record already exists, edit it to match instead.
+   so no visitor ever reaches it, but the record must exist and be **Proxied**.
+   Without it, `www.medicallatin.com` doesn't exist at all.
+2. Still in the domain, open **Rules** → **Overview** → **Create rule** →
+   **Redirect Rule**. If templates are offered, choose
+   **Redirect from WWW to root**; otherwise fill it in by hand:
+
+   | Field | Value |
+   |---|---|
+   | Rule name | `www to apex` |
+   | When incoming requests match | **Wildcard pattern** |
+   | Request URL | `https://www.*` |
+   | Then: Target URL | `https://${1}` |
+   | Status code | `301` |
+   | Preserve query string | On |
+
+3. Select **Deploy**.
+
+The rule matches only `https://www…`. Plain `http://www.medicallatin.com` is first
+sent to HTTPS by **Always Use HTTPS** (step 6) and then by this rule to the main
+address.
 
 **Optional: also redirect `medicallatin-site.pages.dev`.** Search engines already
 treat `medicallatin.com` as the real address, because every page declares it as
-canonical, so this is cosmetic. To do it anyway, add a second entry to the same
-list: source `medicallatin-site.pages.dev`, target `https://medicallatin.com`, `301`,
-with the same parameters **except leave "Include subdomains" unticked**. Ticking it
-would also redirect branch previews (`<hash>.medicallatin-site.pages.dev`).
+canonical, so this is cosmetic. `pages.dev` isn't part of your domain, so a domain
+Redirect Rule can't catch it; it needs an account-level **Bulk Redirect**:
+
+1. Open **Bulk redirects** (<https://dash.cloudflare.com/?to=/:account/bulk-redirects>)
+   → **Create Bulk Redirect List**, name it `medicallatin_redirects` → **Next** →
+   **Or, manually add URL redirects**.
+2. Add source `medicallatin-site.pages.dev`, target `https://medicallatin.com`,
+   status `301`. Under **Edit parameters**, tick **Preserve query string**,
+   **Subpath matching** and **Preserve path suffix**, but **not Include subdomains**:
+   that would also redirect branch previews (`<hash>.medicallatin-site.pages.dev`).
+3. **Next** → **Next** → **Continue to Redirect Rules**, name the rule, select the
+   list and **Save and Deploy**.
 
 ## 6. Make sure HTTP goes to HTTPS
 
@@ -266,7 +285,20 @@ Expect `404`. In a browser, that address shows the bilingual "page not found" pa
      **DNS** → **Records** → **Add record** (type `TXT`, name `@`). Google may also
      offer to add it for you through Cloudflare.
   3. Under **Sitemaps**, submit `https://medicallatin.com/sitemap.xml`.
+- **Email for the domain** (the DNS page recommends this). Decide first whether
+  Halyna wants an address like `halyna@medicallatin.com`:
+  - **Yes:** turn on **Email** → **Email Routing** for the domain (free). It forwards
+    mail for that address to her existing mailbox and adds the MX and SPF records
+    itself. Then use the address for the site's `EMAIL` placeholder.
+  - **No:** add two TXT records that tell mail servers this domain never sends email,
+    so nobody can send convincing fake mail "from" it:
 
+    | Type | Name | Content |
+    |---|---|---|
+    | `TXT` | `@` | `v=spf1 -all` |
+    | `TXT` | `_dmarc` | `v=DMARC1; p=reject;` |
+
+    Remove them if you ever start sending mail from the domain.
 ## Updating the site
 
 Edit files under `site/`, check them locally, then commit and push:
@@ -303,7 +335,7 @@ name.
 | `medicallatin-site` isn't in Cloudflare's repository list. | On GitHub, open **Settings → Applications → Installed GitHub Apps → Cloudflare Workers & Pages → Configure**, add the repository and save. Then reload the Cloudflare page. |
 | The custom domain stays **Pending** or **Verifying**. | An old A, AAAA or CNAME record for `medicallatin.com` is still there: delete it. Or a CAA record blocks Cloudflare's certificate authorities: add CAA records allowing `letsencrypt.org`, `pki.goog` and `ssl.com` (see [Cloudflare's note on CAA](https://developers.cloudflare.com/pages/configuration/custom-domains/#caa-records)). |
 | **Error 522** on `medicallatin.com`. | The DNS record was added by hand instead of through **Custom domains**. Delete it and redo step 4. |
-| `www` doesn't redirect. | The `www` A record must be **Proxied** (orange cloud), and the Bulk Redirect Rule must be deployed. |
+| `www` doesn't redirect. | The `www` A record must exist and be **Proxied** (orange cloud), and the `www to apex` Redirect Rule must be deployed. |
 | The site shows old content after a push. | Check that the deployment finished, then reload with `Ctrl+F5`. Don't add **Cache Rules** or **Page Rules** that cache the site: Cloudflare advises against them for Pages, and they can serve stale pages after a deploy. |
 | Something stops working after adding an external resource (embedded video, Google Fonts, a widget). | `site/_headers` only allows files from the site itself. Self-host the resource, or add its address to the `Content-Security-Policy` line. The browser console names what was blocked. |
 
@@ -317,7 +349,8 @@ name.
 | Framework preset / build command | None / *(empty)* |
 | Build output directory | `site` |
 | Custom domain | `medicallatin.com` (DNS record created by Cloudflare) |
-| `www.medicallatin.com` | 301 to `https://medicallatin.com` (Bulk Redirect + proxied `A www 192.0.2.1`) |
+| DNS | `CNAME medicallatin.com → medicallatin-site.pages.dev` (created by Pages), proxied `A www 192.0.2.1` |
+| `www.medicallatin.com` | 301 to `https://medicallatin.com` (Redirect Rule `www to apex`) |
 | HTTPS | Automatic certificate; **Always Use HTTPS** on |
 | Headers and caching | `site/_headers` (security policy; one-year cache for fonts only) |
 | Not found | `site/404.html` |
