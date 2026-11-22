@@ -1,7 +1,7 @@
 # medicallatin.com
 
 Website of **LinguaLatina**: medical Latin lessons with Halyna Shpynta, in Ukrainian
-(`/`) and English (`/en/`).
+(`/`) and English (`/en/`). Live at <https://medicallatin.com>.
 
 - Plain HTML and CSS with two small scripts; no build step and no dependencies.
 - No analytics, trackers, cookies or third-party scripts. Fonts and images are
@@ -76,18 +76,18 @@ When you fill one in, remove the `data-placeholder` attribute. For links, replac
 
 ## Publishing (Cloudflare Pages)
 
-The complete step-by-step guide is in [docs/deployment.md](docs/deployment.md). In
-short: the Pages project lives in **the Cloudflare account that holds
-`medicallatin.com`**. Settings: framework preset **None**, build command **empty**,
-build output directory **`site`**. Every push to `main` then publishes the site, and
-other branches get preview links.
+The site is published by **Cloudflare Pages**, from the Cloudflare account that holds
+`medicallatin.com`. Every push to `main` publishes it within a minute or two, and
+other branches get preview links. The complete step-by-step guide, with the current
+settings and every DNS record, is in [docs/deployment.md](docs/deployment.md).
+Pages settings: framework preset **None**, build command **empty**, build output
+directory **`site`**.
 
 Email for `info@medicallatin.com` is forwarded to Halyna's mailbox by Cloudflare
 Email Routing; setup and the mail DNS records (MX, SPF, DKIM, DMARC) are in
 [step 9 of the guide](docs/deployment.md#9-set-up-infomedicallatincom).
 
-Before the first publish:
+Still to do on the live site:
 - fill in or remove every placeholder;
-- check that mail to `info@medicallatin.com` arrives;
 - have Halyna confirm the stress marks and part meanings of the three hero terms
   (*endocarditis*, *tachycardia*, *chlorodontia*).

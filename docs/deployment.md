@@ -11,6 +11,22 @@ yearly `medicallatin.com` domain renewal.
 
 All commands are for **Git Bash**.
 
+## Status
+
+**Live since 22 November 2026** at <https://medicallatin.com>. Steps 1–6 and 9 are
+done, and on 23 November a test message to `info@medicallatin.com` was forwarded and
+delivered to Halyna's mailbox. Every DNS record in use is listed in
+[Settings at a glance](#settings-at-a-glance).
+
+Still open:
+
+- the remaining placeholders ([step 0](#0-pre-launch-checklist));
+- the phone and Instagram checks ([step 7](#7-check-the-live-site));
+- the Instagram bio link and, optionally, Search Console ([step 8](#8-after-launch)).
+
+Steps 1–6 and 9 below are written as they were carried out, so you can repeat them
+for another site or after a mistake.
+
 ## Who does what
 
 | Step | Who | Where |
@@ -150,6 +166,10 @@ In the Cloudflare account that holds `medicallatin.com`:
    | Root directory (advanced) | *(leave empty)* |
    | Environment variables | *(none)* |
 
+   **Build output directory starts empty** (a `/` is shown in front of the box): type
+   `site`. If it stays empty, Cloudflare publishes the whole repository: the home page
+   is missing and `README.md` and `docs/` become public.
+
 6. Select **Save and Deploy**. The deploy log should finish within a minute or two.
 7. Open the address it shows, `https://medicallatin-site.pages.dev`, and click
    through both languages.
@@ -204,21 +224,30 @@ The site's canonical address is `https://medicallatin.com`. These steps make
 
    `192.0.2.1` is a reserved dummy address. Cloudflare answers the redirect itself,
    so no visitor ever reaches it, but the record must exist and be **Proxied**.
-   Without it, `www.medicallatin.com` doesn't exist at all.
-2. Still in the domain, open **Rules** → **Overview** → **Create rule** →
-   **Redirect Rule**. If templates are offered, choose
-   **Redirect from WWW to root**; otherwise fill it in by hand:
+   Without it, `www.medicallatin.com` doesn't exist at all. (Until the rule in the
+   next step is deployed, `https://www.medicallatin.com` shows error 522. That's
+   expected.)
+2. Still in the domain, open **Rules** → **Redirect Rules** → **Create rule**. The
+   page **Create new Single Redirect** offers template cards at the top: select
+   **Create from template** on **Redirect from WWW to root**, or fill the form in by
+   hand. Either way, check every field:
 
    | Field | Value |
    |---|---|
    | Rule name | `www to apex` |
-   | When incoming requests match | **Wildcard pattern** |
-   | Request URL | `https://www.*` |
-   | Then: Target URL | `https://${1}` |
-   | Status code | `301` |
-   | Preserve query string | On |
+   | If incoming requests match… | **Wildcard pattern** |
+   | Request URL | `https://www.*` (nothing else in this box) |
+   | Then… Target URL | `https://${1}` (its own box, below **Then…**) |
+   | Status code | `301 - Permanent Redirect` |
+   | Preserve query string | ticked |
 
-3. Select **Deploy**.
+3. Select **Deploy**. A dialog **This rule may not apply to your traffic** can appear
+   even though the `www` record exists, because the check runs before the record is
+   noticed. Choose **Ignore and deploy rule anyway** → **Deploy rule**.
+   (The dialog's other option, **Create a new proxied DNS record**, creates the same
+   `A www 192.0.2.1` record as step 1. Use it only if you skipped step 1; otherwise it
+   fails with "This zone already has a DNS record of type A, AAAA or CNAME for that
+   hostname".)
 
 The rule matches only `https://www…`. Plain `http://www.medicallatin.com` is first
 sent to HTTPS by **Always Use HTTPS** (step 6) and then by this rule to the main
@@ -242,8 +271,8 @@ Redirect Rule can't catch it; it needs an account-level **Bulk Redirect**:
 ## 6. Make sure HTTP goes to HTTPS
 
 Open the domain → **SSL/TLS** → **Edge Certificates**, and turn **Always Use HTTPS**
-**On** (it may be off by default). Pages already sends `http://medicallatin.com` to
-HTTPS by itself, so the bare domain can look fine while this is off; the place it
+**On**. It was off on this domain. Pages already sends `http://medicallatin.com` to
+HTTPS by itself, so the bare domain looks fine while this is off; the place it
 shows is `http://www.medicallatin.com`, which gets error 522 without it. You'll
 verify both in the next step.
 
@@ -323,17 +352,24 @@ records, only DMARC (9.4) is added by hand.
 
 ### 9.1 Turn on Email Routing
 
-1. Open **Compute** → **Email Service** → **Email Routing**
-   (<https://dash.cloudflare.com/?to=/:account/email-service/routing>). In the
-   domain's own menu it's under **Email** → **Email Routing**.
-2. Select **Onboard Domain** → `medicallatin.com`, review the records, then **Done**.
-   Cloudflare adds them itself and locks them so they aren't edited by accident:
+1. In the domain's menu open **Email** → **Email Routing**. (Account-level route:
+   **Compute** → **Email Service** → **Email Routing**,
+   <https://dash.cloudflare.com/?to=/:account/email-service/routing>, then
+   **Onboard Domain**.)
+2. The setup has two screens, **Select domain** and **Verify and activate**. Choose
+   `medicallatin.com`. **Verify DNS records** then lists the records Cloudflare will
+   add (and any conflicting ones it would remove; there were none). Check them and
+   select **Activate**:
 
    | Type | Name | Content | What it's for |
    |---|---|---|---|
-   | `MX` ×3 | `medicallatin.com` | three `….mx.cloudflare.net` servers, with different priorities | Tells other mail servers where to deliver mail for `@medicallatin.com`: to Cloudflare. |
+   | `MX` ×3 | `medicallatin.com` | `route1`, `route2`, `route3` `.mx.cloudflare.net`, each with its own priority (here 96, 15 and 98; Cloudflare picks them) | Tells other mail servers where to deliver mail for `@medicallatin.com`: to Cloudflare. A sender tries the lowest number first. |
    | `TXT` | `medicallatin.com` | `v=spf1 include:_spf.mx.cloudflare.net ~all` | **SPF:** the list of servers allowed to send mail for the domain. Here, only Cloudflare's forwarding servers. |
-   | `TXT` | `cf2024-1._domainkey` | `v=DKIM1; … p=<public key>` | **DKIM:** the public key for the signature Cloudflare adds to forwarded mail, so the receiving mailbox can trust it. |
+   | `TXT` | `cf2024-1._domainkey` | `v=DKIM1; h=sha256; k=rsa; p=<public key>` | **DKIM:** the public key for the signature Cloudflare adds to forwarded mail, so the receiving mailbox can trust it. |
+
+   In **DNS** → **Records** the MX and DKIM records then show a padlock: Email Routing
+   manages them, so they can't be edited by accident. The SPF record isn't locked;
+   leave it unchanged anyway.
 
    If the domain already had a `v=spf1 …` TXT record before onboarding, keep only one:
    delete a `v=spf1 -all`; merge another mail service's SPF into a single line, as
@@ -368,6 +404,10 @@ Open the domain → **DNS** → **Records** → **Add record**:
 | Type | Name | Content |
 |---|---|---|
 | `TXT` | `_dmarc` | `v=DMARC1; p=reject;` |
+
+The DNS page's recommendation **Block fake emails sent from @medicallatin.com
+addresses: Add a DMARC record** can stay visible for a while after you add it.
+Ignore it, and check with `nslookup` in 9.5 instead.
 
 **DMARC** tells receiving mail servers what to do with a message whose `From:` says
 `…@medicallatin.com` but which fails the SPF and DKIM checks above. `p=reject` means
@@ -457,7 +497,7 @@ name.
 | `medicallatin-site` isn't in Cloudflare's repository list. | On GitHub, open **Settings → Applications → Installed GitHub Apps → Cloudflare Workers & Pages → Configure**, add the repository and save. Then reload the Cloudflare page. |
 | The custom domain stays **Pending** or **Verifying**. | An old A, AAAA or CNAME record for `medicallatin.com` is still there: delete it. Or a CAA record blocks Cloudflare's certificate authorities: add CAA records allowing `letsencrypt.org`, `pki.goog` and `ssl.com` (see [Cloudflare's note on CAA](https://developers.cloudflare.com/pages/configuration/custom-domains/#caa-records)). |
 | **Error 522** on `medicallatin.com`. | The DNS record was added by hand instead of through **Custom domains**. Delete it and redo step 4. |
-| `www` doesn't redirect. | The `www` A record must exist and be **Proxied** (orange cloud), and the `www to apex` Redirect Rule must be deployed. If the rule's dialog says the record already exists, choose **Ignore and deploy rule anyway**. |
+| `www` doesn't redirect. | The `www` A record must exist and be **Proxied** (orange cloud), and the `www to apex` Redirect Rule must be deployed with `https://www.*` alone in **Request URL** and `https://${1}` in **Target URL**. If the deploy dialog says "This zone already has a DNS record of type A, AAAA or CNAME for that hostname", choose **Ignore and deploy rule anyway**. |
 | **Error 522** on `www.medicallatin.com`. | Over `https://`: the redirect rule isn't deployed yet, so Cloudflare tries the dummy `192.0.2.1`. Over `http://` only: **Always Use HTTPS** is off (step 6). |
 | The site shows old content after a push. | Check that the deployment finished, then reload with `Ctrl+F5`. Don't add **Cache Rules** or **Page Rules** that cache the site: Cloudflare advises against them for Pages, and they can serve stale pages after a deploy. |
 | Something stops working after adding an external resource (embedded video, Google Fonts, a widget). | `site/_headers` only allows files from the site itself. Self-host the resource, or add its address to the `Content-Security-Policy` line. The browser console names what was blocked. |
@@ -474,10 +514,28 @@ name.
 | Framework preset / build command | None / *(empty)* |
 | Build output directory | `site` |
 | Custom domain | `medicallatin.com` (DNS record created by Cloudflare) |
-| DNS | `CNAME medicallatin.com → medicallatin-site.pages.dev` (created by Pages), proxied `A www 192.0.2.1` |
 | `www.medicallatin.com` | 301 to `https://medicallatin.com` (Redirect Rule `www to apex`) |
 | HTTPS | Automatic certificate; **Always Use HTTPS** on |
 | Headers and caching | `site/_headers` (security policy; one-year cache for fonts only) |
 | Not found | `site/404.html` |
 | Email | `info@medicallatin.com` → Halyna's mailbox (Email Routing rule `info`; catch-all off) |
-| Mail DNS | MX ×3 `….mx.cloudflare.net`, SPF `v=spf1 include:_spf.mx.cloudflare.net ~all`, DKIM `cf2024-1._domainkey` (all added and locked by Email Routing); `_dmarc` → `v=DMARC1; p=reject;` (added by hand) |
+| Mail authentication | SPF, DKIM and DMARC `p=reject`, see the table below |
+
+### DNS records
+
+These are all the records `medicallatin.com` needs. Anything else in
+**DNS** → **Records** is unexpected.
+
+| Type | Name | Content | Proxy status | Created by |
+|---|---|---|---|---|
+| `A` | `www` | `192.0.2.1` | Proxied | Hand, step 5 |
+| `CNAME` | `medicallatin.com` | `medicallatin-site.pages.dev` | Proxied | Pages custom domain, step 4 |
+| `MX` | `medicallatin.com` | `route1.mx.cloudflare.net` (priority 96) | DNS only | Email Routing (locked), step 9.1 |
+| `MX` | `medicallatin.com` | `route2.mx.cloudflare.net` (priority 15) | DNS only | Email Routing (locked), step 9.1 |
+| `MX` | `medicallatin.com` | `route3.mx.cloudflare.net` (priority 98) | DNS only | Email Routing (locked), step 9.1 |
+| `TXT` | `medicallatin.com` | `v=spf1 include:_spf.mx.cloudflare.net ~all` | DNS only | Email Routing, step 9.1 |
+| `TXT` | `cf2024-1._domainkey` | `v=DKIM1; h=sha256; k=rsa; p=…` | DNS only | Email Routing (locked), step 9.1 |
+| `TXT` | `_dmarc` | `v=DMARC1; p=reject;` | DNS only | Hand, step 9.4 |
+
+Rules outside DNS: the Redirect Rule `www to apex` (step 5) and
+**Always Use HTTPS** on (step 6).
