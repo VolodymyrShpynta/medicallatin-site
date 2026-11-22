@@ -25,7 +25,7 @@ Status: **approved** (21 Nov 2026). The answers to the open questions are in §1
 | Topic | Decision |
 |---|---|
 | Hosting | Cloudflare Pages, connected to this GitHub repo; domain `medicallatin.com` is in Cloudflare (the Pages project must live in the same Cloudflare account). |
-| Stack | Plain HTML + CSS, one small JS file (the hero term switcher). No build step, no framework. |
+| Stack | Plain HTML + CSS, two small JS files (the hero term switcher and the light/dark switch). No build step, no framework. |
 | Languages | Ukrainian at `/`, English at `/en/`. Every text is translated. |
 | Prices | Ukrainian site only: per-lesson range ($18–22) and the UAH packages. English site: no prices. |
 | Dates | Show the next group start (11.01.2027); updated by hand via Git. |
@@ -35,7 +35,7 @@ Status: **approved** (21 Nov 2026). The answers to the open questions are in §1
 | Students | Consent given: names, photos and review screenshots may be used. |
 | Images | Her own photos and screenshots from the supplied materials, used as they are (cropped only to remove phone UI). |
 | Editing | Volodymyr edits via Git. |
-| Privacy | No analytics, trackers, cookies or third-party scripts. Contacts and the form are plain links. |
+| Privacy | No analytics, trackers, cookies or third-party scripts. Contacts and the form are plain links. The theme choice stays in local storage on the visitor's device. |
 
 ## 3. Concept: «Розбір терміна» (a term, taken apart)
 
@@ -91,8 +91,12 @@ Contrast (WCAG 2.x, measured):
 | White on maroon (buttons) | 11.1 |
 | Correction red on ward white / on atlas grey | 5.5 / 4.9 |
 
-**Dark mode** follows the system setting (`prefers-color-scheme`), with no toggle.
-Many students read at night inside Instagram's dark in-app browser.
+**Dark mode** follows the system setting (`prefers-color-scheme`) on the first visit,
+since many students read at night inside Instagram's dark in-app browser. A
+moon/sun switch in the header (added after approval, 22 Nov 2026) lets visitors
+choose light or dark. The choice is kept in the browser's local storage: not a
+cookie, and never sent anywhere. Without JavaScript the switch is hidden and the
+system setting applies.
 
 | Light token | Dark value | Check |
 |---|---|---|
@@ -450,7 +454,7 @@ attribute; `grep -rn "data-placeholder" site` lists them all.
   ```
   site/        published folder (Cloudflare Pages output directory)
     index.html, courses/, about/, en/…, 404.html
-    assets/css/site.css, assets/js/term.js
+    assets/css/site.css, assets/js/term.js, assets/js/theme.js
     assets/fonts/*.woff2 + OFL.txt
     assets/img/…
     _headers   security and cache headers (strict CSP: self only)

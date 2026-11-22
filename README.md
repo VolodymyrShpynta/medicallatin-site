@@ -3,9 +3,10 @@
 Website of **LinguaLatina**: medical Latin lessons with Halyna Shpynta, in Ukrainian
 (`/`) and English (`/en/`).
 
-- Plain HTML and CSS with one small script; no build step and no dependencies.
+- Plain HTML and CSS with two small scripts; no build step and no dependencies.
 - No analytics, trackers, cookies or third-party scripts. Fonts and images are
-  self-hosted.
+  self-hosted. The visitor's light/dark choice stays in their browser's local
+  storage.
 - Design decisions: [docs/design-plan.md](docs/design-plan.md). Font and image
   sources: [docs/credits.md](docs/credits.md). Booking-form questions:
   [docs/google-form.md](docs/google-form.md).
@@ -26,8 +27,9 @@ Open the printed address (usually <http://localhost:3000>). Root-relative links
 | [`site/`](site/) | Everything that is published. |
 | `site/index.html`, `courses/`, `about/` | Ukrainian pages, with prices. |
 | `site/en/…` | English pages, same structure, **no prices**. |
-| `site/assets/css/site.css` | All styles; colour tokens for light and dark mode are at the top. |
+| `site/assets/css/site.css` | All styles; colour tokens for light and dark mode are at the top. The dark values appear twice (device setting and the visitor's choice): change both. |
 | `site/assets/js/term.js` | The hero's «Розібрати інший термін» switcher. |
+| `site/assets/js/theme.js` | The light/dark switch in the header. Loaded in `<head>` without `defer`, so a saved choice applies before the page paints. |
 | `site/_headers` | Cloudflare Pages headers: a self-only Content-Security-Policy and caching. |
 | `site/404.html` | Bilingual "page not found". |
 | `site/sitemap.xml`, `robots.txt` | For search engines. |
