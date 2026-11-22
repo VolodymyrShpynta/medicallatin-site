@@ -50,6 +50,9 @@ in all six pages. When you change one, change it everywhere.
 - **Latin** is always wrapped in `<span lang="la">…</span>`; that sets it in EB Garamond
   and tells screen readers to switch language.
 - **Hero terms** live in `<template>` elements inside `.term` on both home pages.
+- **Contacts** (Instagram, Telegram, WhatsApp, `info@medicallatin.com`) are in the
+  "Як записатися" / "How to sign up" section of both home pages. The Direct link
+  also appears in every page's header and booking bar.
 
 ### Placeholders
 
@@ -79,7 +82,12 @@ short: the Pages project lives in **the Cloudflare account that holds
 build output directory **`site`**. Every push to `main` then publishes the site, and
 other branches get preview links.
 
+Email for `info@medicallatin.com` is forwarded to Halyna's mailbox by Cloudflare
+Email Routing; setup and the mail DNS records (MX, SPF, DKIM, DMARC) are in
+[step 9 of the guide](docs/deployment.md#9-set-up-infomedicallatincom).
+
 Before the first publish:
 - fill in or remove every placeholder;
+- check that mail to `info@medicallatin.com` arrives;
 - have Halyna confirm the stress marks and part meanings of the three hero terms
   (*endocarditis*, *tachycardia*, *chlorodontia*).

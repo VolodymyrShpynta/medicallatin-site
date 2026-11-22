@@ -6,7 +6,8 @@ push to `main` publishes the site automatically. There is nothing to build: Clou
 serves the [`site/`](../site/) folder as it is.
 
 Cost: **$0**. The Pages Free plan includes unlimited static traffic and 500 deploys a
-month. The only cost is the yearly `medicallatin.com` domain renewal.
+month, and Email Routing for `info@medicallatin.com` is free. The only cost is the
+yearly `medicallatin.com` domain renewal.
 
 All commands are for **Git Bash**.
 
@@ -26,7 +27,9 @@ All commands are for **Git Bash**.
 | [9. Set up info@medicallatin.com](#9-set-up-infomedicallatincom) | Volodymyr; Halyna verifies her mailbox | Cloudflare |
 
 Steps 1–6 take about half an hour of clicking the first time, plus a few minutes of
-waiting for the certificate. Later updates are just `git push` (see
+waiting for the certificate. Step 9 takes another ten minutes. The site already shows
+`info@medicallatin.com`, so finish step 9 before (or right after) the first publish,
+or mail sent to that address bounces. Later updates are just `git push` (see
 [Updating the site](#updating-the-site)).
 
 ## Why the project must live in the domain's Cloudflare account
@@ -52,6 +55,8 @@ that account too.
 - [ ] **Halyna has checked** the stress marks and part meanings of the three hero
   terms (*endocarditis*, *tachycardia*, *chlorodontia*) on both home pages.
 - [ ] **Trial lesson price** on the Ukrainian pages (9–11 $) is confirmed.
+- [ ] **`info@medicallatin.com` receives mail** ([step 9](#9-set-up-infomedicallatincom)),
+  since both home pages show it.
 - [ ] **Everything is committed**: `git status` shows no changes.
 - [ ] **Checked locally as Cloudflare will serve it** (optional but recommended):
 
@@ -279,7 +284,8 @@ Expect `404`. In a browser, that address shows the bilingual "page not found" pa
 - [ ] «Написати в Direct» / "Message me in Direct" opens Instagram Direct to
   `lingualatina_halyna`. The form buttons open the right Google Form for each
   language.
-- [ ] Telegram, WhatsApp and email links open the right app.
+- [ ] Telegram and WhatsApp links open the right app; the email link opens a new
+  message to `info@medicallatin.com`.
 - [ ] Open the link **inside Instagram** (for example, send it to yourself in a
   Direct message): that in-app browser is where most students will see the site.
 - [ ] **Link preview:** paste `https://medicallatin.com` into a Telegram or Instagram
@@ -301,13 +307,19 @@ Expect `404`. In a browser, that address shows the bilingual "page not found" pa
 
 **What you get:** Cloudflare **Email Routing** (free) receives mail sent to
 `info@medicallatin.com` and forwards it to Halyna's existing mailbox. The site shows
-this address in the contacts on both home pages.
+this address in the contacts on both home pages. Her personal mailbox is entered only
+in Cloudflare: it never appears on the site or in this repository.
 
 **What you don't get:** a mailbox to send from. Email Routing only forwards. When
 Halyna replies, the reply comes from her personal address, not from `info@`. If she
 later wants to send as `info@medicallatin.com`, she needs a mail provider (Google
 Workspace, Zoho Mail, Fastmail and the like), and the records below change to that
 provider's.
+
+**Don't add `v=spf1 -all`** (a record sometimes recommended for domains without
+email). It says the domain has no mail at all, and a domain may have only one SPF
+record, so it would clash with the one Email Routing adds. Of the anti-spoofing
+records, only DMARC (9.4) is added by hand.
 
 ### 9.1 Turn on Email Routing
 
@@ -319,12 +331,15 @@ provider's.
 
    | Type | Name | Content | What it's for |
    |---|---|---|---|
-   | `MX` ×3 | `medicallatin.com` | `route1/2/3.mx.cloudflare.net` (different priorities) | Tells other mail servers where to deliver mail for `@medicallatin.com`: to Cloudflare. |
+   | `MX` ×3 | `medicallatin.com` | three `….mx.cloudflare.net` servers, with different priorities | Tells other mail servers where to deliver mail for `@medicallatin.com`: to Cloudflare. |
    | `TXT` | `medicallatin.com` | `v=spf1 include:_spf.mx.cloudflare.net ~all` | **SPF:** the list of servers allowed to send mail for the domain. Here, only Cloudflare's forwarding servers. |
    | `TXT` | `cf2024-1._domainkey` | `v=DKIM1; … p=<public key>` | **DKIM:** the public key for the signature Cloudflare adds to forwarded mail, so the receiving mailbox can trust it. |
 
-   A domain may have **only one** SPF record. If you ever see a second `v=spf1 …`
-   TXT record on `medicallatin.com`, delete the extra one.
+   If the domain already had a `v=spf1 …` TXT record before onboarding, keep only one:
+   delete a `v=spf1 -all`; merge another mail service's SPF into a single line, as
+   Cloudflare suggests.
+3. **Email Routing** → `medicallatin.com` → **Settings** should list the MX, SPF and
+   DKIM records as configured (**Locked** is fine). It can take 5–15 minutes.
 
 ### 9.2 Add Halyna's mailbox as the destination
 
@@ -371,7 +386,7 @@ If Halyna later starts sending from the domain through a mail provider, add the
 provider's SPF and DKIM records first and only then keep `p=reject`; otherwise her
 own mail would be refused.
 
-### 9.5 Test
+### 9.5 Test, then publish the address
 
 1. From a **different** account than Halyna's mailbox (some providers drop mail that
    seems to come from the same account), send a message to `info@medicallatin.com`.
@@ -384,11 +399,24 @@ own mail would be refused.
    nslookup -type=TXT _dmarc.medicallatin.com
    ```
 
-   Expect the three `mx.cloudflare.net` servers, the SPF line and the DMARC line.
+   Expect three `….mx.cloudflare.net` mail servers, the
+   `v=spf1 include:_spf.mx.cloudflare.net ~all` line and the `v=DMARC1; p=reject;`
+   line.
+4. Once the test message has arrived, publish the site with the address
+   (`git push`, if the change isn't live yet).
 
-**If you ever turn Email Routing off,** replace its records with two that say "this
-domain sends and receives no mail": TXT `@` → `v=spf1 -all`, keep the DMARC record,
-and delete the MX records.
+**If you ever turn Email Routing off:**
+
+1. Remove `info@medicallatin.com` from both home pages and publish.
+2. Disable Email Routing for the domain. In **DNS** → **Records**, check that its MX,
+   SPF (`include:_spf.mx.cloudflare.net`) and DKIM (`cf2024-1._domainkey`) records
+   are gone; unlock and delete any that remain.
+3. Add TXT `@` → `v=spf1 -all` and keep the DMARC record. Together they say the
+   domain neither sends nor receives mail.
+
+If Halyna moves to a mail provider instead, add the provider's records first, then
+remove Email Routing's (unlock them under **Email Routing** → **Settings**), so mail
+keeps arriving during the switch.
 
 ## Updating the site
 
@@ -416,7 +444,10 @@ name.
   last good production deployment → **Rollback to this deployment**. This takes
   effect immediately; then fix the problem in Git and push again.
 - **Skip publishing for a docs-only commit.** Start the commit message with
-  `[CF-Pages-Skip]`.
+  `[CF-Pages-Skip]`. Pages builds only the **newest** commit of each push, so if a
+  push also contains site changes, make sure its last commit doesn't carry the flag,
+  or those changes won't go live (push again with an unflagged commit, or select
+  **Retry deployment** / **Create deployment** in the dashboard).
 
 ## Troubleshooting
 
@@ -430,6 +461,8 @@ name.
 | **Error 522** on `www.medicallatin.com`. | Over `https://`: the redirect rule isn't deployed yet, so Cloudflare tries the dummy `192.0.2.1`. Over `http://` only: **Always Use HTTPS** is off (step 6). |
 | The site shows old content after a push. | Check that the deployment finished, then reload with `Ctrl+F5`. Don't add **Cache Rules** or **Page Rules** that cache the site: Cloudflare advises against them for Pages, and they can serve stale pages after a deploy. |
 | Something stops working after adding an external resource (embedded video, Google Fonts, a widget). | `site/_headers` only allows files from the site itself. Self-host the resource, or add its address to the `Content-Security-Policy` line. The browser console names what was blocked. |
+| Mail to `info@medicallatin.com` doesn't arrive. | Check, in order: the destination mailbox shows **Verified** (Halyna clicked the link in Cloudflare's email); the `info` routing rule is enabled; `nslookup -type=MX medicallatin.com` lists Cloudflare's servers; the spam folder. Test from a different account than the destination: some providers drop mail that seems to come from the same account. |
+| The sender gets a bounce mentioning **SPF** or **DMARC**. | Their own domain's authentication failed: Email Routing rejects mail that passes neither SPF nor DKIM. They should send from their normal mailbox, not through a mailing tool. |
 
 ## Settings at a glance
 
@@ -446,3 +479,5 @@ name.
 | HTTPS | Automatic certificate; **Always Use HTTPS** on |
 | Headers and caching | `site/_headers` (security policy; one-year cache for fonts only) |
 | Not found | `site/404.html` |
+| Email | `info@medicallatin.com` → Halyna's mailbox (Email Routing rule `info`; catch-all off) |
+| Mail DNS | MX ×3 `….mx.cloudflare.net`, SPF `v=spf1 include:_spf.mx.cloudflare.net ~all`, DKIM `cf2024-1._domainkey` (all added and locked by Email Routing); `_dmarc` → `v=DMARC1; p=reject;` (added by hand) |

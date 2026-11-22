@@ -30,7 +30,7 @@ Status: **approved** (21 Nov 2026). The answers to the open questions are in §1
 | Prices | Ukrainian site only: per-lesson range ($18–22) and the UAH packages. English site: no prices. |
 | Dates | Show the next group start (11.01.2027); updated by hand via Git. |
 | Offers | Year course (Basis / Medium / Maxi), Express course (6 days), Pronunciation intensive (3 days), Trial lesson (half price, same length as a regular lesson), Level test (separate service). |
-| Contacts | Instagram Direct, Telegram, WhatsApp / phone, email. |
+| Contacts | Instagram Direct, Telegram, WhatsApp / phone, email (`info@medicallatin.com`, forwarded to Halyna's mailbox by Cloudflare Email Routing). |
 | Booking form | Google Form, one per language, created by Halyna in her Google account; questions drafted in [google-form.md](google-form.md). |
 | Students | Consent given: names, photos and review screenshots may be used. |
 | Images | Her own photos and screenshots from the supplied materials, used as they are (cropped only to remove phone UI). |
