@@ -23,6 +23,7 @@ All commands are for **Git Bash**.
 | [6. Make sure HTTP goes to HTTPS](#6-make-sure-http-goes-to-https) | Volodymyr | Cloudflare |
 | [7. Check the live site](#7-check-the-live-site) | Volodymyr, then Halyna on her phone | Git Bash, browser |
 | [8. After launch](#8-after-launch) | Halyna / Volodymyr | Instagram, Google |
+| [9. Set up info@medicallatin.com](#9-set-up-infomedicallatincom) | Volodymyr; Halyna verifies her mailbox | Cloudflare |
 
 Steps 1–6 take about half an hour of clicking the first time, plus a few minutes of
 waiting for the certificate. Later updates are just `git push` (see
@@ -294,20 +295,101 @@ Expect `404`. In a browser, that address shows the bilingual "page not found" pa
      **DNS** → **Records** → **Add record** (type `TXT`, name `@`). Google may also
      offer to add it for you through Cloudflare.
   3. Under **Sitemaps**, submit `https://medicallatin.com/sitemap.xml`.
-- **Email for the domain** (the DNS page recommends this). Decide first whether
-  Halyna wants an address like `halyna@medicallatin.com`:
-  - **Yes:** turn on **Email** → **Email Routing** for the domain (free). It forwards
-    mail for that address to her existing mailbox and adds the MX and SPF records
-    itself. Then use the address for the site's `EMAIL` placeholder.
-  - **No:** add two TXT records that tell mail servers this domain never sends email,
-    so nobody can send convincing fake mail "from" it:
+- **Domain email:** see [step 9](#9-set-up-infomedicallatincom).
 
-    | Type | Name | Content |
-    |---|---|---|
-    | `TXT` | `@` | `v=spf1 -all` |
-    | `TXT` | `_dmarc` | `v=DMARC1; p=reject;` |
+## 9. Set up info@medicallatin.com
 
-    Remove them if you ever start sending mail from the domain.
+**What you get:** Cloudflare **Email Routing** (free) receives mail sent to
+`info@medicallatin.com` and forwards it to Halyna's existing mailbox. The site shows
+this address in the contacts on both home pages.
+
+**What you don't get:** a mailbox to send from. Email Routing only forwards. When
+Halyna replies, the reply comes from her personal address, not from `info@`. If she
+later wants to send as `info@medicallatin.com`, she needs a mail provider (Google
+Workspace, Zoho Mail, Fastmail and the like), and the records below change to that
+provider's.
+
+### 9.1 Turn on Email Routing
+
+1. Open **Compute** → **Email Service** → **Email Routing**
+   (<https://dash.cloudflare.com/?to=/:account/email-service/routing>). In the
+   domain's own menu it's under **Email** → **Email Routing**.
+2. Select **Onboard Domain** → `medicallatin.com`, review the records, then **Done**.
+   Cloudflare adds them itself and locks them so they aren't edited by accident:
+
+   | Type | Name | Content | What it's for |
+   |---|---|---|---|
+   | `MX` ×3 | `medicallatin.com` | `route1/2/3.mx.cloudflare.net` (different priorities) | Tells other mail servers where to deliver mail for `@medicallatin.com`: to Cloudflare. |
+   | `TXT` | `medicallatin.com` | `v=spf1 include:_spf.mx.cloudflare.net ~all` | **SPF:** the list of servers allowed to send mail for the domain. Here, only Cloudflare's forwarding servers. |
+   | `TXT` | `cf2024-1._domainkey` | `v=DKIM1; … p=<public key>` | **DKIM:** the public key for the signature Cloudflare adds to forwarded mail, so the receiving mailbox can trust it. |
+
+   A domain may have **only one** SPF record. If you ever see a second `v=spf1 …`
+   TXT record on `medicallatin.com`, delete the extra one.
+
+### 9.2 Add Halyna's mailbox as the destination
+
+1. **Email Routing** → **Destination Addresses**: enter the mailbox that should
+   receive the mail (for example her Gmail) and submit it.
+2. Cloudflare emails that mailbox. Halyna opens it and selects
+   **Verify email address**. Until then, nothing is forwarded.
+
+### 9.3 Create the routing rule
+
+**Email Routing** → `medicallatin.com` → **Routing Rules** → **Create routing rule**:
+
+| Field | Value |
+|---|---|
+| Email pattern | `info` @ `medicallatin.com` |
+| Action | **Send to an email** |
+| Destination | Halyna's verified mailbox |
+
+**Save**. Leave the **catch-all** rule off (or set to **Drop**): it would forward mail
+for any made-up address like `anything@medicallatin.com`, which is mostly spam.
+
+### 9.4 Add a DMARC record
+
+Open the domain → **DNS** → **Records** → **Add record**:
+
+| Type | Name | Content |
+|---|---|---|
+| `TXT` | `_dmarc` | `v=DMARC1; p=reject;` |
+
+**DMARC** tells receiving mail servers what to do with a message whose `From:` says
+`…@medicallatin.com` but which fails the SPF and DKIM checks above. `p=reject` means
+"refuse it". Nobody sends mail from this domain (Email Routing can't), so any such
+message is forged, for example a fake "invoice from LinguaLatina" sent to her
+students. Rejecting it protects them and the domain's reputation.
+
+It doesn't affect mail **to** `info@`: a student's message keeps their own `From:`
+(say, `@gmail.com`) and is judged by their domain's rules, not this one.
+
+**Optional reports:** domain → **Email** → **DMARC Management** →
+**Enable DMARC Management** adds a reporting address to this record. After a day or
+so, Cloudflare shows which servers send mail claiming to be `medicallatin.com`.
+
+If Halyna later starts sending from the domain through a mail provider, add the
+provider's SPF and DKIM records first and only then keep `p=reject`; otherwise her
+own mail would be refused.
+
+### 9.5 Test
+
+1. From a **different** account than Halyna's mailbox (some providers drop mail that
+   seems to come from the same account), send a message to `info@medicallatin.com`.
+2. It should arrive in her mailbox within a minute. Check the spam folder too.
+3. Check the records from Git Bash:
+
+   ```bash
+   nslookup -type=MX medicallatin.com
+   nslookup -type=TXT medicallatin.com
+   nslookup -type=TXT _dmarc.medicallatin.com
+   ```
+
+   Expect the three `mx.cloudflare.net` servers, the SPF line and the DMARC line.
+
+**If you ever turn Email Routing off,** replace its records with two that say "this
+domain sends and receives no mail": TXT `@` → `v=spf1 -all`, keep the DMARC record,
+and delete the MX records.
+
 ## Updating the site
 
 Edit files under `site/`, check them locally, then commit and push:

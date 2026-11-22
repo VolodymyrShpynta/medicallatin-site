@@ -429,7 +429,7 @@ attribute; `grep -rn "data-placeholder" site` lists them all.
 
 | # | Placeholder | Where |
 |---|---|---|
-| 1 | `EMAIL`: her email address | Sign-up section, home pages (both languages) |
+| 1 | ~~`EMAIL`: her email address~~ Filled: `info@medicallatin.com`, forwarded by Cloudflare Email Routing ([deployment.md §9](deployment.md#9-set-up-infomedicallatincom)) | Sign-up section, home pages (both languages) |
 | 2 | `GOOGLE_SCHOLAR_URL` | About (both languages) |
 | 3 | `GOOGLE_FORM_UA_URL`, `GOOGLE_FORM_EN_URL` | Header, mobile booking bar, sign-up and course call-to-action buttons |
 | 4 | `LEVEL_TEST_PRICE` | Home and Courses (UA only) |

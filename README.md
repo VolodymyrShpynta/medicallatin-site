@@ -66,7 +66,6 @@ When you fill one in, remove the `data-placeholder` attribute. For links, replac
 | Name | What's needed |
 |---|---|
 | `GOOGLE_FORM_UA_URL`, `GOOGLE_FORM_EN_URL` | Share links of the two Google Forms ([docs/google-form.md](docs/google-form.md)). |
-| `EMAIL` | Halyna's email address (`href="mailto:…"`). |
 | `GOOGLE_SCHOLAR_URL` | Her Google Scholar profile. |
 | `LEVEL_TEST_PRICE` | Level test price (Ukrainian pages only). |
 | `LEVEL_TEST_FORMAT` | Level test length and format. |
