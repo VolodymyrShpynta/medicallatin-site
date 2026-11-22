@@ -20,6 +20,9 @@ npx serve site
 Open the printed address (usually <http://localhost:3000>). Root-relative links
 (`/courses/`, `/assets/...`) need a server; opening the HTML files directly won't work.
 
+To check the site exactly as Cloudflare will serve it, with `site/_headers` and the
+404 page applied, run `npx wrangler pages dev site` and open <http://127.0.0.1:8788>.
+
 ## Structure
 
 | Path | What it is |
@@ -30,7 +33,7 @@ Open the printed address (usually <http://localhost:3000>). Root-relative links
 | `site/assets/css/site.css` | All styles; colour tokens for light and dark mode are at the top. The dark values appear twice (device setting and the visitor's choice): change both. |
 | `site/assets/js/term.js` | The hero's «Розібрати інший термін» switcher. |
 | `site/assets/js/theme.js` | The light/dark switch in the header. Loaded in `<head>` without `defer`, so a saved choice applies before the page paints. |
-| `site/_headers` | Cloudflare Pages headers: a self-only Content-Security-Policy and caching. |
+| `site/_headers` | Cloudflare Pages headers: a self-only Content-Security-Policy, and a long cache for fonts only. |
 | `site/404.html` | Bilingual "page not found". |
 | `site/sitemap.xml`, `robots.txt` | For search engines. |
 | [`docs/`](docs/) | Plan, credits and form draft; not published. |
@@ -71,17 +74,11 @@ When you fill one in, remove the `data-placeholder` attribute. For links, replac
 
 ## Publishing (Cloudflare Pages)
 
-Not set up yet. When you're ready:
-
-1. Push this repository to GitHub.
-2. In the Cloudflare dashboard of **the account that holds `medicallatin.com`**, go to
-   **Workers & Pages → Create → Pages → Connect to Git** and choose this repository.
-3. Build settings: framework preset **None**, build command **empty**, build output
-   directory **`site`**.
-4. After the first deploy, open **Custom domains** and add `medicallatin.com` (and
-   `www.medicallatin.com` if wanted). Cloudflare creates the DNS records itself.
-
-Every push to `main` then publishes the site; other branches get preview links.
+The complete step-by-step guide is in [docs/deployment.md](docs/deployment.md). In
+short: the Pages project lives in **the Cloudflare account that holds
+`medicallatin.com`**. Settings: framework preset **None**, build command **empty**,
+build output directory **`site`**. Every push to `main` then publishes the site, and
+other branches get preview links.
 
 Before the first publish:
 - fill in or remove every placeholder;
