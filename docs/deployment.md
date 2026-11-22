@@ -127,9 +127,14 @@ should see `site/`, `docs/` and `README.md`.
 
 In Halyna's Cloudflare account:
 
-1. Go to **Workers & Pages** →
-   **Create application** → choose the **Pages** tab → **Connect to Git**.
-   (Don't use the Workers tab: that creates a different kind of project.)
+1. Go to **Workers & Pages** → **Create application**. The first screen,
+   "Make something new", sets up a **Worker**, not a Pages project: don't use its
+   **Continue with GitHub** button. Instead select the link at the bottom,
+   **Need to use the legacy Pages workflow? Continue to Pages**, then the Git option
+   (**Import an existing Git repository** / **Connect to Git**), not Direct Upload.
+   You're on the right form when it asks for a **Build output directory** and ends
+   with **Save and Deploy**; the Worker form asks for a **Deploy command** instead.
+   (Older dashboards show this as a **Pages** tab → **Connect to Git**.)
 2. Choose **GitHub**. If asked, sign in to GitHub and authorize
    **Cloudflare Workers & Pages**.
 3. When GitHub asks where to install the app, choose the **VolodymyrShpynta** account,
