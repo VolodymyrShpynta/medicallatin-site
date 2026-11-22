@@ -6,7 +6,7 @@ push to `main` publishes the site automatically. There is nothing to build: Clou
 serves the [`site/`](../site/) folder as it is.
 
 Cost: **$0**. The Pages Free plan includes unlimited static traffic and 500 deploys a
-month. The only cost is the yearly `medicallatin.com` renewal Halyna already pays.
+month. The only cost is the yearly `medicallatin.com` domain renewal.
 
 All commands are for **Git Bash**.
 
@@ -15,7 +15,7 @@ All commands are for **Git Bash**.
 | Step | Who | Where |
 |---|---|---|
 | [0. Pre-launch checklist](#0-pre-launch-checklist) | Volodymyr (content from Halyna) | This repo |
-| [1. Give Volodymyr access to the Cloudflare account](#1-give-volodymyr-access-to-the-cloudflare-account) | **Halyna**, once | Cloudflare |
+| [1. Use the Cloudflare account that holds the domain](#1-use-the-cloudflare-account-that-holds-the-domain) | Volodymyr | Cloudflare |
 | [2. Push the repository to GitHub](#2-push-the-repository-to-github) | Volodymyr | Git Bash |
 | [3. Create the Pages project](#3-create-the-pages-project) | Volodymyr | Cloudflare + GitHub |
 | [4. Connect medicallatin.com](#4-connect-medicallatincom) | Volodymyr | Cloudflare |
@@ -28,12 +28,12 @@ Steps 1–6 take about half an hour of clicking the first time, plus a few minut
 waiting for the certificate. Later updates are just `git push` (see
 [Updating the site](#updating-the-site)).
 
-## Why the project must live in Halyna's Cloudflare account
+## Why the project must live in the domain's Cloudflare account
 
-`medicallatin.com` is a domain (a "zone") in Halyna's Cloudflare account. Cloudflare
-can attach a bare domain like `medicallatin.com` to a Pages project only when the
-project is in **the same account** as the domain. So the project goes into her
-account, and Volodymyr works in it as an invited member.
+`medicallatin.com` is a domain (a "zone") in Volodymyr's Cloudflare account.
+Cloudflare can attach a bare domain like `medicallatin.com` to a Pages project only
+when the project is in **the same account** as the domain. So the project goes into
+that account too.
 
 ## 0. Pre-launch checklist
 
@@ -70,31 +70,23 @@ on the live site. If you'd rather keep the source private, switch the repository
 private in GitHub **Settings → General → Danger Zone** before step 3; Cloudflare
 Pages works with private repositories too.
 
-## 1. Give Volodymyr access to the Cloudflare account
+## 1. Use the Cloudflare account that holds the domain
 
-**Halyna** does this once. Only the account's Super Administrator (the owner) can
-invite members.
+Sign in to <https://dash.cloudflare.com>. The account name is shown at the top left;
+switch accounts there (⇅) if you have more than one. Check that **medicallatin.com**
+is listed under **Domains** (or **Websites**) in this account. Create the Pages
+project in step 3 in this same account.
 
-1. Sign in to <https://dash.cloudflare.com> and open the **Members** page
-   (left sidebar under **Manage account**, or go to
-   <https://dash.cloudflare.com/?to=/:account/members>).
-2. Select **Invite members** and enter Volodymyr's email address.
-3. Under **Add permission policies**:
-   - **Scope:** the entire account.
-   - **Role:** **Administrator** (full access to sites, DNS and Pages, but not to
-     members or billing).
-   - Select **Create policy**.
-4. Select **Invite members**.
+**Optional: give Halyna access.** Only the account's Super Administrator (the owner)
+can invite members.
 
-**Volodymyr** then accepts the invitation from the email. He needs his own free
-Cloudflare login. Afterwards, at <https://dash.cloudflare.com>, he picks Halyna's
-account from the account list.
-
-Halyna can remove this access at any time from the same Members page.
-
-> **If Halyna would rather do steps 3–6 herself:** she needs a GitHub account added
-> as a collaborator on this repository, and Volodymyr must install the
-> Cloudflare GitHub app on his account (step 3.3). Inviting Volodymyr is simpler.
+1. Open the **Members** page (<https://dash.cloudflare.com/?to=/:account/members>).
+2. Select **Invite members** and enter Halyna's email address.
+3. Under **Add permission policies**, choose a scope (the entire account, or only the
+   `medicallatin.com` domain) and a role: **Administrator Read Only** to let her look
+   around, or **Administrator** to let her change things. Select **Create policy**.
+4. Select **Invite members**. She accepts from the email with her own free Cloudflare
+   login. You can remove the access at any time on the same page.
 
 ## 2. Push the repository to GitHub
 
@@ -125,7 +117,7 @@ should see `site/`, `docs/` and `README.md`.
 
 ## 3. Create the Pages project
 
-In Halyna's Cloudflare account:
+In the Cloudflare account that holds `medicallatin.com`:
 
 1. Go to **Workers & Pages** → **Create application**. The first screen,
    "Make something new", sets up a **Worker**, not a Pages project: don't use its
@@ -319,7 +311,7 @@ name.
 
 | Setting | Value |
 |---|---|
-| Cloudflare account | Halyna's (it holds `medicallatin.com`) |
+| Cloudflare account | Volodymyr's (it holds `medicallatin.com`) |
 | Pages project | `medicallatin-site`, connected to `VolodymyrShpynta/medicallatin-site` |
 | Production branch | `main` |
 | Framework preset / build command | None / *(empty)* |
