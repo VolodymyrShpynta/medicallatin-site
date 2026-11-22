@@ -235,8 +235,11 @@ Redirect Rule can't catch it; it needs an account-level **Bulk Redirect**:
 
 ## 6. Make sure HTTP goes to HTTPS
 
-Open the domain → **SSL/TLS** → **Edge Certificates**, and check that
-**Always Use HTTPS** is **On**. You'll verify it in the next step.
+Open the domain → **SSL/TLS** → **Edge Certificates**, and turn **Always Use HTTPS**
+**On** (it may be off by default). Pages already sends `http://medicallatin.com` to
+HTTPS by itself, so the bare domain can look fine while this is off; the place it
+shows is `http://www.medicallatin.com`, which gets error 522 without it. You'll
+verify both in the next step.
 
 ## 7. Check the live site
 
@@ -256,6 +259,12 @@ Expect a `301` or `308` redirect with `location: https://medicallatin.com/`.
 curl -sI https://www.medicallatin.com/courses/ | grep -iE "^(http|location)"
 ```
 Expect `301` with `location: https://medicallatin.com/courses/`.
+
+```bash
+curl -sI http://www.medicallatin.com/courses/ | grep -iE "^(http|location)"
+```
+Expect a `301` with `location: https://www.medicallatin.com/courses/` (the next hop
+then goes to the bare domain). A `522` here means **Always Use HTTPS** is off (step 6).
 
 ```bash
 curl -s -o /dev/null -w "%{http_code}\n" https://medicallatin.com/no-such-page/
@@ -335,7 +344,8 @@ name.
 | `medicallatin-site` isn't in Cloudflare's repository list. | On GitHub, open **Settings → Applications → Installed GitHub Apps → Cloudflare Workers & Pages → Configure**, add the repository and save. Then reload the Cloudflare page. |
 | The custom domain stays **Pending** or **Verifying**. | An old A, AAAA or CNAME record for `medicallatin.com` is still there: delete it. Or a CAA record blocks Cloudflare's certificate authorities: add CAA records allowing `letsencrypt.org`, `pki.goog` and `ssl.com` (see [Cloudflare's note on CAA](https://developers.cloudflare.com/pages/configuration/custom-domains/#caa-records)). |
 | **Error 522** on `medicallatin.com`. | The DNS record was added by hand instead of through **Custom domains**. Delete it and redo step 4. |
-| `www` doesn't redirect. | The `www` A record must exist and be **Proxied** (orange cloud), and the `www to apex` Redirect Rule must be deployed. |
+| `www` doesn't redirect. | The `www` A record must exist and be **Proxied** (orange cloud), and the `www to apex` Redirect Rule must be deployed. If the rule's dialog says the record already exists, choose **Ignore and deploy rule anyway**. |
+| **Error 522** on `www.medicallatin.com`. | Over `https://`: the redirect rule isn't deployed yet, so Cloudflare tries the dummy `192.0.2.1`. Over `http://` only: **Always Use HTTPS** is off (step 6). |
 | The site shows old content after a push. | Check that the deployment finished, then reload with `Ctrl+F5`. Don't add **Cache Rules** or **Page Rules** that cache the site: Cloudflare advises against them for Pages, and they can serve stale pages after a deploy. |
 | Something stops working after adding an external resource (embedded video, Google Fonts, a widget). | `site/_headers` only allows files from the site itself. Self-host the resource, or add its address to the `Content-Security-Policy` line. The browser console names what was blocked. |
 
