@@ -43,8 +43,11 @@
   --measure: 68ch;
 }
 
+/* Dark tokens apply when the device is dark and the visitor hasn't chosen light,
+   or when they chose dark with the header switch (assets/js/theme.js).
+   The two blocks hold the same values: change them together. */
 @media (prefers-color-scheme: dark) {
-  :root {
+  :root:not([data-theme="light"]) {
     --paper: #171B25;
     --atlas: #232937;
     --ink: #E8EBEF;
@@ -54,6 +57,17 @@
     --on-maroon: #171B25;
   }
 }
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --paper: #171B25;
+  --atlas: #232937;
+  --ink: #E8EBEF;
+  --slate: #AAB1BF;
+  --maroon: #E6A1AC;
+  --red: #FF8B7B;
+  --on-maroon: #171B25;
+}
+:root[data-theme="light"] { color-scheme: light; }
 
 @media (min-width: 64em) {
   :root {
@@ -220,6 +234,29 @@ strong { font-weight: 600; }
   text-decoration: none;
 }
 .lang-switch:hover { text-decoration: underline; }
+
+/* Light/dark switch: the icon shows the theme a click switches to */
+.theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  padding: 0;
+  border: 0;
+  border-radius: 0.25rem;
+  background: none;
+  color: var(--ink);
+  cursor: pointer;
+}
+.theme-toggle[hidden] { display: none; }
+.theme-toggle:hover { background: color-mix(in srgb, var(--ink) 8%, transparent); }
+.theme-toggle svg {
+  width: 1.375rem;
+  height: 1.375rem;
+}
+.theme-toggle[aria-pressed="true"] .theme-toggle__moon,
+.theme-toggle:not([aria-pressed="true"]) .theme-toggle__sun { display: none; }
 
 .nav {
   order: 3;
