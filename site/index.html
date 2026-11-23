@@ -19,8 +19,7 @@
   <meta property="og:image:height" content="630">
   <meta property="og:locale" content="uk_UA">
   <meta property="og:locale:alternate" content="en_US">
-  <meta name="theme-color" content="#F5F7F7" media="(prefers-color-scheme: light)">
-  <meta name="theme-color" content="#171B25" media="(prefers-color-scheme: dark)">
+  <meta name="theme-color" content="#F7F0E6">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
   <link rel="preload" href="/assets/fonts/fixel-var.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/assets/fonts/eb-garamond.woff2" as="font" type="font/woff2" crossorigin>
@@ -158,35 +157,30 @@
           <p class="muted">Заняття онлайн, індивідуально або в міні-групах.</p>
         </div>
         <ul class="offers">
-          <li>
-            <a class="offers__name" href="/courses/#rik">Річний курс «Медична латина»</a>
-            <span class="offers__desc">Граматика, рецептура і клінічна термінологія: 8, 12 або 16&nbsp;занять. Старт групи 11.01.2027.</span>
+          <li data-course="main">
+            <a class="offers__name" href="/courses/#osnovnyi">Основний курс «Медична латина»</a>
+            <span class="offers__desc">За 2 місяці: граматика, рецептура й клінічна термінологія, 8, 12 або 16&nbsp;занять. Старт групи 11.01.2027. За 899&nbsp;грн — лише модуль «Іменник» у записі.</span>
             <span class="offers__price">від 899&nbsp;грн</span>
           </li>
-          <li>
+          <li data-course="express">
             <a class="offers__name" href="/courses/#ekspres">Експрес-курс</a>
-            <span class="offers__desc">6 днів інтенсиву перед ПК: цілісна система замість хаосу.</span>
+            <span class="offers__desc">6 днів інтенсиву перед ПК. Потоки щотижня в лютому 2027; 2222&nbsp;грн у групі при записі до 30.01.</span>
             <span class="offers__price">від 2222&nbsp;грн</span>
           </li>
-          <li>
+          <li data-course="pronunciation">
             <a class="offers__name" href="/courses/#vymova">Інтенсив «Впевнена вимова»</a>
             <span class="offers__desc">3 дні: читаєте терміни без ступору й ставите правильний наголос.</span>
             <span class="offers__price">від 499&nbsp;грн</span>
           </li>
-          <li>
-            <a class="offers__name" href="/courses/#probne">Пробне заняття</a>
-            <span class="offers__desc">Визначаємо ваші прогалини й що за який час можна виправити. 55–⁠60&nbsp;хв.</span>
-            <span class="offers__price">½ ціни заняття</span>
+          <li data-course="trial">
+            <a class="offers__name" href="/courses/#probne">Пробне заняття з діагностикою</a>
+            <span class="offers__desc">Знайомство, завдання з усіх ключових тем і план: що і за який час можна виправити. 50–⁠55&nbsp;хв.</span>
+            <span class="offers__price">600&nbsp;грн</span>
           </li>
-          <li>
-            <a class="offers__name" href="/courses/#diagnostyka">Діагностика рівня знань</a>
-            <span class="offers__desc">5 блоків: від вимови до клінічної термінології.</span>
-            <span class="offers__price" data-placeholder="LEVEL_TEST_PRICE">[ціна]</span>
-          </li>
-          <li>
-            <a class="offers__name" href="/courses/#individualno">Індивідуальне заняття</a>
-            <span class="offers__desc">Формат 1:1 у вашому темпі, 55–⁠60&nbsp;хв.</span>
-            <span class="offers__price">18–⁠22&nbsp;$</span>
+          <li data-course="individual">
+            <a class="offers__name" href="/courses/#individualno">Індивідуальні заняття</a>
+            <span class="offers__desc">Формат 1:1 у вашому темпі, 55–⁠60&nbsp;хв. Школярі — 700&nbsp;грн, студенти — 1000&nbsp;грн за заняття; є абонементи.</span>
+            <span class="offers__price">від 700&nbsp;грн</span>
           </li>
         </ul>
         <a class="more-link" href="/courses/">Програми, формати та всі ціни</a>
@@ -303,7 +297,7 @@
           <h2 id="signup-title">Як записатися</h2>
           <ol class="steps">
             <li><span>Напишіть мені в Direct або заповніть анкету. Це займе 2&nbsp;хвилини.</span></li>
-            <li><span>Проходимо пробне заняття або діагностику рівня знань.</span></li>
+            <li><span>Проходимо пробне заняття з діагностикою рівня знань.</span></li>
             <li><span>Підбираємо формат, тривалість і графік, які підійдуть саме вам.</span></li>
           </ol>
           <div class="cta-row">
