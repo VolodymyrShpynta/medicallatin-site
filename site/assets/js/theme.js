@@ -1,11 +1,11 @@
-// Light/dark theme. Loaded in <head> without defer, so a saved choice applies before
-// the first paint. With no saved choice, CSS follows the device setting.
-// The choice is kept in localStorage: not a cookie, and never sent to a server.
+// Light/dark theme. The site opens in the warm light theme for everyone; dark is used
+// only after the visitor chooses it with the header switch. Loaded in <head> without
+// defer, so a saved choice applies before the first paint. The choice is kept in
+// localStorage: not a cookie, and never sent to a server.
 (() => {
   const root = document.documentElement;
   const KEY = "theme";
-  const PAPER = { light: "#F5F7F7", dark: "#171B25" };
-  const deviceDark = window.matchMedia("(prefers-color-scheme: dark)");
+  const PAPER = { light: "#F7F0E6", dark: "#1E1815" };
 
   const read = () => {
     try { return localStorage.getItem(KEY); } catch { return null; }
@@ -16,14 +16,12 @@
   };
   const apply = (theme) => {
     root.dataset.theme = theme;
-    document.querySelectorAll('meta[name="theme-color"]').forEach((meta) => {
-      meta.content = PAPER[theme];
-    });
+    const meta = document.querySelector('meta[name="theme-color"]');
+    if (meta) meta.content = PAPER[theme];
   };
-  const current = () => root.dataset.theme || (deviceDark.matches ? "dark" : "light");
+  const current = () => (root.dataset.theme === "dark" ? "dark" : "light");
 
-  const saved = read();
-  if (saved === "light" || saved === "dark") apply(saved);
+  if (read() === "dark") apply("dark");
 
   document.addEventListener("DOMContentLoaded", () => {
     const button = document.querySelector(".theme-toggle");
@@ -37,7 +35,6 @@
 
     sync();
     button.hidden = false;
-    deviceDark.addEventListener("change", sync);
     button.addEventListener("click", () => {
       const next = current() === "dark" ? "light" : "dark";
       apply(next);

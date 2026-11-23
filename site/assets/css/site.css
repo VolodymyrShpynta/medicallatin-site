@@ -25,14 +25,17 @@
 }
 
 :root {
-  color-scheme: light dark;
-  --paper: #F5F7F7;      /* ward white */
-  --atlas: #E3E9EC;      /* atlas grey */
-  --ink: #1E2230;        /* iron-gall ink */
-  --slate: #4E5566;
-  --maroon: #6F1D2C;     /* praktikum maroon */
-  --red: #B83226;        /* correction red: annotations and focus only */
-  --on-maroon: #FFFFFF;
+  color-scheme: light;
+  /* Warm autumn pastels (Halyna's feedback, Nov 2026). Light is the default for
+     everyone; dark is only used when chosen with the header switch. */
+  --paper: #F7F0E6;      /* linen */
+  --atlas: #EFE2D1;      /* sand: secondary surfaces */
+  --ink: #2E221C;        /* espresso */
+  --slate: #65544A;      /* warm taupe: secondary text */
+  --maroon: #7A2432;     /* praktikum maroon: brand, buttons, links */
+  --red: #A13F1F;        /* rust: annotations and focus only */
+  --on-maroon: #FFF8F0;
+  --deco: #E7D6C2;       /* faint silhouettes of Rome and libraries */
   --rule: color-mix(in srgb, var(--ink) 16%, transparent);
 
   --sans: "Fixel", "Segoe UI", Roboto, system-ui, sans-serif;
@@ -43,31 +46,31 @@
   --measure: 68ch;
 }
 
-/* Dark tokens apply when the device is dark and the visitor hasn't chosen light,
-   or when they chose dark with the header switch (assets/js/theme.js).
-   The two blocks hold the same values: change them together. */
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
-    --paper: #171B25;
-    --atlas: #232937;
-    --ink: #E8EBEF;
-    --slate: #AAB1BF;
-    --maroon: #E6A1AC;
-    --red: #FF8B7B;
-    --on-maroon: #171B25;
-  }
-}
+/* Warm dark theme, chosen with the header switch (assets/js/theme.js). */
 :root[data-theme="dark"] {
   color-scheme: dark;
-  --paper: #171B25;
-  --atlas: #232937;
-  --ink: #E8EBEF;
-  --slate: #AAB1BF;
-  --maroon: #E6A1AC;
-  --red: #FF8B7B;
-  --on-maroon: #171B25;
+  --paper: #1E1815;
+  --atlas: #2B231F;
+  --ink: #F2E8DD;
+  --slate: #C5B4A5;
+  --maroon: #EAA99C;
+  --red: #F29A76;
+  --on-maroon: #1E1815;
+  --deco: #2E2520;
 }
-:root[data-theme="light"] { color-scheme: light; }
+
+/* Each course has its own pastel shade (--tint) and a stronger edge (--accent),
+   used on the courses page and in the home page's offers list. */
+[data-course="main"] { --tint: #F5DFC9; --accent: #D49E6A; }
+[data-course="express"] { --tint: #F2DAD4; --accent: #C98E82; }
+[data-course="pronunciation"] { --tint: #E2E7D2; --accent: #9DAD7C; }
+[data-course="trial"] { --tint: #F4E6C4; --accent: #CFAF57; }
+[data-course="individual"] { --tint: #EADDE4; --accent: #B08FA4; }
+:root[data-theme="dark"] [data-course="main"] { --tint: #33271E; --accent: #9C7148; }
+:root[data-theme="dark"] [data-course="express"] { --tint: #352527; --accent: #94635A; }
+:root[data-theme="dark"] [data-course="pronunciation"] { --tint: #282E22; --accent: #6F7D55; }
+:root[data-theme="dark"] [data-course="trial"] { --tint: #342D1C; --accent: #9A8240; }
+:root[data-theme="dark"] [data-course="individual"] { --tint: #2F2630; --accent: #7E6476; }
 
 @media (min-width: 64em) {
   :root {
@@ -349,9 +352,38 @@ strong { font-weight: 600; }
   .booking-bar { display: none; }
 }
 
-/* Hero: one term, taken apart */
+/* Hero: one term, taken apart, above a faint Roman skyline */
 
-.hero { padding-block: 2.5rem var(--section); }
+.hero {
+  --skyline: clamp(6.5rem, 22vw, 12rem);
+  position: relative;
+  isolation: isolate;
+  padding-block: 2.5rem calc(var(--skyline) + 1.5rem);
+}
+
+/* Decorative silhouettes: shapes from an SVG mask, filled with --deco so they
+   follow the theme. Text never sits on them. */
+.hero::before,
+.site-footer::before,
+.page-head--library::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  background: var(--deco);
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  pointer-events: none;
+}
+.hero::before {
+  inset: auto 0 0 0;
+  height: var(--skyline);
+  -webkit-mask-image: url("../img/deco/rome-skyline.svg");
+  mask-image: url("../img/deco/rome-skyline.svg");
+  -webkit-mask-size: auto 100%;
+  mask-size: auto 100%;
+  -webkit-mask-position: 62% 100%;
+  mask-position: 62% 100%;
+}
 
 .hero__inner {
   display: grid;
@@ -369,7 +401,7 @@ strong { font-weight: 600; }
 }
 
 @media (min-width: 64em) {
-  .hero { padding-block: 4.5rem 3rem; }
+  .hero { padding-block: 4.5rem calc(var(--skyline) + 1.5rem); }
   .hero__inner {
     grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
     grid-template-areas: "text term" "cred term";
@@ -566,7 +598,9 @@ strong { font-weight: 600; }
   grid-template-columns: minmax(0, 1fr) auto;
   gap: 0.25rem 1.5rem;
   padding-block: 1rem;
+  padding-left: 0.875rem;
   border-bottom: 1px solid var(--rule);
+  border-left: 4px solid var(--accent, transparent);
 }
 .offers__name { grid-row: 1; grid-column: 1; font-weight: 600; }
 .offers__price {
@@ -752,8 +786,24 @@ strong { font-weight: 600; }
 /* Footer */
 
 .site-footer {
-  padding-block: 3rem;
+  position: relative;
+  isolation: isolate;
+  padding-block: 5.5rem 3rem;
   border-top: 1px solid var(--rule);
+}
+/* a small copy of the hero skyline, above the motto and aligned with the content column */
+.site-footer::before {
+  top: 0.75rem;
+  left: 50%;
+  width: min(100% - 2 * var(--gutter), 72rem);
+  translate: -50% 0;
+  height: 4rem;
+  -webkit-mask-image: url("../img/deco/rome-skyline.svg");
+  mask-image: url("../img/deco/rome-skyline.svg");
+  -webkit-mask-size: auto 100%;
+  mask-size: auto 100%;
+  -webkit-mask-position: 0 0;
+  mask-position: 0 0;
 }
 .site-footer__inner {
   display: flex;
@@ -783,6 +833,30 @@ strong { font-weight: 600; }
   .page-head { padding-top: 4.5rem; }
 }
 
+/* A faint library bookcase beside the page title (courses and about pages) */
+.page-head--library {
+  position: relative;
+  isolation: isolate;
+}
+/* On narrow screens the bookcase sits beside the title only, so the lede keeps the full width */
+.page-head--library > h1 { padding-right: 5rem; }
+.page-head--library::before {
+  top: 1rem;
+  right: 0;
+  width: 4rem;
+  aspect-ratio: 3 / 4;
+  -webkit-mask-image: url("../img/deco/library.svg");
+  mask-image: url("../img/deco/library.svg");
+  -webkit-mask-size: contain;
+  mask-size: contain;
+}
+@media (min-width: 64em) {
+  /* min-height keeps the bookcase inside a short head (about pages), clear of the content below */
+  .page-head--library { padding-right: 12rem; min-height: 16rem; }
+  .page-head--library > h1 { padding-right: 0; }
+  .page-head--library::before { top: 2.5rem; width: 9rem; }
+}
+
 .with-toc {
   display: grid;
   gap: 1rem;
@@ -795,6 +869,19 @@ strong { font-weight: 600; }
 .toc a {
   display: inline-block;
   padding-block: 0.3rem;
+}
+.toc li[data-course] {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.toc li[data-course]::before {
+  content: "";
+  flex: none;
+  width: 0.625rem;
+  height: 0.625rem;
+  border-radius: 2px;
+  background: var(--accent);
 }
 .toc__title {
   margin-bottom: 0.25rem;
@@ -814,10 +901,29 @@ strong { font-weight: 600; }
   }
 }
 
-.course { padding-block: var(--section); }
-.course + .course { border-top: 1px solid var(--rule); }
+/* Each course is a panel in its own shade (feedback: courses must differ visually) */
+.course {
+  padding: 2rem 1.25rem;
+  background: var(--tint, var(--atlas));
+  border-top: 4px solid var(--accent, var(--maroon));
+  border-radius: 0.5rem;
+}
+.course + .course { margin-top: 1.5rem; }
 .course > * + * { margin-top: 1.25rem; }
 .course > h3 { margin-top: 2.5rem; }
+.course .start-date { background: var(--paper); }
+.course .faq details,
+.course .facts div { border-color: color-mix(in srgb, var(--ink) 20%, transparent); }
+@media (min-width: 48em) {
+  .course { padding: 2.5rem; }
+}
+@media (min-width: 64em) {
+  .course:first-child { margin-top: var(--section); }
+  .course:last-child { margin-bottom: var(--section); }
+}
+@media (max-width: 63.99em) {
+  .course:last-child { margin-bottom: var(--section); }
+}
 
 .facts {
   max-width: var(--measure);
@@ -963,7 +1069,7 @@ strong { font-weight: 600; }
   .price-table tbody tr {
     margin-bottom: 0.75rem;
     padding: 0.75rem 1rem;
-    background: var(--atlas);
+    background: var(--paper);
     border-radius: 0.25rem;
   }
   .price-table th,
