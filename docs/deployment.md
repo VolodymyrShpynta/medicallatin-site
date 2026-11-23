@@ -494,6 +494,10 @@ name.
   push also contains site changes, make sure its last commit doesn't carry the flag,
   or those changes won't go live (push again with an unflagged commit, or select
   **Retry deployment** / **Create deployment** in the dashboard).
+  **Don't write the flag anywhere else in a message**, not even to say a commit is
+  *not* flagged. Cloudflare's docs speak of a prefix, but on 23 Nov 2026 a push whose
+  newest commit mentioned the flag only in its body was skipped too, so the email
+  address didn't go live.
 
 ## Troubleshooting
 
@@ -506,6 +510,7 @@ name.
 | `www` doesn't redirect. | The `www` A record must exist and be **Proxied** (orange cloud), and the `www to apex` Redirect Rule must be deployed with `https://www.*` alone in **Request URL** and `https://${1}` in **Target URL**. If the deploy dialog says "This zone already has a DNS record of type A, AAAA or CNAME for that hostname", choose **Ignore and deploy rule anyway**. |
 | **Error 522** on `www.medicallatin.com`. | Over `https://`: the redirect rule isn't deployed yet, so Cloudflare tries the dummy `192.0.2.1`. Over `http://` only: **Always Use HTTPS** is off (step 6). |
 | The site shows old content after a push. | Check that the deployment finished, then reload with `Ctrl+F5`. Don't add **Cache Rules** or **Page Rules** that cache the site: Cloudflare advises against them for Pages, and they can serve stale pages after a deploy. |
+| A push never appears under **Deployments**, and `curl -s https://medicallatin-site.pages.dev/` still returns the old page. | Pages skipped the build: the newest commit of the push mentions a skip flag (`[CF-Pages-Skip]`, `[CI Skip]`, `[Skip CI]` and similar) somewhere in its message. Check with `git log -1 --format=%B origin/main`. Push a new commit whose message has no flag; `git commit --allow-empty -m "Redeploy"` is enough when nothing else is waiting. |
 | Something stops working after adding an external resource (embedded video, Google Fonts, a widget). | `site/_headers` only allows files from the site itself. Self-host the resource, or add its address to the `Content-Security-Policy` line. The browser console names what was blocked. |
 | Mail to `info@medicallatin.com` doesn't arrive. | Check, in order: the destination mailbox shows **Verified** (Halyna clicked the link in Cloudflare's email); the `info` routing rule is enabled; `nslookup -type=MX medicallatin.com` lists Cloudflare's servers; the spam folder. Test from a different account than the destination: some providers drop mail that seems to come from the same account. |
 | The sender gets a bounce mentioning **SPF** or **DMARC**. | Their own domain's authentication failed: Email Routing rejects mail that passes neither SPF nor DKIM. They should send from their normal mailbox, not through a mailing tool. |
