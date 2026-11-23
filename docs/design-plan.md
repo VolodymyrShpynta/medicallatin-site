@@ -1,6 +1,9 @@
 # Design plan: medicallatin.com
 
 Status: **approved** (21 Nov 2026). The answers to the open questions are in §12.
+**Revised** on 23 Nov 2026 after Halyna's feedback: a warm palette, light by default,
+faint Rome and library silhouettes, a shade per course, and new offers and prices.
+What changed and why is in §14.
 
 ## 1. The brief, restated
 
@@ -27,9 +30,9 @@ Status: **approved** (21 Nov 2026). The answers to the open questions are in §1
 | Hosting | Cloudflare Pages, connected to this GitHub repo; domain `medicallatin.com` is in Cloudflare (the Pages project must live in the same Cloudflare account). |
 | Stack | Plain HTML + CSS, two small JS files (the hero term switcher and the light/dark switch). No build step, no framework. |
 | Languages | Ukrainian at `/`, English at `/en/`. Every text is translated. |
-| Prices | Ukrainian site only: per-lesson range ($18–22) and the UAH packages. English site: no prices. |
-| Dates | Show the next group start (11.01.2027); updated by hand via Git. |
-| Offers | Year course (Basis / Medium / Maxi), Express course (6 days), Pronunciation intensive (3 days), Trial lesson (half price, same length as a regular lesson), Level test (separate service). |
+| Prices | Ukrainian site only, in UAH: course prices, the trial lesson (600 грн), one-to-one lessons (schoolchildren 700 грн, students 1000 грн) and packages. English site: no prices. |
+| Dates | Show the next group start (11.01.2027) and the express-course groups (every week in February 2027); updated by hand via Git. |
+| Offers | Main course «Медична латина» in 2 months (Basis / Medium / Maxi), Express course (6 days), Pronunciation intensive (3 days), Trial lesson with a level test (50–55 min), one-to-one lessons. |
 | Contacts | Instagram Direct, Telegram, WhatsApp / phone, email (`info@medicallatin.com`, forwarded to Halyna's mailbox by Cloudflare Email Routing). |
 | Booking form | Google Form, one per language, created by Halyna in her Google account; questions drafted in [google-form.md](google-form.md). |
 | Students | Consent given: names, photos and review screenshots may be used. |
@@ -72,40 +75,79 @@ and stress marks are for Halyna to confirm before launch (see §11).
 
 ## 4. Colour
 
+Warm autumn pastels, chosen by Halyna in her feedback (23 Nov 2026). They replace the
+first, cool palette (ward white, atlas grey, blue-black ink); see §14.
+
 | Name | Hex | Role |
 |---|---|---|
-| Ward white | `#F5F7F7` | Page background. A cool, clinical white, not cream. |
-| Atlas grey | `#E3E9EC` | Secondary surfaces: price table, case blocks, review quotes. |
-| Iron-gall ink | `#1E2230` | Text and headings (blue-black, like fountain-pen ink). |
-| Slate | `#4E5566` | Secondary text: captions, glosses, meta lines. |
-| Praktikum maroon | `#6F1D2C` | The brand colour, taken from her workbook covers and diplomas. Buttons, links, the booking bar. |
-| Correction red | `#B83226` | The teacher's red pen. Only for annotations: leader lines, stress marks, the focus ring. Never for decoration. |
+| Linen | `#F7F0E6` | Page background: a warm, light paper. |
+| Sand | `#EFE2D1` | Secondary surfaces: price table, case blocks, review quotes. |
+| Espresso | `#2E221C` | Text and headings: a warm brown-black. |
+| Warm taupe | `#65544A` | Secondary text: captions, glosses, meta lines. |
+| Praktikum maroon | `#7A2432` | The brand colour, taken from her workbook covers and diplomas. Buttons, links, the booking bar. |
+| Rust | `#A13F1F` | The teacher's red pen. Only for annotations: leader lines, stress marks, the focus ring. |
+| Silhouette | `#E7D6C2` | Only for the faint Rome and library silhouettes (see "Decoration" below). Never for text. |
 
 Contrast (WCAG 2.x, measured):
 
 | Pair | Ratio |
 |---|---|
-| Ink on ward white / on atlas grey | 14.7 / 12.9 |
-| Slate on ward white / on atlas grey | 6.9 / 6.1 |
-| Maroon on ward white (links) | 10.3 |
-| White on maroon (buttons) | 11.1 |
-| Correction red on ward white / on atlas grey | 5.5 / 4.9 |
+| Espresso on linen / on sand / on the palest course shade | 13.6 / 12.1 / 11.6 |
+| Warm taupe on linen / on sand / on the course shades | 6.4 / 5.6 / 5.4 or more |
+| Maroon on linen (links) / on the course shades | 8.7 / 7.4 or more |
+| Text on maroon buttons (`#FFF8F0`) | 9.4 |
+| Rust on linen / on sand / on the course shades | 5.7 / 5.1 / 4.9 or more |
 
-**Dark mode** follows the system setting (`prefers-color-scheme`) on the first visit,
-since many students read at night inside Instagram's dark in-app browser. A
-moon/sun switch in the header (added after approval, 22 Nov 2026) lets visitors
-choose light or dark. The choice is kept in the browser's local storage: not a
-cookie, and never sent anywhere. Without JavaScript the switch is hidden and the
-system setting applies.
+**Light for everyone, dark on request.** Every visitor first sees the warm light theme,
+whatever their device setting. A moon/sun switch in the header (added 22 Nov 2026)
+turns on the dark theme. The choice is kept in the browser's local storage: not a
+cookie, and never sent anywhere. Without JavaScript the switch is hidden and the site
+stays light. (Until 23 Nov 2026 the first visit followed the device's dark setting;
+Halyna asked for light by default.)
 
 | Light token | Dark value | Check |
 |---|---|---|
-| Ward white | `#171B25` | |
-| Atlas grey | `#232937` | |
-| Iron-gall ink | `#E8EBEF` | 14.4 on background |
-| Slate | `#AAB1BF` | 8.0 on background |
-| Praktikum maroon | `#E6A1AC` | Links and button fill. Button text uses the dark background colour (8.3). |
-| Correction red | `#FF8B7B` | 7.6 on background |
+| Linen | `#1E1815` | |
+| Sand | `#2B231F` | |
+| Espresso | `#F2E8DD` | 14.5 on background |
+| Warm taupe | `#C5B4A5` | 8.7 on background |
+| Praktikum maroon | `#EAA99C` | Links and button fill. Button text uses the dark background colour (8.9). |
+| Rust | `#F29A76` | 8.1 on background |
+| Silhouette | `#2E2520` | Just above the background, so the silhouettes stay faint. |
+
+**A shade per course.** Each offer has its own pastel shade (the panel behind it on
+`/courses/`) and a stronger accent (the panel's top edge, the left edge in the home
+offers list, the swatch in the page index). Text on the shades uses the same tokens
+and passes AA, as measured above.
+
+| Course | Shade | Accent | Dark shade | Dark accent |
+|---|---|---|---|---|
+| Main course | `#F5DFC9` apricot | `#D49E6A` | `#33271E` | `#9C7148` |
+| Express course | `#F2DAD4` dusty rose | `#C98E82` | `#352527` | `#94635A` |
+| Confident Pronunciation | `#E2E7D2` sage | `#9DAD7C` | `#282E22` | `#6F7D55` |
+| Trial lesson | `#F4E6C4` wheat | `#CFAF57` | `#342D1C` | `#9A8240` |
+| One-to-one lessons | `#EADDE4` heather | `#B08FA4` | `#2F2630` | `#7E6476` |
+
+**Decoration.** Two silhouettes, drawn for this site as simple flat shapes, filled with
+the silhouette colour through a CSS mask. They are CSS backgrounds, so screen readers
+skip them.
+
+- **Rome skyline** (`assets/img/deco/rome-skyline.svg`): temple columns, an arch,
+  umbrella pines, the Colosseum and ruins. It runs along the bottom of the home hero,
+  under the dissected term, and appears small above the footer motto.
+- **Library bookcase** (`assets/img/deco/library.svg`): an arched bookcase beside the
+  page title on `/courses/` and `/about/`.
+
+```
+Hero (home)                                     Page head (courses, about)
+┌──────────────────────────────────────────┐    ┌────────────────────────────────┐
+│ H1 …          endo  card  ítis           │    │ Курси і ціни          ╭────╮   │
+│ lede …        └┬─┘  └┬─┘  └┬─┘           │    │ lede …                │▥▥▥▥│   │
+│ credentials   glosses                    │    │                       │▥▥▥▥│   │
+│                                          │    │                       └────┘   │
+│ ░ columns ░ arch ░ Colosseum ░ pines ░   │    │                                │
+└──────────────────────────────────────────┘    └────────────────────────────────┘
+```
 
 ## 5. Type
 
@@ -205,12 +247,11 @@ same two sit in the sticky header. Their names never change across the site.
 │ Підтримка в Telegram 24/6 …    │ Telegram support, PDFs and screenshots
 ├────────────────────────────────┤
 │ Курси і ціни                   │ list rows: name / what for / length / from
-│ Річний курс        від 899 грн │
+│ Основний курс      від 899 грн │
 │ Експрес-курс       від 2222 грн│
 │ Впевнена вимова    від 499 грн │
-│ Пробне заняття  ½ ціни заняття │
-│ Діагностика        [ціна]      │
-│ Індивідуально     18–22 $/зан. │
+│ Пробне з діагностикою  600 грн │
+│ Індивідуально      від 700 грн │
 │ Усі деталі курсів              │ link to /courses/
 ├────────────────────────────────┤
 │ Результати студентів           │ id="vidhuky"
@@ -226,7 +267,7 @@ same two sit in the sticky header. Their names never change across the site.
 │ Як записатися                  │ a real sequence, so numbered:
 │ 1 Напишіть у Direct або        │
 │   заповніть анкету             │
-│ 2 Пробне заняття або діагност. │
+│ 2 Пробне заняття з діагностикою│
 │ 3 Обираємо формат і графік     │
 │ Instagram                      │ contact links, one per line
 │ Telegram                       │
@@ -281,23 +322,27 @@ On the mobile bar the second button is shortened to «Анкета». The full l
 
 ### Courses and prices (`/courses/`)
 
-The year course has nested levels (Basis ⊂ Medium ⊂ Maxi), and its 16 lessons are a
+The main course has nested levels (Basis ⊂ Medium ⊂ Maxi), and its 16 lessons are a
 real sequence. The page shows both at once: a numbered lesson list with a coverage
 bar for each level beside it. Structure is used here because the content *is*
 nested.
 
+Each course sits on its own tinted panel in its course shade (§4), with the accent as
+a top edge. The page index shows the same accent as a small swatch, so a course is
+recognisable by its colour on the home page, in the index and on its panel.
+
 ```
 Desktop
 ┌──────────────────┬───────────────────────────────────────────────────────────────────┐
-│ On this page     │ Річний курс «Медична латина» 2026–2027                            │
+│ On this page     │ Основний курс «Медична латина» за 2 місяці                        │
 │ (sticky, cols    │ Старт групи: 11.01.2027                                           │
 │  1–3)            │                                                                   │
-│ Річний курс      │  Lesson                                         Basis Medium Maxi │
+│ Основний курс    │  Lesson                                         Basis Medium Maxi │
 │ Експрес-курс     │  1  Вимова літер і буквосполучень. Наголос        ┃     ┃     ┃   │
 │ Впевнена вимова  │  2  Nomen substantivum. Неузгоджене озн.          ┃     ┃     ┃   │
 │ Пробне заняття   │  …                                                ┃     ┃     ┃   │
-│ Діагностика      │  8  Ступені порівняння прикметників               ┃     ┃     ┃   │
-│ Індивідуально    │  9  Рецептура. Хімічна номенклатура                     ┃     ┃   │
+│ Індивідуально    │  8  Ступені порівняння прикметників               ┃     ┃     ┃   │
+│                  │  9  Рецептура. Хімічна номенклатура                     ┃     ┃   │
 │                  │  …                                                      ┃     ┃   │
 │                  │  12 Рецепти на м’які та рідкі форми                     ┃     ┃   │
 │                  │  13 Клінічна термінологія. Словотвір                          ┃   │
@@ -315,7 +360,7 @@ Desktop
 │                  │  Дні 1–2 / 3–4 / 5–6, format, prices, FAQ (<details>)             │
 │                  │ Інтенсив «Впевнена вимова»: 3 дні                                 │
 │                  │  День 1 / 2 / 3, for whom, mini-groups 5–10, prices               │
-│                  │ Пробне заняття, Діагностика рівня знань, Індивідуально            │
+│                  │ Пробне заняття з діагностикою; Індивідуально (школярі, студенти)  │
 └──────────────────┴───────────────────────────────────────────────────────────────────┘
 
 Mobile: the page index becomes a short link list at the top. The lesson list is
@@ -376,7 +421,8 @@ The timeline is a real sequence, so it uses dates as markers. Nowhere else does.
 3. **Her words, her numbers.** Every claim comes from her materials. No invented stats,
    no stock photos, no anonymous praise.
 4. **One bold thing.** The dissected term is the memorable element. Everything around
-   it stays quiet: no shadows, gradients, rounded card grids or decorative icons.
+   it stays quiet: no shadows, gradients, card grids or decorative icons. The only
+   ornaments are the faint Rome and library silhouettes, a tone away from the paper.
 5. **Structure only when content has structure.** Brackets and bars appear where
    levels nest or lessons follow in order; numbers appear only for real sequences.
 6. **Booking is never more than one tap away, and never interrupts.**
@@ -388,7 +434,7 @@ cluster around, and against what I'd produce for any "tutor landing page" prompt
 
 | Axis | First pass | Why it read as a default | Revision |
 |---|---|---|---|
-| Palette | Warm cream paper `#F6F1E7`, maroon, gold foil | Cream with a serif display and a warm accent is the most common generated look. Gold foil reads as "premium" and fails contrast as text. | Cool *ward white* and *atlas grey*. Gold removed. The red is now a correction-pen colour with one job: annotation. |
+| Palette | Warm cream paper `#F6F1E7`, maroon, gold foil | Cream with a serif display and a warm accent is the most common generated look. Gold foil reads as "premium" and fails contrast as text. | Cool *ward white* and *atlas grey*. Gold removed. The red is now a correction-pen colour with one job: annotation. **Reversed on 23 Nov 2026 at Halyna's request:** warm autumn pastels (§4, §14). Gold stays out, and the serif is still kept for Latin, so the warm paper doesn't pull the site back to the default look. |
 | Type | EB Garamond for every heading, Fixel for body | A high-contrast serif display on a light page is the same default. Garamond on Ukrainian headings would also blur the Latin/Ukrainian rule. | Serif is reserved for Latin; headings use Fixel Display. |
 | Hero | Her portrait on the right, headline on the left, three stat tiles (17 років / з 2011 / 172 бали) | "Big number, small label" is the default hero. | The dissected term. Credentials become one plain sentence; the portrait moves to «Хто я». |
 | Offers | Five equal rounded cards with shadows and «Детальніше →» | The SaaS card kit, plus the trailing-arrow tell | A plain list and table, and a lesson list with level bars that shows Basis ⊂ Medium ⊂ Maxi. |
@@ -401,6 +447,10 @@ cluster around, and against what I'd produce for any "tutor landing page" prompt
 parchment, Roman columns and Trajan capitals. None of that is used. The plan is built
 from *this* tutor's world: medical-term morphology, anatomy-atlas labels, a
 correction pen, her maroon workbooks and her exam-prep vocabulary (ПК, 164 бали).
+*Update, 23 Nov 2026:* Halyna asked for Roman and library imagery. It is kept faint
+and secondary: flat silhouettes a tone away from the paper, never behind text, with
+no parchment textures and no Trajan capitals. The dissected term stays the one bold
+element.
 
 ## 10. Content sources
 
@@ -408,11 +458,11 @@ correction pen, her maroon workbooks and her exam-prep vocabulary (ПК, 164 б�
 |---|---|
 | Bio, credentials | «Медична латина 2026–2027» slides (p. 2, «Хто я»), story slides, diploma screenshots |
 | Story (About) | «Як я взагалі опинилася в медичній латині» slides |
-| Year course, programme, formats, prices | «Медична латина 2026–2027» slides (p. 4–7) and the course carousel |
-| Express course, FAQ, prices | «Експрес курс» slides |
+| Main course (formerly the year course), programme, formats, prices | «Медична латина 2026–2027» slides (p. 4–7) and the course carousel; name, length and the recorded format from Halyna's feedback (23 Nov 2026) |
+| Express course, FAQ, prices | «Експрес курс» slides; format list, groups and prices from Halyna's feedback |
 | Pronunciation intensive | «Впевнена латинська вимова» slides |
-| Trial lesson | «Кейси», last slide; your answer: half price, same length |
-| Level test (blocks 1–5) | «Діагностика рівня знань з латини» slides |
+| Trial lesson with a level test | «Кейси», last slide, and «Діагностика рівня знань з латини» slides (blocks 1–5); merged, 50–55 min and 600 грн per Halyna's feedback |
+| One-to-one lessons | Halyna's feedback: prices for schoolchildren and students, packages, payment terms |
 | Cases | «Сторітейл КЕЙСИ» slides (Валерія, Настя, Настя, Юля) |
 | Reviews | Review slides in the course, story and express decks (transcribed) |
 | Publications | Screenshot of the six book covers |
@@ -432,21 +482,22 @@ attribute; `grep -rn "data-placeholder" site` lists them all.
 | 1 | ~~`EMAIL`: her email address~~ Filled: `info@medicallatin.com`, forwarded by Cloudflare Email Routing ([deployment.md §9](deployment.md#9-set-up-infomedicallatincom)) | Sign-up section, home pages (both languages) |
 | 2 | `GOOGLE_SCHOLAR_URL` | About (both languages) |
 | 3 | `GOOGLE_FORM_UA_URL`, `GOOGLE_FORM_EN_URL` | Header, mobile booking bar, sign-up and course call-to-action buttons |
-| 4 | `LEVEL_TEST_PRICE` | Home and Courses (UA only) |
-| 5 | `LEVEL_TEST_FORMAT`: length and format | Courses (UA and EN), home offers list (EN) |
-| 6 | `EXPRESS_NEXT_DATES`: next express-course dates | Courses (UA and EN) |
+| 4 | ~~`LEVEL_TEST_PRICE`~~ Removed: the level test is now part of the trial lesson (600 грн) | |
+| 5 | ~~`LEVEL_TEST_FORMAT`~~ Removed: the trial lesson with a level test is 50–55 min | |
+| 6 | ~~`EXPRESS_NEXT_DATES`~~ Filled: "every week in February 2027" | |
 | 7 | Stress marks and part glosses for the three hero terms: Halyna to confirm (not marked on the page) | Hero (both languages) |
+| 8 | `SCHOOL_PACKAGES`: prices of the 5-, 8- and 10-lesson packages for schoolchildren | Courses, one-to-one lessons (UA only) |
 
 ## 12. Open questions: answered
 
 | Question | Answer |
 |---|---|
-| Do the 1:1 package prices (about 1000 грн per lesson) match "$18–22 per lesson"? | Yes. Show both. |
-| "Half the regular rate" for the trial lesson on the English site? | Yes, acceptable. |
+| Do the 1:1 package prices (about 1000 грн per lesson) match "$18–22 per lesson"? | Yes. Show both. *Superseded on 23 Nov 2026: prices are now in UAH only (§14).* |
+| "Half the regular rate" for the trial lesson on the English site? | Yes, acceptable. *Superseded on 23 Nov 2026: the English site says "On request".* |
 | Google Forms | One form per language. |
 | Titles in Ukrainian | «кандидат філологічних наук, доцент», as on the diplomas. |
 | English proofreading | None planned; the English text ships as written. |
-| Year-course levels | Basis = lessons 1–8, Medium = 1–12, Maxi = 1–16. |
+| Main-course levels | Basis = lessons 1–8, Medium = 1–12, Maxi = 1–16. |
 
 ## 13. Build notes (after approval)
 
@@ -456,7 +507,7 @@ attribute; `grep -rn "data-placeholder" site` lists them all.
     index.html, courses/, about/, en/…, 404.html
     assets/css/site.css, assets/js/term.js, assets/js/theme.js
     assets/fonts/*.woff2 + OFL.txt
-    assets/img/…
+    assets/img/…   (deco/: the Rome skyline and library silhouettes)
     _headers   security and cache headers (strict CSP: self only)
     robots.txt, sitemap.xml, favicon.svg, og images
   docs/        design-plan.md, credits.md, google-form.md (not published)
@@ -471,8 +522,35 @@ attribute; `grep -rn "data-placeholder" site` lists them all.
   type.
 - Quality floor:
   - Works down to 360px.
-  - Visible focus: a 3px correction-red outline with a 2px offset.
+  - Visible focus: a 3px rust (correction-pen) outline with a 2px offset.
   - Reduced motion respected.
   - WCAG AA contrast (§4).
   - Semantic landmarks and real alt text: reviews are transcribed, not only shown as images.
   - Checked with screenshots at 390px and 1440px, in light and dark mode.
+
+## 14. Revision after Halyna's feedback (23 Nov 2026)
+
+Halyna reviewed the live site and sent her comments in Telegram. Each one, and what
+changed:
+
+| Her comment | What changed |
+|---|---|
+| Warmer, pastel, autumn colours instead of the cool clinical look | New warm palette in both themes (§4). Favicon and link-preview images redrawn in it. |
+| Open in the light theme | Light is now the default for everyone; dark only via the switch (§4). |
+| Something of Rome and of libraries in the background | Faint, flat silhouettes: a Rome skyline under the hero and above the footer motto, and a bookcase beside the page titles on Courses and About (§4, "Decoration"). |
+| Each course in its own shade | A pastel shade and an accent per course, used on the course panels, in the page index and in the home offers list (§4). |
+| «Річний курс» is now «Основний курс «Медична латина» за 2 місяці» | Renamed on the Ukrainian and English pages. Levels, prices and the 11.01.2027 start are unchanged. |
+| The 899 грн recorded format is only the «Іменник» module | The table and the recorded-format note say so: stem, general characteristics, declensions, non-agreed attributes; lessons recorded in Telegram, questions in the Telegram chat. |
+| Express course: groups every week in February 2027, her own format list, new prices | Start line, the seven-point format list and booking terms replaced. Group: 2222 грн when booking by 30.01, then +300 грн each week. One-to-one: 6000 грн by 30.01, then 7000 грн. Booking in advance with prepayment. The English site gives no numbers. |
+| Trial lesson and level test are one offer | Merged into «Пробне заняття з діагностикою рівня знань»: 50–55 min, 600 грн, with the five test blocks. The separate level test and its placeholders are gone. English: "Trial lesson with a level test", price on request. |
+| One-to-one prices and terms | Prepayment for at least 3 lessons. Schoolchildren 700 грн per lesson; students 1000 грн per lesson, packages of 5 / 10 / 16 lessons for 4350 / 8500 / 13300 грн, shown without percentages. 10 % off when students come 5–6 months before the ПК (July to November). |
+
+Still open (asked of Halyna; nothing invented in the meantime):
+
+- **Schoolchildren's packages.** Her numbers (5 lessons 5400, 8 lessons 5300,
+  10 lessons 6700 грн) don't fit 700 грн per lesson, so the site shows 700 грн per
+  lesson and the `SCHOOL_PACKAGES` placeholder until she confirms (§11).
+- **Recorded «Іменник» module extras.** The old text promised a pronunciation bonus,
+  10 interactive exercises and 2 weeks of Telegram support. Her new description
+  doesn't mention them, so they were removed. Put them back if they still apply.
+- **The 10 % early discount.** Whether it combines with the student packages.

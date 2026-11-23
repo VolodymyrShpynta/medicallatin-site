@@ -30,9 +30,10 @@ To check the site exactly as Cloudflare will serve it, with `site/_headers` and 
 | [`site/`](site/) | Everything that is published. |
 | `site/index.html`, `courses/`, `about/` | Ukrainian pages, with prices. |
 | `site/en/…` | English pages, same structure, **no prices**. |
-| `site/assets/css/site.css` | All styles; colour tokens for light and dark mode are at the top. The dark values appear twice (device setting and the visitor's choice): change both. |
+| `site/assets/css/site.css` | All styles; colour tokens for the light theme, the dark theme and each course's shade are at the top. |
 | `site/assets/js/term.js` | The hero's «Розібрати інший термін» switcher. |
-| `site/assets/js/theme.js` | The light/dark switch in the header. Loaded in `<head>` without `defer`, so a saved choice applies before the page paints. |
+| `site/assets/js/theme.js` | The light/dark switch in the header. The site opens light for everyone; dark only when chosen. Loaded in `<head>` without `defer`, so a saved choice applies before the page paints. |
+| `site/assets/img/deco/` | The faint Rome skyline and library silhouettes, drawn into the page with CSS masks. |
 | `site/_headers` | Cloudflare Pages headers: a self-only Content-Security-Policy, and a long cache for fonts only. |
 | `site/404.html` | Bilingual "page not found". |
 | `site/sitemap.xml`, `robots.txt` | For search engines. |
@@ -45,8 +46,12 @@ in all six pages. When you change one, change it everywhere.
 
 - **Prices** appear only in the Ukrainian `index.html` (overview) and
   `courses/index.html` (details). Keep the two consistent. Don't add prices to `/en/`.
-- **The next group start** (11.01.2027) appears in `index.html`, `courses/index.html`
-  and `en/courses/index.html`.
+- **Dates** (the main course's 11.01.2027 start, the express groups "every week in
+  February 2027" and the 30.01 booking deadline) appear in `index.html`,
+  `courses/index.html`, `en/index.html` and `en/courses/index.html`.
+- **Course colours:** each course block carries `data-course="main"`, `express`,
+  `pronunciation`, `trial` or `individual`, which picks its shade. Use the same value
+  in the home offers list, the courses page index and the course section.
 - **Latin** is always wrapped in `<span lang="la">…</span>`; that sets it in EB Garamond
   and tells screen readers to switch language.
 - **Hero terms** live in `<template>` elements inside `.term` on both home pages.
@@ -70,9 +75,7 @@ When you fill one in, remove the `data-placeholder` attribute. For links, replac
 |---|---|
 | `GOOGLE_FORM_UA_URL`, `GOOGLE_FORM_EN_URL` | Share links of the two Google Forms ([docs/google-form.md](docs/google-form.md)). |
 | `GOOGLE_SCHOLAR_URL` | Her Google Scholar profile. |
-| `LEVEL_TEST_PRICE` | Level test price (Ukrainian pages only). |
-| `LEVEL_TEST_FORMAT` | Level test length and format. |
-| `EXPRESS_NEXT_DATES` | Dates of the next express course. |
+| `SCHOOL_PACKAGES` | Prices of the 5-, 8- and 10-lesson packages for schoolchildren (Ukrainian courses page only). |
 
 ## Publishing (Cloudflare Pages)
 

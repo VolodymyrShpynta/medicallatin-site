@@ -44,5 +44,6 @@ used: Canva's licence covers them only inside Canva designs.
 
 | File | Notes |
 |---|---|
-| `site/favicon.svg` | Drawn for the site in its palette. |
+| `site/favicon.svg` | Drawn for the site in its palette (warm palette since 23 Nov 2026). |
 | `site/assets/og/og-uk.png`, `og-en.png` | Link-preview cards rendered from the site's own CSS and fonts. |
+| `site/assets/img/deco/rome-skyline.svg`, `library.svg` | Flat silhouettes of Rome (temple columns, an arch, pines, the Colosseum, ruins) and of an arched bookcase. Drawn for this site from simple geometric shapes at Halyna's request; not traced from any photo or artwork, so no third-party licence applies. The Canva stock images of libraries and statues are still not used. |

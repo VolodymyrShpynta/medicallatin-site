@@ -21,6 +21,8 @@ delivered to Halyna's mailbox. Every DNS record in use is listed in
 Still open:
 
 - the remaining placeholders ([step 0](#0-pre-launch-checklist));
+- Halyna's open questions on prices and terms
+  ([design plan §14](design-plan.md#14-revision-after-halynas-feedback-23-nov-2026));
 - the phone and Instagram checks ([step 7](#7-check-the-live-site));
 - the Instagram bio link and, optionally, Search Console ([step 8](#8-after-launch)).
 
@@ -70,7 +72,10 @@ that account too.
   [google-form.md](google-form.md), and their links pasted in.
 - [ ] **Halyna has checked** the stress marks and part meanings of the three hero
   terms (*endocarditis*, *tachycardia*, *chlorodontia*) on both home pages.
-- [ ] **Trial lesson price** on the Ukrainian pages (9–11 $) is confirmed.
+- [ ] **Halyna's open questions are answered**: the schoolchildren's package prices,
+  the extras of the recorded «Іменник» module and whether the 10 % early discount
+  combines with packages
+  ([design plan §14](design-plan.md#14-revision-after-halynas-feedback-23-nov-2026)).
 - [ ] **`info@medicallatin.com` receives mail** ([step 9](#9-set-up-infomedicallatincom)),
   since both home pages show it.
 - [ ] **Everything is committed**: `git status` shows no changes.
@@ -309,7 +314,8 @@ Expect `404`. In a browser, that address shows the bilingual "page not found" pa
 **In a browser, on a computer and on a phone:**
 
 - [ ] `/` and `/en/` load, and **EN / УКР** switches between the matching pages.
-- [ ] The moon/sun button switches the theme, and the choice holds on other pages.
+- [ ] The site opens in the light theme, even on a phone set to dark mode. The
+  moon/sun button switches the theme, and the choice holds on other pages.
 - [ ] «Написати в Direct» / "Message me in Direct" opens Instagram Direct to
   `lingualatina_halyna`. The form buttons open the right Google Form for each
   language.

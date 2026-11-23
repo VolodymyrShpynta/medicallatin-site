@@ -32,7 +32,7 @@ Description: «Кілька питань, щоб я підібрала форм�
 | 5 | Що зараз найскладніше? | Checkboxes | No | Вимова і наголос / Іменник, неузгоджене означення / Прикметник, узгоджене означення / Рецептура / Клінічна термінологія / Лексика / Не знаю, з чого почати |
 | 6 | Коли у вас ПК або іспит? | Short answer | No | |
 | 7 | За який час хочете досягти результату? | Multiple choice | Yes | До тижня / 2–4 тижні / 1–2 місяці / Протягом семестру або року |
-| 8 | Який формат вам цікавий? | Checkboxes | Yes | Індивідуальні заняття / Міні-група / Курс у записі / Експрес-курс (6 днів) / Інтенсив «Впевнена вимова» (3 дні) / Пробне заняття / Діагностика рівня знань / Ще не знаю |
+| 8 | Який формат вам цікавий? | Checkboxes | Yes | Індивідуальні заняття / Міні-група / Курс у записі (модуль «Іменник») / Експрес-курс (6 днів) / Інтенсив «Впевнена вимова» (3 дні) / Пробне заняття з діагностикою рівня знань / Ще не знаю |
 | 9 | Коли вам зручно займатися? (дні, час, часовий пояс) | Short answer | No | |
 | 10 | Згода | Checkbox | Yes | Погоджуюся, щоб Галина Шпинта використала мої відповіді лише для зв’язку щодо навчання. |
 
@@ -50,6 +50,6 @@ It takes 2 minutes."
 | 5 | What is hardest for you right now? | Checkboxes | No | Pronunciation and stress / Nouns and non-agreed attributes / Adjectives and agreed attributes / Prescriptions / Clinical terminology / Vocabulary / I don't know where to start |
 | 6 | When is your module test or exam? | Short answer | No | |
 | 7 | How soon do you want results? | Multiple choice | Yes | Within a week / 2–4 weeks / 1–2 months / Over a semester or year |
-| 8 | Which format interests you? | Checkboxes | Yes | Individual lessons / Mini-group / Recorded course / Express course (6 days) / Pronunciation intensive (3 days) / Trial lesson / Level test / Not sure yet |
+| 8 | Which format interests you? | Checkboxes | Yes | Individual lessons / Mini-group / Recorded course (noun module) / Express course (6 days) / Pronunciation intensive (3 days) / Trial lesson with a level test / Not sure yet |
 | 9 | When can you study? (days, time, time zone) | Short answer | No | |
 | 10 | Consent | Checkbox | Yes | I agree that Halyna Shpynta may use my answers only to contact me about lessons. |
