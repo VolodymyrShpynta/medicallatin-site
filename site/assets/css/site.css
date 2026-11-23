@@ -487,7 +487,8 @@ strong { font-weight: 600; }
 .term__stress { color: var(--red); }
 
 .term__meaning {
-  max-width: 32ch;
+  /* as wide as the term above it: one line on desktop, balanced lines on phones */
+  text-wrap: balance;
   font-size: 1.0625rem;
 }
 .term__eq {
