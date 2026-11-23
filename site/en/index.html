@@ -19,8 +19,7 @@
   <meta property="og:image:height" content="630">
   <meta property="og:locale" content="en_US">
   <meta property="og:locale:alternate" content="uk_UA">
-  <meta name="theme-color" content="#F5F7F7" media="(prefers-color-scheme: light)">
-  <meta name="theme-color" content="#171B25" media="(prefers-color-scheme: dark)">
+  <meta name="theme-color" content="#F7F0E6">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
   <link rel="preload" href="/assets/fonts/fixel-var.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/assets/fonts/eb-garamond.woff2" as="font" type="font/woff2" crossorigin>
@@ -158,32 +157,27 @@
           <p class="muted">All lessons are online, one-to-one or in mini-groups. Prices for lessons in English are on request.</p>
         </div>
         <ul class="offers">
-          <li>
-            <a class="offers__name" href="/en/courses/#year">Year course “Medical Latin”</a>
-            <span class="offers__desc">Grammar, prescriptions and clinical terminology.</span>
+          <li data-course="main">
+            <a class="offers__name" href="/en/courses/#main-course">Main course “Medical Latin”</a>
+            <span class="offers__desc">In 2 months: grammar, prescriptions and clinical terminology. The next group starts on 11 January 2027.</span>
             <span class="offers__price">8, 12 or 16 lessons</span>
           </li>
-          <li>
+          <li data-course="express">
             <a class="offers__name" href="/en/courses/#express">Express course</a>
-            <span class="offers__desc">An intensive before your final module test: a clear system instead of chaos.</span>
+            <span class="offers__desc">An intensive before your final module test: a clear system instead of chaos. New groups every week in February 2027.</span>
             <span class="offers__price">6 days</span>
           </li>
-          <li>
+          <li data-course="pronunciation">
             <a class="offers__name" href="/en/courses/#pronunciation">“Confident Pronunciation” intensive</a>
             <span class="offers__desc">Read terms without freezing and put the stress in the right place.</span>
             <span class="offers__price">3 days</span>
           </li>
-          <li>
-            <a class="offers__name" href="/en/courses/#trial">Trial lesson</a>
-            <span class="offers__desc">We find your gaps and what can be fixed, and how soon. Half the regular rate.</span>
-            <span class="offers__price">55–⁠60&nbsp;min</span>
+          <li data-course="trial">
+            <a class="offers__name" href="/en/courses/#trial">Trial lesson with a level test</a>
+            <span class="offers__desc">We get to know each other, work through tasks from every key topic and see what can be fixed, and how soon.</span>
+            <span class="offers__price">50–⁠55&nbsp;min</span>
           </li>
-          <li>
-            <a class="offers__name" href="/en/courses/#level-test">Level test</a>
-            <span class="offers__desc">5 blocks, from pronunciation to clinical terminology.</span>
-            <span class="offers__price" data-placeholder="LEVEL_TEST_FORMAT">[length]</span>
-          </li>
-          <li>
+          <li data-course="individual">
             <a class="offers__name" href="/en/courses/#one-to-one">One-to-one lessons</a>
             <span class="offers__desc">At your pace, on your topics.</span>
             <span class="offers__price">55–⁠60&nbsp;min</span>
@@ -302,7 +296,7 @@
           <h2 id="signup-title">How to sign up</h2>
           <ol class="steps">
             <li><span>Message me in Direct or fill in the form. It takes 2&nbsp;minutes.</span></li>
-            <li><span>We start with a trial lesson or a level test.</span></li>
+            <li><span>We start with a trial lesson with a level test.</span></li>
             <li><span>Together we choose the format, length and schedule that suit you.</span></li>
           </ol>
           <div class="cta-row">
