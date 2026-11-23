@@ -46,8 +46,8 @@ in all six pages. When you change one, change it everywhere.
 
 - **Prices** appear only in the Ukrainian `index.html` (overview) and
   `courses/index.html` (details). Keep the two consistent. Don't add prices to `/en/`.
-- **Dates** (the main course's 11.01.2027 start, the express groups "every week in
-  February 2027" and the 30.01 booking deadline) appear in `index.html`,
+- **Dates** (the main course's 11.01.2027 start, the express groups on 8.02, 22.02 and
+  9.03.2027, and the 30.01 booking deadline) appear in `index.html`,
   `courses/index.html`, `en/index.html` and `en/courses/index.html`.
 - **Course colours:** each course block carries `data-course="main"`, `express`,
   `pronunciation`, `trial` or `individual`, which picks its shade. Use the same value
@@ -75,7 +75,6 @@ When you fill one in, remove the `data-placeholder` attribute. For links, replac
 |---|---|
 | `GOOGLE_FORM_UA_URL`, `GOOGLE_FORM_EN_URL` | Share links of the two Google Forms ([docs/google-form.md](docs/google-form.md)). |
 | `GOOGLE_SCHOLAR_URL` | Her Google Scholar profile. |
-| `SCHOOL_PACKAGES` | Prices of the 5-, 8- and 10-lesson packages for schoolchildren (Ukrainian courses page only). |
 
 ## Publishing (Cloudflare Pages)
 

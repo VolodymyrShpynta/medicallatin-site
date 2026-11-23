@@ -30,8 +30,8 @@ What changed and why is in §14.
 | Hosting | Cloudflare Pages, connected to this GitHub repo; domain `medicallatin.com` is in Cloudflare (the Pages project must live in the same Cloudflare account). |
 | Stack | Plain HTML + CSS, two small JS files (the hero term switcher and the light/dark switch). No build step, no framework. |
 | Languages | Ukrainian at `/`, English at `/en/`. Every text is translated. |
-| Prices | Ukrainian site only, in UAH: course prices, the trial lesson (600 грн), one-to-one lessons (schoolchildren 700 грн, students 1000 грн) and packages. English site: no prices. |
-| Dates | Show the next group start (11.01.2027) and the express-course groups (every week in February 2027); updated by hand via Git. |
+| Prices | Ukrainian site only, in UAH: course prices, the trial lesson (600 грн), one-to-one lessons (schoolchildren 700 грн, students from 1000 грн) and packages (students' packages cost less from June to November). English site: no prices. |
+| Dates | Show the next group start (11.01.2027) and the express-course groups (8.02, 22.02 and 9.03.2027); updated by hand via Git. |
 | Offers | Main course «Медична латина» in 2 months (Basis / Medium / Maxi), Express course (6 days), Pronunciation intensive (3 days), Trial lesson with a level test (50–55 min), one-to-one lessons. |
 | Contacts | Instagram Direct, Telegram, WhatsApp / phone, email (`info@medicallatin.com`, forwarded to Halyna's mailbox by Cloudflare Email Routing). |
 | Booking form | Google Form, one per language, created by Halyna in her Google account; questions drafted in [google-form.md](google-form.md). |
@@ -491,9 +491,9 @@ attribute; `grep -rn "data-placeholder" site` lists them all.
 | 3 | `GOOGLE_FORM_UA_URL`, `GOOGLE_FORM_EN_URL` | Header, mobile booking bar, sign-up and course call-to-action buttons |
 | 4 | ~~`LEVEL_TEST_PRICE`~~ Removed: the level test is now part of the trial lesson (600 грн) | |
 | 5 | ~~`LEVEL_TEST_FORMAT`~~ Removed: the trial lesson with a level test is 50–55 min | |
-| 6 | ~~`EXPRESS_NEXT_DATES`~~ Filled: "every week in February 2027" | |
+| 6 | ~~`EXPRESS_NEXT_DATES`~~ Filled: 8.02, 22.02 and 9.03.2027 | |
 | 7 | Stress marks and part glosses for the three hero terms: Halyna to confirm (not marked on the page) | Hero (both languages) |
-| 8 | `SCHOOL_PACKAGES`: prices of the 5-, 8- and 10-lesson packages for schoolchildren | Courses, one-to-one lessons (UA only) |
+| 8 | ~~`SCHOOL_PACKAGES`~~ Filled: 5 lessons 3400, 8 lessons 5300, 10 lessons 6700 грн (§14) | |
 
 ## 12. Open questions: answered
 
@@ -554,10 +554,16 @@ changed:
 
 Still open (asked of Halyna; nothing invented in the meantime):
 
-- **Schoolchildren's packages.** Her numbers (5 lessons 5400, 8 lessons 5300,
-  10 lessons 6700 грн) don't fit 700 грн per lesson, so the site shows 700 грн per
-  lesson and the `SCHOOL_PACKAGES` placeholder until she confirms (§11).
 - **Recorded «Іменник» module extras.** The old text promised a pronunciation bonus,
   10 interactive exercises and 2 weeks of Telegram support. Her new description
   doesn't mention them, so they were removed. Put them back if they still apply.
-- **The 10 % early discount.** Whether it combines with the student packages.
+
+### Her follow-up answers (24 Nov 2026)
+
+| Her answer | What changed |
+|---|---|
+| Express groups start on 8.02.2027, 22.02.2027 and 9.03.2027 | Replaces "every week in February 2027" on both languages' home and courses pages. Booking prices unchanged. |
+| Schoolchildren's packages: 5 lessons 5400, 8 lessons 5300, 10 lessons 6700 грн | The 5-lesson price was a slip: it cost more than the 8-lesson package. Volodymyr confirmed 3400 грн. Shown as 3400 / 5300 / 6700 грн; the `SCHOOL_PACKAGES` placeholder is gone. |
+| Specialised preparation for university entrance is priced individually, by request and time | A line under the schoolchildren's prices. |
+| Students: from 1000 грн per lesson | "від 1000 грн" on the home and courses pages. |
+| Students' packages: 10 % off from July to November; June–November 4350 / 8500 / 13300 грн (2 / 5 / 8 % off), December–May 4650 / 9000 / 13770 грн, for 5 / 10 / 16 lessons | A small table with the two seasons, without percentages. The June–November prices already include the seasonal 10 % (1000 грн × lessons, less 10 %, less 2 / 5 / 8 % is about 4410 / 8550 / 13250 грн), so the separate «Вчасне звернення: знижка 10 %» line was removed: it suggested an extra discount on top. Decided by Volodymyr. |

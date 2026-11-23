@@ -21,7 +21,7 @@ delivered to Halyna's mailbox. Every DNS record in use is listed in
 Still open:
 
 - the remaining placeholders ([step 0](#0-pre-launch-checklist));
-- Halyna's open questions on prices and terms
+- Halyna's open question on the recorded «Іменник» module
   ([design plan §14](design-plan.md#14-revision-after-halynas-feedback-23-nov-2026));
 - the phone and Instagram checks ([step 7](#7-check-the-live-site));
 - the Instagram bio link and, optionally, Search Console ([step 8](#8-after-launch)).
@@ -72,9 +72,9 @@ that account too.
   [google-form.md](google-form.md), and their links pasted in.
 - [ ] **Halyna has checked** the stress marks and part meanings of the three hero
   terms (*endocarditis*, *tachycardia*, *chlorodontia*) on both home pages.
-- [ ] **Halyna's open questions are answered**: the schoolchildren's package prices,
-  the extras of the recorded «Іменник» module and whether the 10 % early discount
-  combines with packages
+- [ ] **Halyna's open question is answered**: whether the recorded «Іменник» module
+  still comes with its old extras (pronunciation bonus, 10 exercises, 2 weeks of
+  Telegram support)
   ([design plan §14](design-plan.md#14-revision-after-halynas-feedback-23-nov-2026)).
 - [ ] **`info@medicallatin.com` receives mail** ([step 9](#9-set-up-infomedicallatincom)),
   since both home pages show it.
