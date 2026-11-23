@@ -60,8 +60,13 @@ atlas, and the whole term's meaning sits below:
 = запалення внутрішніх шарів серця
 ```
 
-A small button, «Розібрати інший термін», swaps in the next term. The same part,
-*card-*, reappears in the second one, which shows the logic without saying it:
+A button, «Розібрати інший термін», swaps in the next term. The same part,
+*card-*, reappears in the second one, which shows the logic without saying it.
+It started as a plain text link, which proved easy to miss, so since 23 Nov 2026 it
+is a pill in the annotation colour (rust outline, faint rust fill, a turn icon), with
+three small dots beside it showing which term is on screen. It stays in the
+correction-pen colour, not maroon, so it reads as part of the dissected term and
+never competes with the booking buttons:
 
 1. **endocarditis**: endo- (всередині) + card- (серце) + -itis (запалення):
    «запалення внутрішніх шарів серця».
@@ -228,7 +233,7 @@ same two sit in the sticky header. Their names never change across the site.
 │ редині      лення              │
 │ = запалення внутрішніх шарів   │
 │   серця                        │
-│ Розібрати інший термін         │ text button
+│ (↻ Розібрати інший термін) ━•• │ pill button + term dots
 │                                │
 │ Галина Шпинта — кандидат       │ credentials in one sentence
 │ філологічних наук, доцент,     │
@@ -405,14 +410,15 @@ The timeline is a real sequence, so it uses dates as markers. Nowhere else does.
 ## 7. Motion
 
 - **One orchestrated moment.** On load, the hero term's parts move slightly apart and
-  the red leader lines draw down to their meanings (about 600ms). The same motion runs
+  the red leader lines draw down to their meanings (about 600ms); as it ends, the
+  switch button's turn icon spins once, to draw the eye to it. The same motion runs
   when the visitor taps «Розібрати інший термін».
 - **Nothing else moves on its own:** no scroll reveals, no hover lifts on cards. Hover
   and focus change colour only.
 - **`prefers-reduced-motion: reduce`:** the term appears already split and switches
-  instantly.
+  instantly; the icon doesn't turn.
 - **Without JavaScript:** the first term shows, fully annotated, and the switch button
-  is hidden.
+  and its dots are hidden.
 
 ## 8. Principles
 
@@ -423,6 +429,7 @@ The timeline is a real sequence, so it uses dates as markers. Nowhere else does.
 4. **One bold thing.** The dissected term is the memorable element. Everything around
    it stays quiet: no shadows, gradients, card grids or decorative icons. The only
    ornaments are the faint Rome and library silhouettes, a tone away from the paper.
+   The one icon, the turn arrow on the term switch, is there to say what it does.
 5. **Structure only when content has structure.** Brackets and bars appear where
    levels nest or lessons follow in order; numbers appear only for real sequences.
 6. **Booking is never more than one tap away, and never interrupts.**

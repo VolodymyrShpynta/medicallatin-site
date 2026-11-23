@@ -496,22 +496,54 @@ strong { font-weight: 600; }
   font-weight: 600;
 }
 
+/* «Розібрати інший термін»: a pill in the annotation colour, so it reads as part of the
+   dissected term rather than as a booking button. The dots show which term is on screen. */
+.term__controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem;
+  margin-top: 1.25rem;
+}
+.term__controls[hidden] { display: none; }
 .term__next {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
   min-height: 2.75rem;
-  margin-top: 0.75rem;
-  padding: 0.5rem 0;
-  border: 0;
-  background: none;
+  padding: 0.5rem 1.15rem 0.5rem 0.9rem;
+  border: 1.5px solid var(--red);
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--red) 9%, var(--paper));
   color: var(--maroon);
-  font: inherit;
+  font-family: var(--sans);
+  font-stretch: 100%;
   font-size: 1rem;
-  text-decoration: underline;
-  text-decoration-thickness: 1px;
-  text-underline-offset: 0.18em;
+  font-weight: 600;
+  line-height: 1.2;
   cursor: pointer;
 }
-.term__next:hover { text-decoration-thickness: 2px; }
-.term__next[hidden] { display: none; }
+.term__next:hover { background: color-mix(in srgb, var(--red) 18%, var(--paper)); }
+.term__next:focus-visible { border-radius: 999px; }
+.term__icon {
+  flex: none;
+  width: 1.25em;
+  height: 1.25em;
+  color: var(--red);
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.term__dots { display: flex; gap: 0.375rem; }
+.term__dots span {
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--red) 35%, var(--paper));
+}
+.term__dots .is-current { width: 1.375rem; background: var(--red); }
 
 @media (min-width: 64em) {
   .term__gloss { font-size: 1rem; max-width: 9rem; }
@@ -524,12 +556,17 @@ strong { font-weight: 600; }
   .term.is-animating .term__item::after { animation: draw-y 0.25s 0.5s ease-out both; transform-origin: top; }
   .term.is-animating .term__gloss { animation: fade-in 0.3s 0.6s ease-out both; }
   .term.is-animating .term__meaning { animation: fade-in 0.3s 0.75s ease-out both; }
+  /* The icon turns once as the split finishes, and at once on every click. */
+  .term.is-animating .term__icon { animation: turn 0.7s 0.9s cubic-bezier(0.3, 0.7, 0.2, 1); }
+  .term.is-animating.is-switched .term__icon { animation-duration: 0.5s; animation-delay: 0s; }
+  .term__next, .term__dots span { transition: background-color 0.15s, width 0.25s; }
 }
 
 @keyframes term-split { from { gap: 0; } }
 @keyframes draw-x { from { transform: scaleX(0); } }
 @keyframes draw-y { from { transform: scaleY(0); } }
 @keyframes fade-in { from { opacity: 0; } }
+@keyframes turn { to { transform: rotate(360deg); } }
 
 /* Who I am */
 
