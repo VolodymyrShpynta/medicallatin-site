@@ -1107,7 +1107,7 @@ strong { font-weight: 600; }
   .dm__fields { grid-template-columns: 1fr 1fr; }
 }
 .dm__field { display: grid; gap: 0.35rem; }
-.dm__field > span { color: var(--slate); font-size: 0.875rem; }
+.dm__field > span:first-child { color: var(--slate); font-size: 0.875rem; }
 .dm input,
 .dm select,
 .dm textarea {
@@ -1121,6 +1121,53 @@ strong { font-weight: 600; }
   font: inherit;
 }
 .dm textarea { resize: vertical; field-sizing: content; }
+
+/* Selects draw their own chevron, so it sits as far from the edge as the text does */
+.dm__select { position: relative; display: block; }
+.dm__select::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: 1.125rem;
+  width: 0.5rem;
+  height: 0.5rem;
+  border: solid var(--slate);
+  border-width: 0 2px 2px 0;
+  transform: translateY(-70%) rotate(45deg);
+  pointer-events: none;
+}
+.dm select {
+  appearance: none;
+  padding-right: 2.75rem;
+  cursor: pointer;
+}
+/* Where the browser allows it (Chrome and Edge 135+), the open list is styled too:
+   rounded, in the site's colours. Elsewhere it stays the browser's own list. */
+@supports (appearance: base-select) {
+  .dm select,
+  .dm select::picker(select) { appearance: base-select; }
+  .dm select::picker-icon { display: none; }
+  .dm select::picker(select) {
+    margin-block: 0.25rem;
+    padding: 0.25rem;
+    border: 1.5px solid color-mix(in srgb, var(--ink) 45%, var(--paper));
+    border-radius: 0.5rem;
+    background: var(--paper);
+    color: var(--ink);
+  }
+  .dm option {
+    padding: 0.5rem 0.75rem;
+    border-radius: 0.25rem;
+  }
+  .dm option:hover,
+  .dm option:focus-visible { background: var(--tint, var(--atlas)); }
+  .dm option:focus-visible {
+    outline: 2px solid var(--red);
+    outline-offset: -2px;
+  }
+  .dm option:checked { font-weight: 600; }
+  .dm option::checkmark { color: var(--maroon); }
+}
 .dm .cta-row { align-items: center; }
 .dm__status { color: var(--slate); font-size: 0.875rem; }
 
