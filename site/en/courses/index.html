@@ -23,6 +23,7 @@
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
   <link rel="preload" href="/assets/fonts/fixel-var.woff2" as="font" type="font/woff2" crossorigin>
   <script src="/assets/js/theme.js"></script>
+  <script src="/assets/js/express.js" defer></script>
   <link rel="stylesheet" href="/assets/css/site.css">
 </head>
 <body>
@@ -51,7 +52,7 @@
     <div class="wrap page-head page-head--library">
       <h1>Courses</h1>
       <p class="lede">All lessons are online, on Zoom, with support on Telegram. Not sure where to start? Choose a trial lesson with a level test.</p>
-      <p class="prose muted">Prices for lessons in English are on request: message me in Direct or fill in the form.</p>
+      <p class="prose muted">Prices for lessons in English are in US dollars.</p>
     </div>
 
     <div class="wrap with-toc">
@@ -122,12 +123,47 @@
             </div>
           </div>
 
-          <h3>Formats</h3>
+          <h3>Formats and prices</h3>
+          <table class="price-table">
+            <caption>Price for the whole level</caption>
+            <thead>
+              <tr>
+                <th scope="col">Level</th>
+                <th scope="col">Recorded</th>
+                <th scope="col">Mini-group, 3–⁠5 people</th>
+                <th scope="col">One-to-one</th>
+                <th scope="col">Telegram support 24/6</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row"><span lang="la">Basis</span><span class="sub">8 lessons</span></th>
+                <td data-label="Recorded">$22<span class="sub">noun module only</span></td>
+                <td data-label="Mini-group">$110</td>
+                <td data-label="One-to-one">$200</td>
+                <td data-label="Telegram 24/6">1 month</td>
+              </tr>
+              <tr>
+                <th scope="row"><span lang="la">Medium</span><span class="sub">12 lessons</span></th>
+                <td data-label="Recorded"><span aria-hidden="true">—</span><span class="visually-hidden">not available</span></td>
+                <td data-label="Mini-group">$165</td>
+                <td data-label="One-to-one">$275</td>
+                <td data-label="Telegram 24/6">1.5 months</td>
+              </tr>
+              <tr>
+                <th scope="row"><span lang="la">Maxi</span><span class="sub">16 lessons</span></th>
+                <td data-label="Recorded"><span aria-hidden="true">—</span><span class="visually-hidden">not available</span></td>
+                <td data-label="Mini-group">$225</td>
+                <td data-label="One-to-one">$400</td>
+                <td data-label="Telegram 24/6">2 months</td>
+              </tr>
+            </tbody>
+          </table>
+
           <dl class="facts">
             <div><dt>One-to-one</dt><dd>Lessons of 55–⁠60&nbsp;min. We agree times in a shared chat.</dd></div>
             <div><dt>Mini-group</dt><dd>3–⁠5 people, lessons of 70–⁠100&nbsp;min. The group picks times that suit everyone.</dd></div>
             <div><dt>Recorded</dt><dd>Only the noun module: stem, general characteristics, declensions, non-agreed attributes. Recorded lessons on Telegram, with questions in the Telegram chat.</dd></div>
-            <div><dt>Telegram support</dt><dd>24/6 for 1 month (<span lang="la">Basis</span>), 1.5 months (<span lang="la">Medium</span>) or 2 months (<span lang="la">Maxi</span>).</dd></div>
           </dl>
 
           <h3>Bonuses</h3>
@@ -145,15 +181,50 @@
           <p class="prose">For medical students whose final module test is close and for whom prescriptions, diagnoses and clinical terms still feel like chaos. It’s revision and structure, not learning from scratch.</p>
           <p><span class="start-date">Next groups: 8 February, 22 February and 9 March 2027</span></p>
 
+          <h3>Sound familiar?</h3>
+          <ul class="list">
+            <li>Prescriptions, diagnoses and clinical terms have merged into one stream of information.</li>
+            <li>You mix up what belongs to the noun and what to the adjective, and how to agree the endings.</li>
+            <li>Endless cramming without understanding the logic, and constant stress before the oral test.</li>
+          </ul>
+
+          <h3>Who it’s for</h3>
+          <ul class="list">
+            <li>students before their final module test or exams;</li>
+            <li>those who have studied Latin and want a quick revision;</li>
+            <li>those who want to find their gaps and build a system.</li>
+          </ul>
+
           <h3>Programme: 6 days, 6 lessons</h3>
-          <ol class="numbered">
-            <li>Nouns. Non-agreed attributes.</li>
-            <li>Adjectives. Agreed attributes.</li>
-            <li>Prescriptions: rules for writing and reading them. Chemical nomenclature.</li>
-            <li>Prescriptions: abbreviations, plants, drug names and dosage forms.</li>
-            <li>Clinical terminology: stress, basics of word formation, affixes.</li>
-            <li>Clinical terminology: building terms from the most frequent Greek morphemes. The 30 most frequent diagnoses. Your questions answered.</li>
-          </ol>
+          <div class="days">
+            <div class="days__block">
+              <h4>Lessons 1–⁠2. Grammar and anatomical terminology</h4>
+              <p>We put grammar in order: you stop mixing up noun declensions and adjective groups, and learn to use reference tables instead of blind cramming.</p>
+              <ul class="list">
+                <li>Nouns (declensions I–V). Non-agreed attributes: a clear algorithm for building them.</li>
+                <li>Adjectives (groups I and II). Agreed attributes in every case, singular and plural.</li>
+                <li>The different types of complex anatomical phrases, and the usual exam traps.</li>
+              </ul>
+            </div>
+            <div class="days__block">
+              <h4>Lessons 3–⁠4. Prescriptions and pharmaceutical terminology</h4>
+              <p>The structure of a prescription line, step by step: from the right case for the dosage form and the active substance to standard abbreviations and the signature.</p>
+              <ul class="list">
+                <li>Rules for writing and reading prescriptions: solid, soft and liquid dosage forms.</li>
+                <li>Chemical nomenclature: acids, oxides and salts.</li>
+                <li>Prescription abbreviations, the names of medicinal plants and drugs, standard phrases.</li>
+              </ul>
+            </div>
+            <div class="days__block">
+              <h4>Lessons 5–⁠6. Clinical terminology and a mock final test</h4>
+              <p>We learn to understand and build clinical terms from prefixes, roots and suffixes, practise the right stress, and sit a mock final module test.</p>
+              <ul class="list">
+                <li>Stress in clinical terms, basics of word formation and affixes.</li>
+                <li>Building terms from the most frequent Greek morphemes (<span lang="la">-⁠tomia, -⁠stomia, -⁠ectomia, brachy-, brady-</span>).</li>
+                <li>The 30 most frequent diagnoses (<span lang="la">vitium cordis congenitum</span>, <span lang="la">cicatrices post variolam</span>), your questions answered, and a mock final test.</li>
+              </ul>
+            </div>
+          </div>
 
           <h3>Format</h3>
           <ul class="list">
@@ -173,11 +244,80 @@
             <li>stop fearing the oral part of the test;</li>
             <li>go into the test much calmer.</li>
           </ul>
+          <p class="stat"><strong>100%</strong> of students in a poll recommended the course to others.</p>
 
-          <dl class="facts">
-            <div><dt>Formats</dt><dd>One-to-one, or a mini-group of 4 or more</dd></div>
-            <div><dt>Booking</dt><dd>In advance, with prepayment. Booking by 30 January costs least; after that the price goes up.</dd></div>
-          </dl>
+          <h3>Formats and prices</h3>
+          <p class="prose">Booking is in advance, with prepayment. Booking by 30 January costs least.</p>
+          <div class="plans">
+            <div class="plan">
+              <h4>Mini-group</h4>
+              <p class="plan__who">4 or more people</p>
+              <p class="plan__price"><strong>$56</strong> if you book by 30 January</p>
+              <p class="plan__note">Then the price goes up each week ($63 from 31 January).</p>
+              <ul class="list">
+                <li>6 live online lessons on Zoom.</li>
+                <li>A private Telegram chat with me 24/6, with interactive tests.</li>
+                <li>A mock final test, and answers to all your questions.</li>
+              </ul>
+            </div>
+            <div class="plan">
+              <h4>One-to-one</h4>
+              <p class="plan__who">6 lessons, 1:1</p>
+              <p class="plan__price"><strong>$150</strong> if you book by 30 January</p>
+              <p class="plan__note">$175 from 31 January.</p>
+              <ul class="list">
+                <li>Lessons at times that suit you.</li>
+                <li>My full attention: we close exactly your gaps.</li>
+                <li>Practice on difficult prescriptions and diagnoses, to your department’s requirements.</li>
+                <li>A personal simulation of the oral final test.</li>
+              </ul>
+            </div>
+          </div>
+
+          <h3>Check yourself in 60 seconds</h3>
+          <p class="prose">Three real tasks from the course: anatomy, prescriptions, clinical terms.</p>
+          <div class="quiz">
+            <div class="quiz__q" role="group" aria-labelledby="quiz-q1">
+              <p class="quiz__cat">Anatomical terminology</p>
+              <p class="quiz__text" id="quiz-q1">How do you put <span lang="la">facies anterior</span> (anterior surface) into the genitive plural?</p>
+              <ul class="quiz__opts">
+                <li><span lang="la">faciorum anteriorium</span></li>
+                <li data-correct><span lang="la">facierum anteriorum</span></li>
+                <li><span lang="la">facies anteriores</span></li>
+              </ul>
+              <details class="quiz__answer">
+                <summary>Answer</summary>
+                <p>The answer is <span lang="la">facierum anteriorum</span>. <span lang="la">Facies, ei f</span> is a 5th-declension noun (<span lang="la">Gen. pl.</span> -⁠erum), and <span lang="la">anterior, ius</span> is a comparative adjective, declined like a 3rd-declension consonant stem (<span lang="la">Gen. pl.</span> -⁠um).</p>
+              </details>
+            </div>
+            <div class="quiz__q" role="group" aria-labelledby="quiz-q2">
+              <p class="quiz__cat">Prescriptions</p>
+              <p class="quiz__text" id="quiz-q2">What does <span lang="la">M., f. linim. D.S.</span> mean at the end of a prescription?</p>
+              <ul class="quiz__opts">
+                <li>Take a liquid ointment in equal parts. Give.</li>
+                <li>Give such doses in tablets. Label.</li>
+                <li data-correct>Mix to make a liniment. Give. Label.</li>
+              </ul>
+              <details class="quiz__answer">
+                <summary>Answer</summary>
+                <p>The answer is “Mix to make a liniment. Give. Label.” <span lang="la">M., f. linim.</span> = <span lang="la">Misce, fiat linimentum</span>; <span lang="la">D.S.</span> = <span lang="la">Da. Signa.</span></p>
+              </details>
+            </div>
+            <div class="quiz__q" role="group" aria-labelledby="quiz-q3">
+              <p class="quiz__cat">Clinical terminology</p>
+              <p class="quiz__text" id="quiz-q3">How do the Greek prefixes <span lang="la">brachy-</span> and <span lang="la">brady-</span> differ?</p>
+              <ul class="quiz__opts">
+                <li>Both mean “disorder”.</li>
+                <li data-correct><span lang="la">brachy-</span> means “short”, <span lang="la">brady-</span> means “slow”.</li>
+                <li><span lang="la">brachy-</span> means “slow”, <span lang="la">brady-</span> means “short”.</li>
+              </ul>
+              <details class="quiz__answer">
+                <summary>Answer</summary>
+                <p>The answer is: <span lang="la">brachy-</span> = short (<span lang="la">brachydactylia</span>), <span lang="la">brady-</span> = slow (<span lang="la">bradykinesia</span>, slowness of movement).</p>
+              </details>
+            </div>
+            <p class="quiz__score" role="status"></p>
+          </div>
 
           <h3>Frequently asked questions</h3>
           <div class="faq">
@@ -214,6 +354,38 @@
               <p>It’s the essentials concentrated into 6 days, focused on students’ typical mistakes, and explained through logic rather than cramming. Nothing extra: only what helps you pass and understand.</p>
             </details>
           </div>
+
+          <h3>Sign up for the express course</h3>
+          <div class="dm" hidden>
+            <p class="prose">Put together a ready message: fill in the fields, copy it and paste it into Direct.</p>
+            <div class="dm__fields">
+              <label class="dm__field"><span>Group</span>
+                <select data-dm="stream">
+                  <option>8 February 2027</option>
+                  <option>22 February 2027</option>
+                  <option>9 March 2027</option>
+                  <option value="">not sure yet</option>
+                </select>
+              </label>
+              <label class="dm__field"><span>Format</span>
+                <select data-dm="format">
+                  <option>mini-group</option>
+                  <option>one-to-one</option>
+                </select>
+              </label>
+              <label class="dm__field"><span>Your name</span><input type="text" data-dm="name" autocomplete="given-name"></label>
+              <label class="dm__field"><span>Your Instagram or Telegram handle</span><input type="text" data-dm="nick" autocomplete="off"></label>
+            </div>
+            <label class="dm__field"><span>Your message</span><textarea data-dm="text" rows="4" readonly></textarea></label>
+            <div class="cta-row">
+              <button class="btn btn--secondary" type="button" data-dm="copy">Copy the message</button>
+              <p class="dm__status" role="status"></p>
+            </div>
+          </div>
+          <div class="cta-row">
+            <a class="btn btn--primary" href="https://ig.me/m/lingualatina_halyna">Message me in Direct</a>
+            <a class="btn btn--secondary" href="#todo-google-form-en" data-placeholder="GOOGLE_FORM_EN_URL">Fill in the form</a>
+          </div>
         </section>
 
         <section class="course" id="pronunciation" data-course="pronunciation" aria-labelledby="pronunciation-title">
@@ -240,8 +412,8 @@
           <p class="prose">Students of medical, dental and pharmacy faculties, interns, pharmacists and anyone who works with Latin and wants to sound confident.</p>
 
           <dl class="facts">
-            <div><dt>Group intensive</dt><dd>A new group starts once a month.</dd></div>
-            <div><dt>One-to-one</dt><dd>Start by arrangement.</dd></div>
+            <div><dt>Group intensive</dt><dd>$12. A new group starts once a month.</dd></div>
+            <div><dt>One-to-one</dt><dd>$75. Start by arrangement.</dd></div>
           </dl>
         </section>
 
@@ -265,7 +437,7 @@
           <p class="prose"><strong>A sample task from block 5.</strong> Choose the Latin term for “inflammation of the inner layers of the heart”: <span lang="la">endocarditis</span>, <span lang="la">pancarditis</span> or <span lang="la">exocarditis</span>?</p>
           <dl class="facts">
             <div><dt>Length</dt><dd>50–⁠55&nbsp;min</dd></div>
-            <div><dt>Price</dt><dd>On request</dd></div>
+            <div><dt>Price</dt><dd>$15</dd></div>
           </dl>
           <p class="prose">Message me “TRIAL” in Direct, and we’ll arrange a time.</p>
         </section>
@@ -275,9 +447,49 @@
           <p class="prose">At your own pace, working on your topics and your gaps. We agree times in a shared chat.</p>
           <dl class="facts">
             <div><dt>Length</dt><dd>55–⁠60&nbsp;min</dd></div>
-            <div><dt>Price</dt><dd>On request</dd></div>
             <div><dt>Payment</dt><dd>In advance, for at least 3 lessons.</dd></div>
           </dl>
+
+          <h3>For schoolchildren</h3>
+          <dl class="facts">
+            <div><dt>One lesson</dt><dd>$18</dd></div>
+            <div><dt>5 lessons</dt><dd>$85</dd></div>
+            <div><dt>8 lessons</dt><dd>$133</dd></div>
+            <div><dt>10 lessons</dt><dd>$168</dd></div>
+            <div><dt>University entrance</dt><dd>Specialised preparation for university entrance: the price depends on your request and the time available, and we agree it individually.</dd></div>
+          </dl>
+
+          <h3>For students</h3>
+          <dl class="facts">
+            <div><dt>One lesson</dt><dd>from $25</dd></div>
+          </dl>
+          <table class="price-table">
+            <caption>Packages</caption>
+            <thead>
+              <tr>
+                <th scope="col">Package</th>
+                <th scope="col">June–November</th>
+                <th scope="col">December–May</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">5 lessons</th>
+                <td data-label="June–November">$109</td>
+                <td data-label="December–May">$116</td>
+              </tr>
+              <tr>
+                <th scope="row">10 lessons</th>
+                <td data-label="June–November">$213</td>
+                <td data-label="December–May">$225</td>
+              </tr>
+              <tr>
+                <th scope="row">16 lessons</th>
+                <td data-label="June–November">$333</td>
+                <td data-label="December–May">$344</td>
+              </tr>
+            </tbody>
+          </table>
           <div class="cta-row">
             <a class="btn btn--primary" href="https://ig.me/m/lingualatina_halyna">Message me in Direct</a>
             <a class="btn btn--secondary" href="#todo-google-form-en" data-placeholder="GOOGLE_FORM_EN_URL">Fill in the form</a>
