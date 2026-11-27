@@ -30,11 +30,11 @@ To check the site exactly as Cloudflare will serve it, with `site/_headers` and 
 | [`site/`](site/) | Everything that is published. |
 | `site/index.html`, `courses/`, `about/` | Ukrainian pages, with prices. |
 | `site/en/…` | English pages, same structure, prices in US dollars. |
-| `site/assets/css/site.css` | All styles; colour tokens for the light theme, the dark theme and each course's shade are at the top. |
+| `site/assets/css/site.css` | All styles; colour tokens for the light theme, the dark theme and each course's accent are at the top. The look follows Halyna's express-course landing ([design plan §16](docs/design-plan.md#16-redesign-in-the-landings-style-28-nov-2026)). |
 | `site/assets/js/term.js` | The hero's «Розібрати інший термін» switcher. |
 | `site/assets/js/express.js` | On the courses pages: the express course's 3-question quiz and the ready-message helper for Direct. Without JavaScript the quiz answers stay readable and the helper is hidden. |
 | `site/assets/js/theme.js` | The light/dark switch in the header. The site opens light for everyone; dark only when chosen. Loaded in `<head>` without `defer`, so a saved choice applies before the page paints. |
-| `site/assets/img/deco/` | The faint Rome skyline and library silhouettes, drawn into the page with CSS masks. |
+| `site/assets/img/deco/` | The landing's sprig (hero), the Rome skyline (footer) and the library bookcase (Courses and About), drawn into the page faintly with CSS masks. |
 | `site/_headers` | Cloudflare Pages headers: a self-only Content-Security-Policy, and a long cache for fonts only. |
 | `site/404.html` | Bilingual "page not found". |
 | `site/sitemap.xml`, `robots.txt` | For search engines. |
@@ -54,9 +54,11 @@ in all six pages. When you change one, change it everywhere.
   9.03.2027, and the 30.01 booking deadline) appear in `index.html`,
   `courses/index.html`, `en/index.html` and `en/courses/index.html`.
 - **Course colours:** each course block carries `data-course="main"`, `express`,
-  `pronunciation`, `trial` or `individual`, which picks its shade. Use the same value
-  in the home offers list, the courses page index and the course section.
-- **Latin** is always wrapped in `<span lang="la">…</span>`; that sets it in EB Garamond
+  `pronunciation`, `trial` or `individual`, which picks its accent colour (the cap on
+  its card and its swatch). Use the same value in the home offers list, the courses
+  page index and the course section.
+- **Latin** is always wrapped in `<span lang="la">…</span>`; that sets it in italic
+  Cormorant Garamond
   and tells screen readers to switch language.
 - **Hero terms** live in `<template>` elements inside `.term` on both home pages.
 - **Contacts** (Instagram, Telegram, WhatsApp, `info@medicallatin.com`) are in the

@@ -7,12 +7,16 @@ nothing from other servers.
 
 All fonts are self-hosted in [`site/assets/fonts/`](../site/assets/fonts/), subset to
 the characters the site uses and converted to WOFF2. The OFL allows this; neither font
-declares a Reserved Font Name.
+declares a Reserved Font Name. They are the fonts of Halyna's express-course landing,
+which loaded them from Google Fonts; here they are served from the site itself.
 
 | Font | Files | Use | Source | Licence |
 |---|---|---|---|---|
-| **EB Garamond** by Georg Duffner and Octavio Pardo | `eb-garamond.woff2`, `eb-garamond-italic.woff2` (weight 400; Latin, Latin Extended-A, combining accents) | Latin text only | [google/fonts: ofl/ebgaramond](https://github.com/google/fonts/tree/main/ofl/ebgaramond), from [octaviopardo/EBGaramond12](https://github.com/octaviopardo/EBGaramond12) | SIL Open Font License 1.1, [`OFL-EBGaramond.txt`](../site/assets/fonts/OFL-EBGaramond.txt) |
-| **Fixel** by MacPaw | `fixel-var.woff2` (variable: weight 400–700, width 87.5–100; Latin, Latin Extended-A, Cyrillic) | All Ukrainian and English text | [MacPaw/Fixel](https://github.com/MacPaw/Fixel), `fonts/variable/FixelVariable.ttf` | SIL Open Font License 1.1, [`OFL-Fixel.txt`](../site/assets/fonts/OFL-Fixel.txt) |
+| **Cormorant Garamond** by Christian Thalmann (Catharsis Fonts) | `cormorant-garamond.woff2`, `cormorant-garamond-italic.woff2` (variable, weight 300–700; Latin, Latin Extended-A, Cyrillic, combining accents) | Headings, Latin text, the logo, prices and figures | [google/fonts: ofl/cormorantgaramond](https://github.com/google/fonts/tree/main/ofl/cormorantgaramond), from [CatharsisFonts/Cormorant](https://github.com/CatharsisFonts/Cormorant) | SIL Open Font License 1.1, [`OFL-CormorantGaramond.txt`](../site/assets/fonts/OFL-CormorantGaramond.txt) |
+| **Inter** by Rasmus Andersson | `inter-var.woff2` (variable, weight 400–700, optical size pinned to 14; Latin, Latin Extended-A, Cyrillic) | All other Ukrainian and English text | [google/fonts: ofl/inter](https://github.com/google/fonts/tree/main/ofl/inter), from [rsms/inter](https://github.com/rsms/inter) | SIL Open Font License 1.1, [`OFL-Inter.txt`](../site/assets/fonts/OFL-Inter.txt) |
+
+Until 28 Nov 2026 the site used EB Garamond and Fixel (both OFL); they were removed in
+the redesign.
 
 ## Images
 
@@ -44,6 +48,7 @@ used: Canva's licence covers them only inside Canva designs.
 
 | File | Notes |
 |---|---|
-| `site/favicon.svg` | Drawn for the site in its palette (warm palette since 23 Nov 2026). |
-| `site/assets/og/og-uk.png`, `og-en.png` | Link-preview cards rendered from the site's own CSS and fonts. |
+| `site/favicon.svg` | The logo mark: the sprig from Halyna's express-course landing in an espresso circle (since 28 Nov 2026). |
+| `site/assets/og/og-uk.png`, `og-en.png` | Link-preview cards rendered from the site's own CSS and fonts, in the landing's style. |
+| `site/assets/img/deco/sprig.svg` and the sprig in the header logo | Line art from Halyna's express-course landing (a Gemini Canvas page she made and approved for this use): a sprig in a dashed circle. Redrawn as a self-contained SVG. |
 | `site/assets/img/deco/rome-skyline.svg`, `library.svg` | Flat silhouettes of Rome (temple columns, an arch, pines, the Colosseum, ruins) and of an arched bookcase. Drawn for this site from simple geometric shapes at Halyna's request; not traced from any photo or artwork, so no third-party licence applies. The Canva stock images of libraries and statues are still not used. |

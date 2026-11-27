@@ -4,6 +4,9 @@ Status: **approved** (21 Nov 2026). The answers to the open questions are in §1
 **Revised** on 23 Nov 2026 after Halyna's feedback: a warm palette, light by default,
 faint Rome and library silhouettes, a shade per course, and new offers and prices.
 What changed and why is in §14.
+**Redesigned** on 28 Nov 2026 in the style of Halyna's express-course landing: its
+colours, fonts and components. §16 is the current visual system and overrides the
+colour and type sections (§4, §5) where they differ.
 
 ## 1. The brief, restated
 
@@ -80,6 +83,9 @@ and stress marks are for Halyna to confirm before launch (see §11).
 
 ## 4. Colour
 
+*Superseded on 28 Nov 2026 by the landing's palette (§16). Kept for the history of
+decisions.*
+
 Warm autumn pastels, chosen by Halyna in her feedback (23 Nov 2026). They replace the
 first, cool palette (ward white, atlas grey, blue-black ink); see §14.
 
@@ -155,6 +161,8 @@ Hero (home)                                     Page head (courses, about)
 ```
 
 ## 5. Type
+
+*Superseded on 28 Nov 2026: Cormorant Garamond for headings and Latin, Inter for text (§16). Kept for the history of decisions.*
 
 Two families, with one rule that carries meaning: **Latin is set in the serif;
 Ukrainian and English are set in the sans.** Throughout the site the reader can spot
@@ -605,3 +613,76 @@ UAH price and rounded to whole dollars (halves up). So 600 грн → $15, 2222 
 dollar price by the same factor. The express group's weekly rise is described in
 words ("the price goes up each week, $63 from 31 January") because $7.50 steps
 don't round cleanly.
+
+## 16. Redesign in the landing's style (28 Nov 2026)
+
+Volodymyr asked for the whole site in the style of Halyna's express-course landing
+(§15): the light theme exactly as the landing, the dark theme in matching dark colours.
+This is now the site's visual system; §4 and §5 are kept only as history.
+
+**Colour.** The light values are the landing's own Tailwind colours.
+
+| Token | Light (landing) | Dark | Role |
+|---|---|---|---|
+| Parchment | `#FAF7F2` | `#1B1817` | Page background |
+| Parchment band | `#F5F0E8` | `#211D1B` | Alternate sections (the landing's `parchmentDark` at 60 %) |
+| Parchment dark | `#F2ECE1` | `#2A2522` | Hover and nested surfaces |
+| Card | `#FFFFFF` | `#262120` | Cards |
+| Espresso | `#231F20` | `#F2ECE1` | Text, primary buttons |
+| Espresso muted | `#57514E` | `#B9AFA5` | Secondary text |
+| Bronze | `#8C6D46` | `#C9A574` | Lines, brackets, markers, large figures, italic accents in headings |
+| Bronze (small text) | `#7F623C` | `#D2B083` | Eyebrow labels and links |
+| Bronze hover | `#735735` | `#DDBF92` | Button hover |
+| Sage / sage ink | `#E9ECE6` / `#5A6650` | `#2B3027` / `#B7C6A6` | Status pills (next start), correct quiz answers |
+| Warm border | `#E6DFD5` | `#3A332F` | Card borders and rules |
+| Espresso card | `#231F20` | `#2E2825` | The advice card, the About call to action and the footer |
+
+One deliberate deviation: the landing uses bronze `#8C6D46` for its small uppercase
+labels too, which is 4.2–4.5:1 on its backgrounds and fails WCAG AA for small text. Small
+bronze text here uses `#7F623C` (5.0:1 or more); bronze `#8C6D46` stays for lines and
+large text, where 3:1 is enough. Contrast, lowest across background, band and card:
+
+| Pair | Light | Dark |
+|---|---|---|
+| Text | 14.4 | 13.5 |
+| Secondary text | 6.9 | 7.4 |
+| Bronze small text and links | 5.0 | 7.8 |
+| Bronze large text | 4.2 | 6.9 |
+| Sage pill text | 5.1 | 7.5 |
+| Primary button text | 15.3 | 15.0 |
+| Footer text / secondary | 15.3 / 9.7 | 12.3 / 7.6 |
+
+**Type.** The landing's fonts, self-hosted (`docs/credits.md`): **Cormorant Garamond**
+(weight 600–700) for headings, the logo, prices and figures, and, in italic, for Latin;
+**Inter** for everything else. Figures are lining (Cormorant's default is old-style).
+The rule "serif means Latin" (§5) gives way to the landing's serif headings; Latin
+stays recognisable because it is always italic.
+
+**Components** (all from the landing):
+
+- Sticky translucent header with the logo: the landing's sprig in an espresso circle,
+  «LINGUALATINA» in spaced capitals, «Медична латина» / "Medical Latin" under it. The
+  favicon is the same mark.
+- Small uppercase bronze labels ("eyebrows") over section headings; centred section
+  heads; alternate sections on the parchment band.
+- White cards with 24 px corners, a warm border and a soft shadow; 16 px corners for
+  buttons, fields, FAQ items and nested boxes; pills for status and tags.
+- Buttons: espresso with a bronze hover (primary), white with a border (secondary).
+- Hero: a pulsing sage status pill, a serif headline with an italic bronze phrase,
+  two buttons and a row of four metrics (17 years, examiner since 2011, 80 % practice,
+  24/6 support: all from her materials), and a white card holding the dissected term.
+- The landing's dark espresso card for the advice under the student cases and for the
+  About call to action; the footer is an espresso band.
+- FAQ as separate rounded boxes with + / −; quiz options as rounded buttons that turn
+  sage or rust; the express-course formats as the landing's price cards, the group one
+  framed in bronze.
+
+**What stays from earlier decisions** (Volodymyr's choices for this redesign):
+
+- **Decoration:** the landing's sprig in a dashed circle sits behind the hero; the
+  Rome skyline stays, faint, above the footer motto; the library bookcase stays beside
+  the titles on Courses and About.
+- **A colour per course:** cards are white as on the landing, and each course keeps its
+  colour (§4 table) as a 5–6 px cap on its card and as its swatch in the page index.
+- The dissected term, its switcher and dots, the light/dark switch (light by default),
+  the mobile booking bar, and every quality rule in §13.
