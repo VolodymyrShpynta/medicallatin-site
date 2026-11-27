@@ -70,8 +70,9 @@ that account too.
   Anything left over shows on the live site with a dashed red outline.
 - [ ] **Google Forms created** in Halyna's Google account, one per language, from
   [google-form.md](google-form.md), and their links pasted in.
-- [ ] **Halyna has checked** the stress marks and part meanings of the three hero
-  terms (*endocarditis*, *tachycardia*, *chlorodontia*) on both home pages.
+- [ ] **Halyna has checked** the stress marks and part meanings of the six hero
+  terms (*endocarditis*, *tachycardia*, *bradykinesia*, *chlorodontia*,
+  *xanthodermia*, *hysterectomia*) on both home pages.
 - [ ] **Halyna's open question is answered**: whether the recorded «Іменник» module
   still comes with its old extras (pronunciation bonus, 10 exercises, 2 weeks of
   Telegram support)

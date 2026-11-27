@@ -18,7 +18,7 @@ What changed and why is in §14.
      medical-lyceum pupils, applicants and interns. Most arrive from Instagram on a
      phone, often anxious before the ПК (final module test).
   2. English-speaking students of any medical school. They get the same courses in
-     English, with no prices.
+     English, priced in US dollars (since 27 Nov 2026; see §15).
 - **Main job.** Turn a worried student into a booking request: a message in
   Instagram Direct or the Google Form. The page earns that by showing her method,
   her credentials, the offers and real student results.
@@ -28,9 +28,9 @@ What changed and why is in §14.
 | Topic | Decision |
 |---|---|
 | Hosting | Cloudflare Pages, connected to this GitHub repo; domain `medicallatin.com` is in Cloudflare (the Pages project must live in the same Cloudflare account). |
-| Stack | Plain HTML + CSS, two small JS files (the hero term switcher and the light/dark switch). No build step, no framework. |
+| Stack | Plain HTML + CSS, three small JS files: the hero term switcher, the light/dark switch, and the express course's quiz and Direct-message helper. No build step, no framework. |
 | Languages | Ukrainian at `/`, English at `/en/`. Every text is translated. |
-| Prices | Ukrainian site only, in UAH: course prices, the trial lesson (600 грн), one-to-one lessons (schoolchildren 700 грн, students from 1000 грн) and packages (students' packages cost less from June to November). English site: no prices. |
+| Prices | Ukrainian site in UAH: course prices, the trial lesson (600 грн), one-to-one lessons (schoolchildren 700 грн, students from 1000 грн) and packages (students' packages cost less from June to November). English site in US dollars, derived from the UAH prices (§15). |
 | Dates | Show the next group start (11.01.2027) and the express-course groups (8.02, 22.02 and 9.03.2027); updated by hand via Git. |
 | Offers | Main course «Медична латина» in 2 months (Basis / Medium / Maxi), Express course (6 days), Pronunciation intensive (3 days), Trial lesson with a level test (50–55 min), one-to-one lessons. |
 | Contacts | Instagram Direct, Telegram, WhatsApp / phone, email (`info@medicallatin.com`, forwarded to Halyna's mailbox by Cloudflare Email Routing). |
@@ -398,8 +398,8 @@ The timeline is a real sequence, so it uses dates as markers. Nowhere else does.
 ### English pages
 
 - Same layout and components as the Ukrainian pages.
-- Wherever a price appears, it is replaced by «Price on request: write in Direct or
-  fill in the form».
+- Prices are in US dollars, derived from the UAH prices (§15). Until 27 Nov 2026 the
+  English pages showed no prices.
 - No "teaching in English" block, since the whole site is the English offer.
 - *ПК* is translated as "final module test (ПК)".
 - Review quotes are translated and marked "Translated from Ukrainian".
@@ -466,14 +466,14 @@ element.
 | Bio, credentials | «Медична латина 2026–2027» slides (p. 2, «Хто я»), story slides, diploma screenshots |
 | Story (About) | «Як я взагалі опинилася в медичній латині» slides |
 | Main course (formerly the year course), programme, formats, prices | «Медична латина 2026–2027» slides (p. 4–7) and the course carousel; name, length and the recorded format from Halyna's feedback (23 Nov 2026) |
-| Express course, FAQ, prices | «Експрес курс» slides; format list, groups and prices from Halyna's feedback |
+| Express course, FAQ, prices | «Експрес курс» slides; format list, groups and prices from Halyna's feedback; the fuller programme, audience, format details, quiz and mock test from her express-course landing (27 Nov 2026, §15) |
 | Pronunciation intensive | «Впевнена латинська вимова» slides |
 | Trial lesson with a level test | «Кейси», last slide, and «Діагностика рівня знань з латини» slides (blocks 1–5); merged, 50–55 min and 600 грн per Halyna's feedback |
 | One-to-one lessons | Halyna's feedback: prices for schoolchildren and students, packages, payment terms |
 | Cases | «Сторітейл КЕЙСИ» slides (Валерія, Настя, Настя, Юля) |
-| Reviews | Review slides in the course, story and express decks (transcribed) |
+| Reviews | Review slides in the course, story and express decks (transcribed); Aleksandra's from the same screenshot as Dasha's; Nora's from Halyna's express-course landing |
 | Publications | Screenshot of the six book covers |
-| Hero terms | Level test, block 5 |
+| Hero terms | Level test, block 5; *bradykinesia*, *xanthodermia* and *hysterectomia* from her express-course landing |
 
 Stock photos inside the Canva slides (libraries, statues, doctors) are **not** used:
 their licence covers use inside Canva designs, not on their own. Only photos of
@@ -492,7 +492,7 @@ attribute; `grep -rn "data-placeholder" site` lists them all.
 | 4 | ~~`LEVEL_TEST_PRICE`~~ Removed: the level test is now part of the trial lesson (600 грн) | |
 | 5 | ~~`LEVEL_TEST_FORMAT`~~ Removed: the trial lesson with a level test is 50–55 min | |
 | 6 | ~~`EXPRESS_NEXT_DATES`~~ Filled: 8.02, 22.02 and 9.03.2027 | |
-| 7 | Stress marks and part glosses for the three hero terms: Halyna to confirm (not marked on the page) | Hero (both languages) |
+| 7 | Stress marks and part glosses for the six hero terms: Halyna to confirm (not marked on the page) | Hero (both languages) |
 | 8 | ~~`SCHOOL_PACKAGES`~~ Filled: 5 lessons 3400, 8 lessons 5300, 10 lessons 6700 грн (§14) | |
 
 ## 12. Open questions: answered
@@ -500,7 +500,7 @@ attribute; `grep -rn "data-placeholder" site` lists them all.
 | Question | Answer |
 |---|---|
 | Do the 1:1 package prices (about 1000 грн per lesson) match "$18–22 per lesson"? | Yes. Show both. *Superseded on 23 Nov 2026: prices are now in UAH only (§14).* |
-| "Half the regular rate" for the trial lesson on the English site? | Yes, acceptable. *Superseded on 23 Nov 2026: the English site says "On request".* |
+| "Half the regular rate" for the trial lesson on the English site? | Yes, acceptable. *Superseded on 23 Nov 2026: the English site said "On request"; since 27 Nov 2026 it shows $15 (§15).* |
 | Google Forms | One form per language. |
 | Titles in Ukrainian | «кандидат філологічних наук, доцент», as on the diplomas. |
 | English proofreading | None planned; the English text ships as written. |
@@ -512,7 +512,7 @@ attribute; `grep -rn "data-placeholder" site` lists them all.
   ```
   site/        published folder (Cloudflare Pages output directory)
     index.html, courses/, about/, en/…, 404.html
-    assets/css/site.css, assets/js/term.js, assets/js/theme.js
+    assets/css/site.css, assets/js/term.js, assets/js/theme.js, assets/js/express.js
     assets/fonts/*.woff2 + OFL.txt
     assets/img/…   (deco/: the Rome skyline and library silhouettes)
     _headers   security and cache headers (strict CSP: self only)
@@ -567,3 +567,41 @@ Still open (asked of Halyna; nothing invented in the meantime):
 | Specialised preparation for university entrance is priced individually, by request and time | A line under the schoolchildren's prices. |
 | Students: from 1000 грн per lesson | "від 1000 грн" on the home and courses pages. |
 | Students' packages: 10 % off from July to November; June–November 4350 / 8500 / 13300 грн (2 / 5 / 8 % off), December–May 4650 / 9000 / 13770 грн, for 5 / 10 / 16 lessons | A small table with the two seasons, without percentages. The June–November prices already include the seasonal 10 % (1000 грн × lessons, less 10 %, less 2 / 5 / 8 % is about 4410 / 8550 / 13250 грн), so the separate «Вчасне звернення: знижка 10 %» line was removed: it suggested an extra discount on top. Decided by Volodymyr. |
+
+## 15. Halyna's express-course landing (27 Nov 2026)
+
+Halyna made a one-page landing for the express course in Gemini Canvas. Its content
+was merged into this site rather than published separately, so prices and dates live
+in one place. Volodymyr made the calls below.
+
+| From the landing | On the site |
+|---|---|
+| Programme as three blocks of two lessons, with the topics of each | Express section, both languages: «Заняття 1–2 / 3–4 / 5–6», replacing the plain list of six lessons. |
+| A mock ПК on day 6; for one-to-one, a personal simulation of the oral ПК | In the programme and the format details. Confirmed by Volodymyr. |
+| "Знайома ситуація?" (three typical problems) and who the course is for | Two short lists before the programme. |
+| What each format includes; one-to-one = 6 individual lessons | Two side-by-side format cards with prices and what's included. |
+| A 3-question quiz (anatomy, prescription, clinic) | "Перевірте себе за 60 секунд" in the express section. The Latin was checked: all three answers are correct. Each question shows its answer in a `<details>` without JavaScript. |
+| A booking form that composes a message for Direct | "Записатися на експрес-курс": the visitor picks a group and format, adds a name and handle, and copies a ready message. Instagram can't pre-fill a message, so nothing is sent anywhere; the composer is hidden without JavaScript. |
+| "100 % of students in a poll recommended the course" | Under "Після курсу ви". No poll screenshot was supplied; used at Volodymyr's request. |
+| Reviews by Aleksandra and Nora | Home page reviews. Aleksandra's is quoted exactly as in her Telegram screenshot (the landing added a sentence she didn't write). Nora's has no screenshot; used at Volodymyr's request. |
+| "Погляд екзаменатора", "Концентрат без зайвого" and her quote «Моя мета — …» | Home page, "Хто я". The quote has no other source; used at Volodymyr's request. |
+| Her maiden name, «Галина Шпинта (Воскобойник)» | Home page, "Хто я", so former НМУ students recognise her. |
+| *bradykinesia*, *xanthodermia*, *hysterectomia* | Three more hero terms (six in all). The part glosses are standard; Halyna should still confirm them (§11, item 7). |
+
+Left out:
+
+- **Access for 1 academic year.** Her 23 Nov list says half a year, which stays.
+- **"Slide examples"** such as *tuberositas palatina nasalis anterior*, *Rp.: Supp.
+  pulv. fol. Digitalis*, or *depuratus* for oil components. They couldn't be checked
+  against her materials, and some look wrong.
+- **The landing's own design** (Cormorant Garamond and Inter from Google Fonts,
+  Tailwind from a CDN): third-party resources the site doesn't load.
+
+**English prices.** The English pages now show prices too, in US dollars. The rule is
+Halyna's English rate for a student's one-to-one lesson ($25, from her brief: "25–30
+$") against the Ukrainian one (1000 грн): **$25 per 1000 грн**, applied to every
+UAH price and rounded to whole dollars (halves up). So 600 грн → $15, 2222 грн → $56,
+4400 грн → $110, 13300 грн → $333. To change the English level, scale every
+dollar price by the same factor. The express group's weekly rise is described in
+words ("the price goes up each week, $63 from 31 January") because $7.50 steps
+don't round cleanly.

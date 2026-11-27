@@ -3,7 +3,7 @@
 Website of **LinguaLatina**: medical Latin lessons with Halyna Shpynta, in Ukrainian
 (`/`) and English (`/en/`). Live at <https://medicallatin.com>.
 
-- Plain HTML and CSS with two small scripts; no build step and no dependencies.
+- Plain HTML and CSS with three small scripts; no build step and no dependencies.
 - No analytics, trackers, cookies or third-party scripts. Fonts and images are
   self-hosted. The visitor's light/dark choice stays in their browser's local
   storage.
@@ -29,9 +29,10 @@ To check the site exactly as Cloudflare will serve it, with `site/_headers` and 
 |---|---|
 | [`site/`](site/) | Everything that is published. |
 | `site/index.html`, `courses/`, `about/` | Ukrainian pages, with prices. |
-| `site/en/…` | English pages, same structure, **no prices**. |
+| `site/en/…` | English pages, same structure, prices in US dollars. |
 | `site/assets/css/site.css` | All styles; colour tokens for the light theme, the dark theme and each course's shade are at the top. |
 | `site/assets/js/term.js` | The hero's «Розібрати інший термін» switcher. |
+| `site/assets/js/express.js` | On the courses pages: the express course's 3-question quiz and the ready-message helper for Direct. Without JavaScript the quiz answers stay readable and the helper is hidden. |
 | `site/assets/js/theme.js` | The light/dark switch in the header. The site opens light for everyone; dark only when chosen. Loaded in `<head>` without `defer`, so a saved choice applies before the page paints. |
 | `site/assets/img/deco/` | The faint Rome skyline and library silhouettes, drawn into the page with CSS masks. |
 | `site/_headers` | Cloudflare Pages headers: a self-only Content-Security-Policy, and a long cache for fonts only. |
@@ -45,7 +46,10 @@ Each page is a complete HTML file, so the header, footer and booking bar are rep
 in all six pages. When you change one, change it everywhere.
 
 - **Prices** appear only in the Ukrainian `index.html` (overview) and
-  `courses/index.html` (details). Keep the two consistent. Don't add prices to `/en/`.
+  `courses/index.html` (details). Keep the two consistent.
+  The English `en/index.html` and `en/courses/index.html` show the same prices in US
+  dollars at **$25 per 1000 грн**, rounded to whole dollars: when a UAH price changes,
+  update its dollar price too ([design plan §15](docs/design-plan.md#15-halynas-express-course-landing-27-nov-2026)).
 - **Dates** (the main course's 11.01.2027 start, the express groups on 8.02, 22.02 and
   9.03.2027, and the 30.01 booking deadline) appear in `index.html`,
   `courses/index.html`, `en/index.html` and `en/courses/index.html`.
@@ -91,5 +95,6 @@ Email Routing; setup and the mail DNS records (MX, SPF, DKIM, DMARC) are in
 
 Still to do on the live site:
 - fill in or remove every placeholder;
-- have Halyna confirm the stress marks and part meanings of the three hero terms
-  (*endocarditis*, *tachycardia*, *chlorodontia*).
+- have Halyna confirm the stress marks and part meanings of the six hero terms
+  (*endocarditis*, *tachycardia*, *bradykinesia*, *chlorodontia*, *xanthodermia*,
+  *hysterectomia*).
