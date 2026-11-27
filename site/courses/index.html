@@ -23,6 +23,7 @@
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
   <link rel="preload" href="/assets/fonts/fixel-var.woff2" as="font" type="font/woff2" crossorigin>
   <script src="/assets/js/theme.js"></script>
+  <script src="/assets/js/express.js" defer></script>
   <link rel="stylesheet" href="/assets/css/site.css">
 </head>
 <body>
@@ -179,15 +180,50 @@
           <p class="prose">Для студентів-медиків, у яких ПК вже близько, а рецепти, діагнози й клінічні терміни досі здаються хаосом. Це повторення й систематизація, а не навчання з нуля.</p>
           <p><span class="start-date">Наступні потоки: 8.02.2027, 22.02.2027, 9.03.2027</span></p>
 
+          <h3>Знайома ситуація?</h3>
+          <ul class="list">
+            <li>Рецепти, діагнози й клінічні терміни змішалися в суцільний потік інформації.</li>
+            <li>Плутаєтеся, що в іменнику, а що в прикметнику, і як правильно узгоджувати закінчення.</li>
+            <li>Суцільне зазубрювання без розуміння логіки й постійний стрес перед усним ПК.</li>
+          </ul>
+
+          <h3>Для кого</h3>
+          <ul class="list">
+            <li>студентам перед ПК та іспитами;</li>
+            <li>тим, хто вже вчив латину й хоче швидко повторити;</li>
+            <li>тим, хто хоче знайти прогалини й скласти систему.</li>
+          </ul>
+
           <h3>Програма: 6 днів, 6 занять</h3>
-          <ol class="numbered">
-            <li>Іменник. Неузгоджене означення.</li>
-            <li>Прикметник. Узгоджене означення.</li>
-            <li>Рецепт: правила виписування та читання. Хімічна номенклатура.</li>
-            <li>Рецепт: скорочення, рослини, назви ліків і лікарських форм.</li>
-            <li>Клінічна термінологія: наголошення, основи словотворення, афікси.</li>
-            <li>Клінічна термінологія: утворення термінів на основі найчастотніших грецьких морфем. Аналіз 30 найчастотніших діагнозів. Відповіді на ваші питання.</li>
-          </ol>
+          <div class="days">
+            <div class="days__block">
+              <h4>Заняття 1–⁠2. Граматика й анатомічна термінологія</h4>
+              <p>Розкладаємо граматику по поличках: ви перестаєте плутати відміни іменників і групи прикметників та вчитеся користуватися опорними табличками замість сліпого зубріння.</p>
+              <ul class="list">
+                <li>Іменник (I–V відміни). Неузгоджене означення: чіткий алгоритм побудови.</li>
+                <li>Прикметник (I і II групи). Узгоджене означення в усіх відмінках однини й множини.</li>
+                <li>Різні типи складних анатомічних словосполучень і типові пастки на іспиті.</li>
+              </ul>
+            </div>
+            <div class="days__block">
+              <h4>Заняття 3–⁠4. Рецепт і фармацевтична термінологія</h4>
+              <p>Покрокова структура рецептурного рядка: від правильного відмінка лікарської форми й діючої речовини до стандартних скорочень і оформлення підпису.</p>
+              <ul class="list">
+                <li>Правила виписування й читання рецептів: тверді, м’які й рідкі лікарські форми.</li>
+                <li>Хімічна номенклатура: кислоти, оксиди, солі.</li>
+                <li>Рецептурні скорочення, назви лікарських рослин і ліків, стандартні формулювання.</li>
+              </ul>
+            </div>
+            <div class="days__block">
+              <h4>Заняття 5–⁠6. Клінічна термінологія й тестовий ПК</h4>
+              <p>Вчимося розуміти й будувати клінічні терміни за префіксами, коренями й суфіксами, тренуємо правильний наголос і проходимо тестовий ПК.</p>
+              <ul class="list">
+                <li>Наголошення в клінічних термінах, основи словотворення й афікси.</li>
+                <li>Утворення термінів на основі найчастотніших грецьких морфем (<span lang="la">-⁠tomia, -⁠stomia, -⁠ectomia, brachy-, brady-</span>).</li>
+                <li>Аналіз 30 найчастотніших діагнозів (<span lang="la">vitium cordis congenitum</span>, <span lang="la">cicatrices post variolam</span>), відповіді на ваші запитання й тестовий ПК.</li>
+              </ul>
+            </div>
+          </div>
 
           <h3>Формат</h3>
           <ul class="list">
@@ -207,12 +243,80 @@
             <li>перестанете боятися усного ПК;</li>
             <li>значно спокійніше підете на ПК.</li>
           </ul>
+          <p class="stat"><strong>100&nbsp;%</strong> студентів в опитуванні порекомендували курс іншим.</p>
 
-          <dl class="facts">
-            <div><dt>Запис</dt><dd>Попередній, за передоплатою.</dd></div>
-            <div><dt>Міні-група</dt><dd>Від 4 осіб. 2222&nbsp;грн при записі до 30.01; далі ціна зростає на 300&nbsp;грн щотижня (з 31.01 — 2522&nbsp;грн).</dd></div>
-            <div><dt>Індивідуально</dt><dd>6000&nbsp;грн при записі до 30.01; з 31.01 — 7000&nbsp;грн.</dd></div>
-          </dl>
+          <h3>Варіанти участі й вартість</h3>
+          <p class="prose">Запис попередній, за передоплатою. Найвигідніше — при записі до 30.01.</p>
+          <div class="plans">
+            <div class="plan">
+              <h4>Міні-група</h4>
+              <p class="plan__who">Від 4 осіб</p>
+              <p class="plan__price"><strong>2222&nbsp;грн</strong> при записі до 30.01</p>
+              <p class="plan__note">Далі ціна зростає на 300&nbsp;грн щотижня (з 31.01 — 2522&nbsp;грн).</p>
+              <ul class="list">
+                <li>6 живих онлайн-занять у Zoom.</li>
+                <li>Закритий Telegram-чат 24/6 з викладачем та інтерактивними тестами.</li>
+                <li>Тестовий ПК і відповіді на всі ваші запитання.</li>
+              </ul>
+            </div>
+            <div class="plan">
+              <h4>Індивідуально</h4>
+              <p class="plan__who">6 занять 1:1</p>
+              <p class="plan__price"><strong>6000&nbsp;грн</strong> при записі до 30.01</p>
+              <p class="plan__note">З 31.01 — 7000&nbsp;грн.</p>
+              <ul class="list">
+                <li>Графік занять у зручний для вас час.</li>
+                <li>Уся увага викладача: точково закриваємо саме ваші прогалини.</li>
+                <li>Відпрацювання складних рецептів і діагнозів під вимоги вашої кафедри.</li>
+                <li>Персональна симуляція усного ПК.</li>
+              </ul>
+            </div>
+          </div>
+
+          <h3>Перевірте себе за 60 секунд</h3>
+          <p class="prose">Три реальні завдання з курсу: анатомія, рецепт, клініка.</p>
+          <div class="quiz">
+            <div class="quiz__q" role="group" aria-labelledby="quiz-q1">
+              <p class="quiz__cat">Анатомічна термінологія</p>
+              <p class="quiz__text" id="quiz-q1">Як поставити словосполучення <span lang="la">facies anterior</span> (передня поверхня) в родовий відмінок множини?</p>
+              <ul class="quiz__opts">
+                <li><span lang="la">faciorum anteriorium</span></li>
+                <li data-correct><span lang="la">facierum anteriorum</span></li>
+                <li><span lang="la">facies anteriores</span></li>
+              </ul>
+              <details class="quiz__answer">
+                <summary>Відповідь</summary>
+                <p>Правильна відповідь: <span lang="la">facierum anteriorum</span>. <span lang="la">Facies, ei f</span> — іменник V відміни (<span lang="la">Gen. pl.</span> -⁠erum), а <span lang="la">anterior, ius</span> — прикметник вищого ступеня порівняння, що відмінюється за приголосним типом III відміни (<span lang="la">Gen. pl.</span> -⁠um).</p>
+              </details>
+            </div>
+            <div class="quiz__q" role="group" aria-labelledby="quiz-q2">
+              <p class="quiz__cat">Рецепт</p>
+              <p class="quiz__text" id="quiz-q2">Що означає скорочення <span lang="la">M., f. linim. D.S.</span> наприкінці рецепта?</p>
+              <ul class="quiz__opts">
+                <li>Візьми рідку мазь у рівних частинах. Видай.</li>
+                <li>Видай такі дози числом у таблетках. Познач.</li>
+                <li data-correct>Змішай, нехай утвориться лінімент. Видай. Познач.</li>
+              </ul>
+              <details class="quiz__answer">
+                <summary>Відповідь</summary>
+                <p>Правильна відповідь: «Змішай, нехай утвориться лінімент. Видай. Познач.» <span lang="la">M., f. linim.</span> = <span lang="la">Misce, fiat linimentum</span>; <span lang="la">D.S.</span> = <span lang="la">Da. Signa.</span></p>
+              </details>
+            </div>
+            <div class="quiz__q" role="group" aria-labelledby="quiz-q3">
+              <p class="quiz__cat">Клінічна термінологія</p>
+              <p class="quiz__text" id="quiz-q3">Чим відрізняються грецькі префікси <span lang="la">brachy-</span> і <span lang="la">brady-</span>?</p>
+              <ul class="quiz__opts">
+                <li>Обидва означають «порушення, розлад».</li>
+                <li data-correct><span lang="la">brachy-</span> — «короткий», <span lang="la">brady-</span> — «повільний».</li>
+                <li><span lang="la">brachy-</span> — «повільний», <span lang="la">brady-</span> — «короткий».</li>
+              </ul>
+              <details class="quiz__answer">
+                <summary>Відповідь</summary>
+                <p>Правильна відповідь: <span lang="la">brachy-</span> — короткий (<span lang="la">brachydactylia</span>), <span lang="la">brady-</span> — повільний (<span lang="la">bradykinesia</span>, сповільненість рухів).</p>
+              </details>
+            </div>
+            <p class="quiz__score" role="status"></p>
+          </div>
 
           <h3>Часті питання</h3>
           <div class="faq">
@@ -248,6 +352,38 @@
               <summary>Чим цей курс відрізняється від інших?</summary>
               <p>Це концентрат найважливішого за 6 днів, фокус на типових помилках студентів і пояснення через логіку, а не зубріння. Тут немає зайвого, тільки те, що допоможе здати й розібратися.</p>
             </details>
+          </div>
+
+          <h3>Записатися на експрес-курс</h3>
+          <div class="dm" hidden>
+            <p class="prose">Складіть готове повідомлення: заповніть поля, скопіюйте його й вставте мені в Direct.</p>
+            <div class="dm__fields">
+              <label class="dm__field"><span>Потік</span>
+                <select data-dm="stream">
+                  <option>8.02.2027</option>
+                  <option>22.02.2027</option>
+                  <option>9.03.2027</option>
+                  <option value="">ще не знаю</option>
+                </select>
+              </label>
+              <label class="dm__field"><span>Формат</span>
+                <select data-dm="format">
+                  <option>міні-група</option>
+                  <option>індивідуально</option>
+                </select>
+              </label>
+              <label class="dm__field"><span>Ваше ім’я</span><input type="text" data-dm="name" autocomplete="given-name"></label>
+              <label class="dm__field"><span>Нік в Instagram або Telegram</span><input type="text" data-dm="nick" autocomplete="off"></label>
+            </div>
+            <label class="dm__field"><span>Готове повідомлення</span><textarea data-dm="text" rows="4" readonly></textarea></label>
+            <div class="cta-row">
+              <button class="btn btn--secondary" type="button" data-dm="copy">Скопіювати повідомлення</button>
+              <p class="dm__status" role="status"></p>
+            </div>
+          </div>
+          <div class="cta-row">
+            <a class="btn btn--primary" href="https://ig.me/m/lingualatina_halyna">Написати в Direct</a>
+            <a class="btn btn--secondary" href="#todo-google-form-ua" data-placeholder="GOOGLE_FORM_UA_URL">Заповнити анкету</a>
           </div>
         </section>
 
