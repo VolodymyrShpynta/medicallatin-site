@@ -19,9 +19,10 @@
   <meta property="og:image:height" content="630">
   <meta property="og:locale" content="en_US">
   <meta property="og:locale:alternate" content="uk_UA">
-  <meta name="theme-color" content="#F7F0E6">
+  <meta name="theme-color" content="#FAF7F2">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-  <link rel="preload" href="/assets/fonts/fixel-var.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/assets/fonts/inter-var.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/assets/fonts/cormorant-garamond.woff2" as="font" type="font/woff2" crossorigin>
   <script src="/assets/js/theme.js"></script>
   <script src="/assets/js/express.js" defer></script>
   <link rel="stylesheet" href="/assets/css/site.css">
@@ -31,7 +32,7 @@
 
   <header class="site-header">
     <div class="wrap site-header__inner">
-      <a class="wordmark" href="/en/" lang="la">LinguaLatina</a>
+      <a class="logo" href="/en/"><span class="logo__mark" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><path d="M12 21V9"/><path d="M12 9C12 6.5 14 5 16.5 5C16.5 7.5 14.5 9 12 9Z"/><path d="M12 13C9.5 13 7.5 11.5 7.5 9C10 9 12 10.5 12 13Z"/><path d="M16.5 5C18 6.5 18.5 9 17.5 11.5"/><path d="M16.5 5C15 7 15 9.5 16 11.5"/></svg></span><span class="logo__text"><span class="logo__name" lang="la">LinguaLatina</span><span class="logo__sub">Medical Latin</span></span></a>
       <nav class="nav" aria-label="Main">
         <ul>
           <li><a href="/en/courses/" aria-current="page">Courses</a></li>
@@ -50,6 +51,7 @@
 
   <main id="main">
     <div class="wrap page-head page-head--library">
+      <span class="eyebrow">Programmes and prices</span>
       <h1>Courses</h1>
       <p class="lede">All lessons are online, on Zoom, with support on Telegram. Not sure where to start? Choose a trial lesson with a level test.</p>
       <p class="prose muted">Prices for lessons in English are in US dollars.</p>
@@ -57,7 +59,7 @@
 
     <div class="wrap with-toc">
       <nav class="toc" aria-labelledby="toc-title">
-        <p class="toc__title" id="toc-title">On this page</p>
+        <p class="toc__title eyebrow" id="toc-title">On this page</p>
         <ul>
           <li data-course="main"><a href="#main-course">Main course</a></li>
           <li data-course="express"><a href="#express">Express course</a></li>

@@ -1,11 +1,11 @@
-// Light/dark theme. The site opens in the warm light theme for everyone; dark is used
+// Light/dark theme. The site opens in the light parchment theme for everyone; dark is used
 // only after the visitor chooses it with the header switch. Loaded in <head> without
 // defer, so a saved choice applies before the first paint. The choice is kept in
 // localStorage: not a cookie, and never sent to a server.
 (() => {
   const root = document.documentElement;
   const KEY = "theme";
-  const PAPER = { light: "#F7F0E6", dark: "#1E1815" };
+  const PAPER = { light: "#FAF7F2", dark: "#1B1817" };
 
   const read = () => {
     try { return localStorage.getItem(KEY); } catch { return null; }
