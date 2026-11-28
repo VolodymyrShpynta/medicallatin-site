@@ -3,7 +3,7 @@
 Website of **LinguaLatina**: medical Latin lessons with Halyna Shpynta, in Ukrainian
 (`/`) and English (`/en/`). Live at <https://medicallatin.com>.
 
-- Plain HTML and CSS with three small scripts; no build step and no dependencies.
+- Plain HTML and CSS with five small scripts; no build step and no dependencies.
 - No analytics, trackers, cookies or third-party scripts. Fonts and images are
   self-hosted. The visitor's light/dark choice stays in their browser's local
   storage.
@@ -30,11 +30,14 @@ To check the site exactly as Cloudflare will serve it, with `site/_headers` and 
 | [`site/`](site/) | Everything that is published. |
 | `site/index.html`, `courses/`, `about/` | Ukrainian pages, with prices. |
 | `site/en/…` | English pages, same structure, prices in US dollars. |
-| `site/assets/css/site.css` | All styles; colour tokens for the light theme, the dark theme and each course's accent are at the top. The look follows Halyna's express-course landing ([design plan §16](docs/design-plan.md#16-redesign-in-the-landings-style-28-nov-2026)). |
+| `site/assets/css/site.css` | All styles; colour tokens for the light theme, the dark theme and each course (tint, accent, ink, icon) are at the top. The look follows Halyna's express-course landing ([design plan §16](docs/design-plan.md#16-redesign-in-the-landings-style-28-nov-2026)); motion and interactivity are at the end ([§17](docs/design-plan.md#17-course-colours-and-interactivity-28-nov-2026)). |
 | `site/assets/js/term.js` | The hero's «Розібрати інший термін» switcher. |
+| `site/assets/js/ui.js` | Every page: the phone menu drawer, the hero figures counting up and the dots under the swipeable reviews. |
+| `site/assets/js/courses.js` | Courses pages: the express programme as tabs, the Basis / Medium / Maxi switch, the page index following the course being read, and the price calculator. |
 | `site/assets/js/express.js` | On the courses pages: the express course's 3-question quiz and the ready-message helper for Direct. Without JavaScript the quiz answers stay readable and the helper is hidden. |
 | `site/assets/js/theme.js` | The light/dark switch in the header. The site opens light for everyone; dark only when chosen. Loaded in `<head>` without `defer`, so a saved choice applies before the page paints. |
 | `site/assets/img/deco/` | The landing's sprig (hero), the Rome skyline (footer) and the library bookcase (Courses and About), drawn into the page faintly with CSS masks. |
+| `site/assets/img/icons/` | The course icons (book, lightning, speech bubble, magnifier, person) and the calculator icon, drawn in the course colours with CSS masks. |
 | `site/_headers` | Cloudflare Pages headers: a self-only Content-Security-Policy, and a long cache for fonts only. |
 | `site/404.html` | Bilingual "page not found". |
 | `site/sitemap.xml`, `robots.txt` | For search engines. |
@@ -45,18 +48,19 @@ To check the site exactly as Cloudflare will serve it, with `site/_headers` and 
 Each page is a complete HTML file, so the header, footer and booking bar are repeated
 in all six pages. When you change one, change it everywhere.
 
-- **Prices** appear only in the Ukrainian `index.html` (overview) and
-  `courses/index.html` (details). Keep the two consistent.
-  The English `en/index.html` and `en/courses/index.html` show the same prices in US
-  dollars at **$25 per 1000 грн**, rounded to whole dollars: when a UAH price changes,
-  update its dollar price too ([design plan §15](docs/design-plan.md#15-halynas-express-course-landing-27-nov-2026)).
+- **Prices** appear in the Ukrainian `index.html` (overview) and `courses/index.html`
+  (details), and in the price calculator's data at the end of `courses/index.html`
+  (the `calc__data` JSON block). Keep all three consistent.
+  The English `en/index.html` and `en/courses/index.html` (including its calculator
+  data) show the same prices in US dollars at **$25 per 1000 грн**, rounded to whole
+  dollars: when a UAH price changes, update its dollar price too ([design plan §15](docs/design-plan.md#15-halynas-express-course-landing-27-nov-2026)).
 - **Dates** (the main course's 11.01.2027 start, the express groups on 8.02, 22.02 and
   9.03.2027, and the 30.01 booking deadline) appear in `index.html`,
   `courses/index.html`, `en/index.html` and `en/courses/index.html`.
 - **Course colours:** each course block carries `data-course="main"`, `express`,
-  `pronunciation`, `trial` or `individual`, which picks its accent colour (the cap on
-  its card and its swatch). Use the same value in the home offers list, the courses
-  page index and the course section.
+  `pronunciation`, `trial` or `individual`, which picks its tint, accent cap and icon.
+  Use the same value in the home offers list, the courses page index and the course
+  section.
 - **Latin** is always wrapped in `<span lang="la">…</span>`; that sets it in italic
   Cormorant Garamond
   and tells screen readers to switch language.

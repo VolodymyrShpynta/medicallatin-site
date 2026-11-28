@@ -51,4 +51,5 @@ used: Canva's licence covers them only inside Canva designs.
 | `site/favicon.svg` | The logo mark: the sprig from Halyna's express-course landing in an espresso circle (since 28 Nov 2026). |
 | `site/assets/og/og-uk.png`, `og-en.png` | Link-preview cards rendered from the site's own CSS and fonts, in the landing's style. |
 | `site/assets/img/deco/sprig.svg` and the sprig in the header logo | Line art from Halyna's express-course landing (a Gemini Canvas page she made and approved for this use): a sprig in a dashed circle. Redrawn as a self-contained SVG. |
+| `site/assets/img/icons/*.svg` | Course icons (book, lightning, speech bubble, magnifier, person) and a calculator icon. Drawn for this site as simple line shapes in the landing's stroke style; not copied from an icon set. |
 | `site/assets/img/deco/rome-skyline.svg`, `library.svg` | Flat silhouettes of Rome (temple columns, an arch, pines, the Colosseum, ruins) and of an arched bookcase. Drawn for this site from simple geometric shapes at Halyna's request; not traced from any photo or artwork, so no third-party licence applies. The Canva stock images of libraries and statues are still not used. |

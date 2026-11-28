@@ -417,6 +417,8 @@ The timeline is a real sequence, so it uses dates as markers. Nowhere else does.
 
 ## 7. Motion
 
+*Extended on 28 Nov 2026 at Volodymyr's request: more interactivity and motion (§17). The rules below still hold for the hero term; reduced motion still turns all motion off.*
+
 - **One orchestrated moment.** On load, the hero term's parts move slightly apart and
   the red leader lines draw down to their meanings (about 600ms); as it ends, the
   switch button's turn icon spins once, to draw the eye to it. The same motion runs
@@ -686,3 +688,48 @@ stays recognisable because it is always italic.
   colour (§4 table) as a 5–6 px cap on its card and as its swatch in the page index.
 - The dissected term, its switcher and dots, the light/dark switch (light by default),
   the mobile booking bar, and every quality rule in §13.
+
+## 17. Course colours and interactivity (28 Nov 2026)
+
+Volodymyr found the white course cards of §16 hard to tell apart and asked for a more
+interactive, "fancier" site. His choices: a tint and an icon per course, and all ten
+interactive touches offered.
+
+**Each course in its own colour.** Every course card (home offers and Courses page) is
+in its course's pastel tint, with its accent as a cap and a line icon in a white circle.
+The page index shows the same icons. Inside a course card, nested boxes turn white and
+small labels use the course's dark "ink", so everything keeps AA contrast.
+
+| Course | Icon | Tint (light / dark) | Accent | Ink (light / dark) |
+|---|---|---|---|---|
+| Main course | Book | `#F7E4CF` / `#3A2A1C` | `#D49E6A` / `#9C7148` | `#7A4A1C` / `#EDBE8C` |
+| Express course | Lightning | `#F6DFD9` / `#3D2826` | `#C98E82` / `#94635A` | `#843A2E` / `#EDAA9C` |
+| Confident Pronunciation | Speech bubble | `#E3EBD8` / `#28331F` | `#9DAD7C` / `#6F7D55` | `#46572C` / `#BCD29A` |
+| Trial lesson | Magnifier | `#F5EAC6` / `#3A321A` | `#CFAF57` / `#9A8240` | `#6A5212` / `#E8CF7C` |
+| One-to-one lessons | Person | `#EEE0EA` / `#36283A` | `#B08FA4` / `#7E6476` | `#6E4062` / `#DDB5D2` |
+
+Contrast on the tints (lowest of the five): text 12.8, secondary text 6.1, course ink
+6.0 (light); 10.8, 5.9 and 7.1 (dark).
+
+**Interactivity.** Every piece is an enhancement: without JavaScript the content is all
+there, and with "reduce motion" nothing moves.
+
+| Feature | How | Without JS / with reduced motion |
+|---|---|---|
+| Cards and headings rise into place as they scroll in | CSS scroll-driven animation (`animation-timeline: view()`) | Shown at once; browsers without support also show them at once |
+| Parallax: the hero sprig drifts and turns, the bookcase lifts, the footer skyline slides in | CSS view timelines | Still |
+| Cards lift on hover; whole offer cards are links; button arrows nudge | CSS, hover-capable screens only | No lift |
+| Phone menu drawer behind ☰ (Esc closes) | `ui.js` | The links stay as a row |
+| Hero figures count up (17 років, 80 %) | `ui.js`; screen readers get the final text | Final values |
+| Reviews swipe sideways on phones, with dots | CSS scroll snap + `ui.js` dots | A swipeable row without dots |
+| Express programme as tabs (Lessons 1–2 / 3–4 / 5–6) | `courses.js`, ARIA tabs with arrow keys | Three stacked blocks |
+| Main course: Basis / Medium / Maxi switch lights up the level's lessons and price row, with a price summary | `courses.js` | Levels shown as before |
+| Page index highlights the course being read | `courses.js` | Plain index |
+| Price calculator | `courses.js`, prices in a JSON block on each courses page (UAH / USD) | A note pointing to the prices on the page |
+
+Smooth scrolling for in-page links is on only without reduced motion.
+
+**Calculator data.** The calculator's prices live in the `<script type="application/json"
+class="calc__data">` block at the end of `courses/index.html` and `en/courses/index.html`.
+They are the same prices as the tables on the page: when a price changes, change it
+there too (README, "Prices").
