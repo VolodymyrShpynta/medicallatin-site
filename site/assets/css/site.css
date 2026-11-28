@@ -1810,20 +1810,26 @@ strong { font-weight: 600; }
 .ladder__bar { display: none; }
 
 @media (min-width: 48em) {
+  /* The rows hang 0.75rem into the margin, so a highlighted level gets room around
+     its text without the text moving. */
+  .ladder {
+    max-width: 53.5rem;
+    margin-inline: -0.75rem;
+  }
   .ladder__head,
   .ladder__block {
     display: grid;
     grid-template-columns: minmax(0, 1fr) repeat(3, 4.5rem);
   }
   .ladder__head {
-    padding-bottom: 0.5rem;
+    padding: 0 0.75rem 0.5rem;
     color: var(--muted);
     font-size: 0.875rem;
     text-align: center;
   }
   .ladder__head span:first-child { text-align: left; }
   .ladder__block {
-    padding: 0;
+    padding: 0 0.75rem;
     border-left: 0;
     border-top: 1px solid var(--line);
   }
@@ -1849,7 +1855,8 @@ strong { font-weight: 600; }
 .price-table {
   width: 100%;
   max-width: 52rem;
-  border-collapse: collapse;
+  border-collapse: separate;
+  border-spacing: 0;
   font-variant-numeric: lining-nums tabular-nums;
 }
 .price-table caption {
@@ -1876,6 +1883,19 @@ strong { font-weight: 600; }
   color: var(--muted);
   font-size: 0.8125rem;
   font-weight: 400;
+}
+
+@media (min-width: 48em) {
+  /* The main course's table can light up a level (assets/js/courses.js): it hangs
+     like the ladder, so a highlighted row has room around its text */
+  .ladder ~ .price-table {
+    width: calc(100% + 1.5rem);
+    max-width: 53.5rem;
+    margin-inline: -0.75rem;
+  }
+  .ladder ~ .price-table caption { padding-inline: 0.75rem; }
+  .ladder ~ .price-table tr > :first-child { padding-left: 0.75rem; }
+  .ladder ~ .price-table tr > :last-child { padding-right: 0.75rem; }
 }
 
 @media (max-width: 47.99em) {
@@ -2225,8 +2245,16 @@ strong { font-weight: 600; }
 .days.is-tabbed .days__block[hidden] { display: none; }
 .days.is-tabbed .days__block { box-shadow: var(--shadow-card); }
 
-/* Main course: show one level (assets/js/courses.js). Its lessons and price row light
-   up; nothing is dimmed, so all text keeps its contrast. */
+/* Main course: show one level (assets/js/courses.js). The pressed button, its lessons,
+   its price row and the summary share one soft fill: the course accent mixed into the
+   tint, light enough that muted text keeps AA. */
+.course {
+  --pick: color-mix(in srgb, var(--accent, var(--bronze)) 45%, var(--tint, var(--surface)));
+  --pick-line: color-mix(in srgb, var(--accent, var(--bronze)) 70%, var(--pick));
+}
+:root[data-theme="dark"] .course {
+  --pick: color-mix(in srgb, var(--accent, var(--bronze)) 30%, var(--tint, var(--surface)));
+}
 .levels {
   display: flex;
   flex-wrap: wrap;
@@ -2250,40 +2278,61 @@ strong { font-weight: 600; }
 }
 .levels button:hover { border-color: var(--course-ink, var(--bronze)); }
 .levels button[aria-pressed="true"] {
-  border-color: var(--ink);
-  background: var(--ink);
-  color: var(--surface);
+  border-color: var(--course-ink, var(--bronze));
+  background: var(--pick);
 }
 .levels button:focus-visible { border-radius: 999px; }
 .levels__sum {
   max-width: 52rem;
   padding: 0.875rem 1.125rem;
-  background: var(--surface);
-  border: 1px solid var(--line);
+  background: var(--pick);
   border-radius: var(--radius);
   font-size: 0.9375rem;
 }
 .levels__sum:empty { display: none; }
-.ladder__block.is-in,
-.price-table tbody tr.is-in {
-  background: var(--surface);
-  box-shadow: var(--shadow-soft);
+.ladder__block.is-in {
+  background: var(--pick);
+  border-radius: var(--radius);
 }
-.ladder__block.is-in { border-radius: var(--radius); }
-.price-table tbody tr.is-in > * { font-weight: 600; }
 .ladder[data-level] .ladder__bar { opacity: 0.3; }
-.ladder[data-level="1"] .ladder__bar:nth-of-type(1),
-.ladder[data-level="2"] .ladder__bar:nth-of-type(2),
-.ladder[data-level="3"] .ladder__bar:nth-of-type(3) { opacity: 1; background: var(--course-ink, var(--bronze)); }
+.ladder[data-level="1"] .ladder__bar:nth-of-type(1):not(.ladder__bar--off),
+.ladder[data-level="2"] .ladder__bar:nth-of-type(2):not(.ladder__bar--off),
+.ladder[data-level="3"] .ladder__bar:nth-of-type(3):not(.ladder__bar--off) { opacity: 1; background: var(--course-ink, var(--bronze)); }
 .ladder[data-level="1"] .ladder__head span:nth-child(2),
 .ladder[data-level="2"] .ladder__head span:nth-child(3),
 .ladder[data-level="3"] .ladder__head span:nth-child(4) { color: var(--ink); font-weight: 700; }
 @media (max-width: 47.99em) {
-  .ladder__block.is-in { padding-right: 0.75rem; }
+  /* Room above the heading; the negative margin keeps the text where it was */
+  .ladder__block.is-in {
+    margin-top: -0.5rem;
+    padding-top: 0.75rem;
+    padding-right: 0.75rem;
+  }
+  .ladder__block + .ladder__block.is-in { margin-top: 0.5rem; }
+  .price-table tbody tr.is-in {
+    border-color: var(--pick-line);
+    background: var(--pick);
+  }
 }
 @media (min-width: 48em) {
-  .ladder__block.is-in h4 { padding-left: 0.75rem; }
-  .ladder__block.is-in ol { padding-left: 3rem; }
+  /* Medium and Maxi light up several blocks: join them into one rounded panel */
+  .ladder__block.is-in,
+  .ladder__block.is-in + .ladder__block { border-top-color: transparent; }
+  .ladder__block.is-in + .ladder__block.is-in {
+    border-top-color: var(--pick-line);
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+  }
+  .ladder__block.is-in:has(+ .ladder__block.is-in) {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+  /* Separate borders let the end cells round the row's corners */
+  .price-table tbody tr.is-in > *,
+  .price-table tbody tr.is-in + tr > * { border-top-color: transparent; }
+  .price-table tbody tr.is-in > * { background: var(--pick); }
+  .price-table tbody tr.is-in > :first-child { border-radius: var(--radius) 0 0 var(--radius); }
+  .price-table tbody tr.is-in > :last-child { border-radius: 0 var(--radius) var(--radius) 0; }
 }
 
 /* Price calculator (assets/js/courses.js): a white card; the answer sits in the

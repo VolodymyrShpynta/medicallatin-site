@@ -729,6 +729,13 @@ there, and with "reduce motion" nothing moves.
 
 Smooth scrolling for in-page links is on only without reduced motion.
 
+**Level switch.** The pressed level button, its lessons, its price row and the summary
+share one soft fill: the course accent mixed into its tint (45 % light, 30 % dark, so
+secondary text keeps AA). The pressed button adds a course-ink border. Lessons of
+several levels join into one rounded panel. On wide screens the ladder and the main
+price table hang 0.75 rem into the card's margin, so the fill has room around the text
+and nothing moves when a level is chosen.
+
 **Calculator data.** The calculator's prices live in the `<script type="application/json"
 class="calc__data">` block at the end of `courses/index.html` and `en/courses/index.html`.
 They are the same prices as the tables on the page: when a price changes, change it
