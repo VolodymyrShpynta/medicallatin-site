@@ -25,7 +25,9 @@
   <link rel="preload" href="/assets/fonts/cormorant-garamond.woff2" as="font" type="font/woff2" crossorigin>
   <script src="/assets/js/theme.js"></script>
   <script src="/assets/js/express.js" defer></script>
+  <script src="/assets/js/courses.js" defer></script>
   <link rel="stylesheet" href="/assets/css/site.css">
+  <script src="/assets/js/ui.js" defer></script>
 </head>
 <body>
   <a class="skip-link" href="#main">Перейти до змісту</a>
@@ -65,6 +67,7 @@
           <li data-course="pronunciation"><a href="#vymova">Впевнена вимова</a></li>
           <li data-course="trial"><a href="#probne">Пробне заняття</a></li>
           <li data-course="individual"><a href="#individualno">Індивідуальні заняття</a></li>
+          <li><a href="#kalkuliator">Калькулятор вартості</a></li>
         </ul>
       </nav>
 
@@ -491,6 +494,19 @@
               </tr>
             </tbody>
           </table>
+          <div class="cta-row">
+            <a class="btn btn--primary" href="https://ig.me/m/lingualatina_halyna">Написати в Direct</a>
+            <a class="btn btn--secondary" href="#todo-google-form-ua" data-placeholder="GOOGLE_FORM_UA_URL">Заповнити анкету</a>
+          </div>
+        </section>
+
+        <section class="course calc" id="kalkuliator" aria-labelledby="calc-title">
+          <span class="eyebrow">Калькулятор</span>
+          <h2 id="calc-title">Порахуйте вартість</h2>
+          <p class="prose">Оберіть курс і формат, і побачите ціну з цієї сторінки.</p>
+          <p class="prose muted calc__fallback">Калькулятор працює з увімкненим JavaScript. Усі ціни є вище на цій сторінці.</p>
+          <div class="calc__app" hidden></div>
+          <script type="application/json" class="calc__data">{"courses":[{"id":"main","name":"Основний курс «Медична латина»","note":"Старт групи 11.01.2027.","fields":[{"id":"format","label":"Формат","options":[["group","Міні-група, 3–5 осіб"],["solo","Індивідуально, 1:1"],["rec","У записі"]]},{"id":"level","label":"Рівень","when":{"format":["group","solo"]},"options":[["basis","Basis · 8 занять"],["medium","Medium · 12 занять"],["maxi","Maxi · 16 занять"]]}],"prices":{"group.basis":{"p":4400,"n":8},"group.medium":{"p":6600,"n":12},"group.maxi":{"p":9000,"n":16},"solo.basis":{"p":8000,"n":8},"solo.medium":{"p":11000,"n":12},"solo.maxi":{"p":16000,"n":16},"rec":{"p":899,"note":"Лише модуль «Іменник»: уроки в записі в Telegram, спілкування в чаті Telegram."}}},{"id":"express","name":"Експрес-курс","note":"Потоки: 8.02, 22.02 і 9.03.2027. Запис попередній, за передоплатою.","fields":[{"id":"format","label":"Формат","options":[["group","Міні-група, від 4 осіб"],["solo","Індивідуально, 6 занять"]]},{"id":"book","label":"Коли записуєтеся","options":[["early","До 30.01"],["late","З 31.01"]]}],"prices":{"group.early":{"p":2222,"n":6},"group.late":{"p":2522,"from":true,"note":"З 31.01 ціна зростає на 300 грн щотижня."},"solo.early":{"p":6000,"n":6},"solo.late":{"p":7000,"n":6}}},{"id":"pronunciation","name":"Інтенсив «Впевнена вимова»","fields":[{"id":"format","label":"Формат","options":[["group","Груповий інтенсив"],["solo","Індивідуально"]]}],"prices":{"group":{"p":499,"note":"3 дні. Набір групи раз на місяць."},"solo":{"p":2999,"note":"3 дні. Старт за домовленістю."}}},{"id":"trial","name":"Пробне заняття з діагностикою","fields":[],"prices":{"":{"p":600,"note":"50–55 хв: знайомство й діагностика рівня знань."}}},{"id":"individual","name":"Індивідуальні заняття","note":"Передоплата, мінімум за 3 заняття.","fields":[{"id":"who","label":"Хто навчається","options":[["school","Школяр"],["student","Студент"],["entry","Підготовка до вступу"]]},{"id":"packSchool","label":"Кількість занять","when":{"who":["school"]},"options":[["1","1 заняття"],["5","5 занять"],["8","8 занять"],["10","10 занять"]]},{"id":"packStudent","label":"Кількість занять","when":{"who":["student"]},"options":[["1","1 заняття"],["5","5 занять"],["10","10 занять"],["16","16 занять"]]},{"id":"season","label":"Коли починаєте","when":{"who":["student"],"packStudent":["5","10","16"]},"options":[["jun","Червень–листопад"],["dec","Грудень–травень"]]}],"prices":{"school.1":{"p":700,"n":1},"school.5":{"p":3400,"n":5},"school.8":{"p":5300,"n":8},"school.10":{"p":6700,"n":10},"student.1":{"p":1000,"n":1,"from":true},"student.5.jun":{"p":4350,"n":5},"student.5.dec":{"p":4650,"n":5},"student.10.jun":{"p":8500,"n":10},"student.10.dec":{"p":9000,"n":10},"student.16.jun":{"p":13300,"n":16},"student.16.dec":{"p":13770,"n":16},"entry":{"p":null,"note":"Спеціалізована підготовка до вступу у виш: вартість залежить від запиту й часу, обговорюємо індивідуально."}}}]}</script>
           <div class="cta-row">
             <a class="btn btn--primary" href="https://ig.me/m/lingualatina_halyna">Написати в Direct</a>
             <a class="btn btn--secondary" href="#todo-google-form-ua" data-placeholder="GOOGLE_FORM_UA_URL">Заповнити анкету</a>

@@ -73,7 +73,7 @@
   }
 
   // Direct message: Instagram can't pre-fill a message, so the visitor copies it and pastes it in.
-  const dm = document.querySelector(".dm");
+  const dm = document.querySelector(".dm:not(.calc__form)");
   if (dm) {
     const field = (name) => dm.querySelector(`[data-dm="${name}"]`);
     const text = field("text");

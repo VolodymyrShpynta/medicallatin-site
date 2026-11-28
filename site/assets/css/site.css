@@ -48,6 +48,7 @@
   --invert-muted: #CFC6BC;
   --shadow-soft: 0 10px 30px -10px rgba(35, 31, 32, 0.06);
   --shadow-card: 0 4px 20px -2px rgba(140, 109, 70, 0.08);
+  --shadow-lift: 0 18px 40px -18px rgba(35, 31, 32, 0.22);
 
   --serif: "Cormorant Garamond", Georgia, "Times New Roman", serif;
   --sans: "Inter", "Segoe UI", system-ui, sans-serif;
@@ -82,20 +83,22 @@
   --invert-muted: #C5BAAF;
   --shadow-soft: 0 10px 30px -10px rgba(0, 0, 0, 0.45);
   --shadow-card: 0 4px 20px -2px rgba(0, 0, 0, 0.35);
+  --shadow-lift: 0 18px 40px -16px rgba(0, 0, 0, 0.7);
 }
 
-/* Each course keeps its own colour (Halyna's request) as a thin cap on its card and a
-   swatch in the page index; the cards themselves are white, as on the landing. */
-[data-course="main"] { --accent: #D49E6A; }
-[data-course="express"] { --accent: #C98E82; }
-[data-course="pronunciation"] { --accent: #9DAD7C; }
-[data-course="trial"] { --accent: #CFAF57; }
-[data-course="individual"] { --accent: #B08FA4; }
-:root[data-theme="dark"] [data-course="main"] { --accent: #9C7148; }
-:root[data-theme="dark"] [data-course="express"] { --accent: #94635A; }
-:root[data-theme="dark"] [data-course="pronunciation"] { --accent: #6F7D55; }
-:root[data-theme="dark"] [data-course="trial"] { --accent: #9A8240; }
-:root[data-theme="dark"] [data-course="individual"] { --accent: #7E6476; }
+/* Each course has its own colour (Halyna's request): a pastel tint for its card, a
+   stronger accent for the cap, a dark "course ink" for its icon and small labels
+   (AA on the tint and on white), and a line icon. */
+[data-course="main"] { --tint: #F7E4CF; --accent: #D49E6A; --course-ink: #7A4A1C; --icon: url("../img/icons/book.svg"); }
+[data-course="express"] { --tint: #F6DFD9; --accent: #C98E82; --course-ink: #843A2E; --icon: url("../img/icons/bolt.svg"); }
+[data-course="pronunciation"] { --tint: #E3EBD8; --accent: #9DAD7C; --course-ink: #46572C; --icon: url("../img/icons/speech.svg"); }
+[data-course="trial"] { --tint: #F5EAC6; --accent: #CFAF57; --course-ink: #6A5212; --icon: url("../img/icons/search.svg"); }
+[data-course="individual"] { --tint: #EEE0EA; --accent: #B08FA4; --course-ink: #6E4062; --icon: url("../img/icons/person.svg"); }
+:root[data-theme="dark"] [data-course="main"] { --tint: #3A2A1C; --accent: #9C7148; --course-ink: #EDBE8C; }
+:root[data-theme="dark"] [data-course="express"] { --tint: #3D2826; --accent: #94635A; --course-ink: #EDAA9C; }
+:root[data-theme="dark"] [data-course="pronunciation"] { --tint: #28331F; --accent: #6F7D55; --course-ink: #BCD29A; }
+:root[data-theme="dark"] [data-course="trial"] { --tint: #3A321A; --accent: #9A8240; --course-ink: #E8CF7C; }
+:root[data-theme="dark"] [data-course="individual"] { --tint: #36283A; --accent: #7E6476; --course-ink: #DDB5D2; }
 
 @media (min-width: 40em) {
   :root { --gutter: 1.5rem; }
@@ -613,6 +616,7 @@ strong { font-weight: 600; }
   font-size: 1.75rem;
   font-weight: 700;
   line-height: 1.1;
+  font-variant-numeric: lining-nums tabular-nums;
 }
 .metrics div:nth-child(even) dd { color: var(--bronze); }
 @media (min-width: 40em) {
@@ -926,7 +930,8 @@ strong { font-weight: 600; }
   text-align: center;
 }
 
-/* Offers overview: a white card per course, capped with the course's colour */
+/* Offers overview: a card per course in its own tint, with its icon and colour cap.
+   The whole card is the link (the name's ::after stretches over it). */
 
 .offers {
   display: grid;
@@ -942,16 +947,20 @@ strong { font-weight: 600; }
   .offers { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.5rem; }
 }
 .offers li {
+  --bronze-text: var(--course-ink);
+  position: relative;
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
   padding: 1.75rem 1.5rem 1.5rem;
-  background: var(--surface);
-  border: 1px solid var(--line);
+  background: var(--tint, var(--surface));
+  border: 1px solid color-mix(in srgb, var(--accent, var(--line)) 40%, var(--line));
   border-radius: var(--radius-lg);
   box-shadow: inset 0 5px 0 var(--accent, var(--bronze)), var(--shadow-soft);
 }
 .offers__name {
+  display: block;
+  padding-right: 3.5rem;
   color: var(--ink);
   font-family: var(--serif);
   font-size: 1.625rem;
@@ -959,7 +968,16 @@ strong { font-weight: 600; }
   line-height: 1.15;
   text-decoration: none;
 }
-.offers__name:hover { color: var(--bronze-text); text-decoration: underline; }
+.offers__name::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  border-radius: var(--radius-lg);
+}
+.offers__name:hover { color: var(--ink); text-decoration: underline; text-decoration-color: var(--accent); }
+.offers__name:focus-visible { outline: none; }
+.offers__name:focus-visible::after { outline: 3px solid var(--bronze); outline-offset: 3px; }
 .offers__desc {
   color: var(--muted);
   font-size: 0.9375rem;
@@ -968,11 +986,42 @@ strong { font-weight: 600; }
 .offers__price {
   margin-top: auto;
   padding-top: 1rem;
-  border-top: 1px solid var(--line);
+  border-top: 1px solid color-mix(in srgb, var(--accent, var(--line)) 45%, transparent);
+  color: var(--course-ink, var(--ink));
   font-family: var(--serif);
   font-size: 1.75rem;
   font-weight: 700;
   line-height: 1.1;
+}
+
+/* Course emblem: a white circle (::before) with the course's line icon (::after) */
+.offers li[data-course]::before,
+.offers li[data-course]::after,
+.course[data-course]::before,
+.course[data-course]::after {
+  content: "";
+  position: absolute;
+  pointer-events: none;
+}
+.offers li[data-course]::before,
+.course[data-course]::before {
+  top: 1.5rem;
+  right: 1.25rem;
+  width: 2.75rem;
+  height: 2.75rem;
+  border: 1px solid color-mix(in srgb, var(--accent) 55%, transparent);
+  border-radius: 50%;
+  background: var(--surface);
+}
+.offers li[data-course]::after,
+.course[data-course]::after {
+  top: calc(1.5rem + 0.6875rem);
+  right: calc(1.25rem + 0.6875rem);
+  width: 1.375rem;
+  height: 1.375rem;
+  background: var(--course-ink);
+  -webkit-mask: var(--icon) center / contain no-repeat;
+  mask: var(--icon) center / contain no-repeat;
 }
 
 .more-link {
@@ -1112,6 +1161,7 @@ strong { font-weight: 600; }
 }
 
 .quotes {
+  position: relative;
   display: grid;
   gap: 1.25rem;
   margin: 0;
@@ -1331,19 +1381,28 @@ strong { font-weight: 600; }
   text-decoration: none;
 }
 .toc a:hover { color: var(--bronze-text); text-decoration: underline; }
-.toc li[data-course] {
+.toc li {
   display: flex;
   align-items: center;
   gap: 0.625rem;
+  margin-inline: -0.625rem;
+  padding-inline: 0.625rem;
+  border-radius: 0.75rem;
+  transition: background-color 0.2s;
 }
-.toc li[data-course]::before {
+/* each entry shows its course's icon; the calculator entry gets its own */
+.toc li::before {
   content: "";
   flex: none;
-  width: 0.625rem;
-  height: 0.625rem;
-  border-radius: 50%;
-  background: var(--accent);
+  width: 1.125rem;
+  height: 1.125rem;
+  background: var(--course-ink, var(--bronze));
+  -webkit-mask: var(--icon, url("../img/icons/calculator.svg")) center / contain no-repeat;
+  mask: var(--icon, url("../img/icons/calculator.svg")) center / contain no-repeat;
 }
+/* the course being read (assets/js/courses.js) */
+.toc li:has(a[aria-current]) { background: var(--tint, var(--bg-soft)); }
+.toc a[aria-current] { font-weight: 600; }
 .toc__title { margin-bottom: 0.5rem; }
 @media (min-width: 64em) {
   .with-toc {
@@ -1358,21 +1417,28 @@ strong { font-weight: 600; }
   }
 }
 
-/* Each course is a white card, capped with its own colour */
+/* Each course is a card in its own tint, capped with its colour and marked with its
+   icon. Boxes inside the card are white, so they stand out from the tint. */
 .course {
+  --bronze-text: var(--course-ink, #7F623C);
+  position: relative;
   padding: 2rem 1.25rem 1.75rem;
-  background: var(--surface);
-  border: 1px solid var(--line);
+  background: var(--tint, var(--surface));
+  border: 1px solid color-mix(in srgb, var(--accent, var(--line)) 40%, var(--line));
   border-radius: var(--radius-lg);
   box-shadow: inset 0 6px 0 var(--accent, var(--bronze)), var(--shadow-card);
 }
+.course[data-course] { --bg: var(--surface); }
+:root[data-theme="dark"] .course { --bronze-text: var(--course-ink, #D2B083); }
 .course + .course { margin-top: 2rem; }
 .course > * + * { margin-top: 1.25rem; }
 .course > h3 { margin-top: 2.5rem; }
-.course > h2 { font-size: 2rem; }
+.course > h2 { padding-right: 3.5rem; font-size: 2rem; }
 @media (min-width: 40em) {
   .course { padding: 2.75rem 2.5rem 2.5rem; }
   .course > h2 { font-size: 2.5rem; }
+  .course[data-course]::before { top: 2.25rem; right: 2.25rem; }
+  .course[data-course]::after { top: calc(2.25rem + 0.6875rem); right: calc(2.25rem + 0.6875rem); }
 }
 @media (min-width: 64em) {
   .course:first-child { margin-top: 1rem; }
@@ -2008,3 +2074,322 @@ strong { font-weight: 600; }
 .not-found > * + * { margin-top: 1rem; }
 .not-found > div { margin-top: 3rem; }
 .not-found > div > * + * { margin-top: 1rem; }
+
+/* ===== Interactivity =====
+   Everything below is an enhancement: without JavaScript the content is all there,
+   and with "reduce motion" nothing moves. */
+
+/* Phone menu: a drawer behind the ☰ button (assets/js/ui.js adds the button) */
+.menu-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  padding: 0;
+  border: 1px solid var(--line);
+  border-radius: 0.75rem;
+  background: transparent;
+  color: var(--ink);
+  cursor: pointer;
+}
+.menu-toggle:hover { background: var(--bg-soft); }
+.menu-toggle svg {
+  width: 1.25rem;
+  height: 1.25rem;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+}
+.menu-toggle[aria-expanded="true"] .menu-toggle__open,
+.menu-toggle:not([aria-expanded="true"]) .menu-toggle__close { display: none; }
+@media (max-width: 63.99em) {
+  .has-menu .nav { display: none; }
+  .has-menu.is-open .nav { display: block; }
+  .has-menu .nav ul {
+    flex-direction: column;
+    gap: 0.25rem;
+    padding-block: 0.5rem 0.75rem;
+  }
+  .has-menu .nav a {
+    display: block;
+    padding: 0.75rem 1rem;
+    border-radius: var(--radius);
+    color: var(--ink);
+    font-size: 1rem;
+  }
+  .has-menu .nav a:hover,
+  .has-menu .nav a[aria-current="page"] {
+    background: var(--bg-soft);
+    text-decoration: none;
+  }
+}
+@media (min-width: 64em) {
+  .menu-toggle { display: none; }
+}
+/* phones: logo, language, theme and menu share one row */
+@media (max-width: 29.99em) {
+  .site-header__inner { gap: 0.25rem 0.375rem; }
+  .logo { gap: 0.5rem; }
+  .logo__mark { width: 2rem; height: 2rem; }
+  .logo__mark svg { width: 1.125rem; height: 1.125rem; }
+  .logo__name { font-size: 1.0625rem; letter-spacing: 0.06em; }
+  .logo__sub { font-size: 0.625rem; letter-spacing: 0.16em; }
+  .lang-switch { padding: 0 0.5rem; }
+  .theme-toggle,
+  .menu-toggle { width: 2.5rem; height: 2.5rem; }
+}
+@media (max-width: 21.24em) {
+  .logo__mark { display: none; }
+  .logo__name { font-size: 1rem; }
+}
+
+/* Reviews: a swipeable row on phones, with dots (ui.js) */
+@media (max-width: 47.99em) {
+  .quotes {
+    grid-auto-flow: column;
+    grid-auto-columns: min(86%, 22rem);
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x mandatory;
+    margin-inline: calc(var(--gutter) * -1);
+    padding: 0.25rem var(--gutter) 1rem;
+    scroll-padding-inline: var(--gutter);
+    scrollbar-width: none;
+  }
+  .quotes::-webkit-scrollbar { display: none; }
+  .quotes > li { scroll-snap-align: start; }
+}
+.swipe-dots {
+  display: flex;
+  justify-content: center;
+  gap: 0.375rem;
+  margin-top: 0.25rem;
+}
+.swipe-dots span {
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--bronze) 30%, var(--bg));
+  cursor: pointer;
+}
+.swipe-dots .is-current { width: 1.375rem; background: var(--bronze); }
+@media (min-width: 48em) {
+  .swipe-dots { display: none; }
+}
+
+/* Express course: the programme as tabs (assets/js/courses.js) */
+.tabs {
+  display: grid;
+  gap: 0.75rem;
+  max-width: 52rem;
+}
+@media (min-width: 40em) {
+  .tabs { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+.tab {
+  padding: 1rem 1.125rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  background: color-mix(in srgb, var(--surface) 55%, transparent);
+  color: var(--ink);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+.tab:hover { background: var(--surface); }
+.tab[aria-selected="true"] {
+  background: var(--surface);
+  border-color: var(--course-ink, var(--bronze));
+  box-shadow: inset 0 0 0 1px var(--course-ink, var(--bronze)), var(--shadow-soft);
+}
+.tab:focus-visible { border-radius: var(--radius-lg); }
+.tab__label {
+  display: block;
+  color: var(--muted);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+.tab[aria-selected="true"] .tab__label { color: var(--bronze-text); }
+.tab__title {
+  display: block;
+  margin-top: 0.25rem;
+  font-family: var(--serif);
+  font-size: 1.25rem;
+  font-weight: 700;
+  line-height: 1.2;
+}
+.days.is-tabbed .days__block[hidden] { display: none; }
+.days.is-tabbed .days__block { box-shadow: var(--shadow-card); }
+
+/* Main course: show one level (assets/js/courses.js). Its lessons and price row light
+   up; nothing is dimmed, so all text keeps its contrast. */
+.levels {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+}
+.levels__label {
+  margin-right: 0.25rem;
+  color: var(--muted);
+  font-size: 0.875rem;
+}
+.levels button {
+  min-height: 2.75rem;
+  padding: 0.375rem 1.125rem;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--surface);
+  color: var(--ink);
+  font: inherit;
+  cursor: pointer;
+}
+.levels button:hover { border-color: var(--course-ink, var(--bronze)); }
+.levels button[aria-pressed="true"] {
+  border-color: var(--ink);
+  background: var(--ink);
+  color: var(--surface);
+}
+.levels button:focus-visible { border-radius: 999px; }
+.levels__sum {
+  max-width: 52rem;
+  padding: 0.875rem 1.125rem;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  font-size: 0.9375rem;
+}
+.levels__sum:empty { display: none; }
+.ladder__block.is-in,
+.price-table tbody tr.is-in {
+  background: var(--surface);
+  box-shadow: var(--shadow-soft);
+}
+.ladder__block.is-in { border-radius: var(--radius); }
+.price-table tbody tr.is-in > * { font-weight: 600; }
+.ladder[data-level] .ladder__bar { opacity: 0.3; }
+.ladder[data-level="1"] .ladder__bar:nth-of-type(1),
+.ladder[data-level="2"] .ladder__bar:nth-of-type(2),
+.ladder[data-level="3"] .ladder__bar:nth-of-type(3) { opacity: 1; background: var(--course-ink, var(--bronze)); }
+.ladder[data-level="1"] .ladder__head span:nth-child(2),
+.ladder[data-level="2"] .ladder__head span:nth-child(3),
+.ladder[data-level="3"] .ladder__head span:nth-child(4) { color: var(--ink); font-weight: 700; }
+@media (max-width: 47.99em) {
+  .ladder__block.is-in { padding-right: 0.75rem; }
+}
+@media (min-width: 48em) {
+  .ladder__block.is-in h4 { padding-left: 0.75rem; }
+  .ladder__block.is-in ol { padding-left: 3rem; }
+}
+
+/* Price calculator (assets/js/courses.js): a white card; the answer sits in the
+   landing's espresso box */
+.calc[hidden] { display: none; }
+.calc__app:not([hidden]) {
+  display: grid;
+  gap: 1rem;
+  max-width: 44rem;
+}
+.calc__out {
+  padding: 1.5rem;
+  background: var(--invert-bg);
+  border-radius: var(--radius-lg);
+  color: var(--invert-ink);
+}
+.calc__out > * + * { margin-top: 0.5rem; }
+.calc__what { color: var(--invert-muted); font-size: 0.9375rem; }
+.calc__price {
+  font-family: var(--serif);
+  font-size: 2.75rem;
+  font-weight: 700;
+  line-height: 1.05;
+}
+.calc__per,
+.calc__note { color: var(--invert-muted); font-size: 0.875rem; }
+.calc__per:empty,
+.calc__note:empty { display: none; }
+@media (min-width: 40em) {
+  .calc__out { padding: 2rem; }
+  .calc__price { font-size: 3.25rem; }
+}
+
+/* Motion */
+@media (prefers-reduced-motion: no-preference) {
+  html { scroll-behavior: smooth; }
+
+  .has-menu.is-open .nav { animation: drop 0.25s ease-out; }
+  .days.is-tabbed .days__block:not([hidden]) { animation: fade-in 0.3s ease-out; }
+  .swipe-dots span,
+  .levels button,
+  .tab { transition: background-color 0.2s, border-color 0.2s, box-shadow 0.2s, width 0.25s; }
+  .ladder__block,
+  .price-table tbody tr,
+  .ladder__bar { transition: background-color 0.25s, box-shadow 0.25s, opacity 0.25s; }
+
+  /* cards lift on hover; button arrows nudge */
+  @media (hover: hover) {
+    .offers li,
+    .case,
+    .quote,
+    .method li,
+    .plan,
+    .pubs li { transition: transform 0.25s ease, box-shadow 0.25s ease; }
+    .offers li:hover {
+      transform: translateY(-4px);
+      box-shadow: inset 0 5px 0 var(--accent, var(--bronze)), var(--shadow-lift);
+    }
+    .case:hover,
+    .quote:hover,
+    .method li:hover,
+    .plan:hover,
+    .pubs li:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-lift);
+    }
+    .btn__arrow { transition: transform 0.2s; }
+    .btn:hover .btn__arrow { transform: translateX(3px); }
+  }
+
+  /* Scroll-driven, so no script is needed; browsers without support just show
+     everything at once. */
+  @supports (animation-timeline: view()) {
+    /* cards and headings rise into place as they scroll into view */
+    :is(.section__head, .offers li, .case, .case-advice, .quotes-title, .method li,
+        .method-figure, .intro, .split > div, .timeline, .docs figure, .pubs li,
+        .books, .cta-card, .course, .story__photo) {
+      animation: rise linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 9rem;
+    }
+
+    /* parallax: the sprig, the bookcase and the skyline drift as the page scrolls */
+    .hero { view-timeline: --hero block; }
+    .hero::before {
+      animation: sprig-drift linear both;
+      animation-timeline: --hero;
+      animation-range: exit 0% exit 100%;
+    }
+    .page-head--library { view-timeline: --head block; }
+    .page-head--library::before {
+      animation: lift-off linear both;
+      animation-timeline: --head;
+      animation-range: exit 0% exit 100%;
+    }
+    .site-footer { view-timeline: --footer block; }
+    .site-footer::before {
+      animation: skyline-in linear both;
+      animation-timeline: --footer;
+      animation-range: entry 0% entry 100%;
+    }
+  }
+}
+
+@keyframes drop { from { opacity: 0; translate: 0 -0.5rem; } }
+@keyframes rise { from { opacity: 0; translate: 0 1.75rem; } }
+@keyframes sprig-drift { to { translate: 0 6rem; rotate: 14deg; } }
+@keyframes lift-off { to { translate: 0 -2.5rem; } }
+@keyframes skyline-in { from { transform: translateX(-2.5rem); opacity: 0.3; } }

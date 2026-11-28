@@ -25,7 +25,9 @@
   <link rel="preload" href="/assets/fonts/cormorant-garamond.woff2" as="font" type="font/woff2" crossorigin>
   <script src="/assets/js/theme.js"></script>
   <script src="/assets/js/express.js" defer></script>
+  <script src="/assets/js/courses.js" defer></script>
   <link rel="stylesheet" href="/assets/css/site.css">
+  <script src="/assets/js/ui.js" defer></script>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
@@ -66,6 +68,7 @@
           <li data-course="pronunciation"><a href="#pronunciation">Confident Pronunciation</a></li>
           <li data-course="trial"><a href="#trial">Trial lesson</a></li>
           <li data-course="individual"><a href="#one-to-one">One-to-one lessons</a></li>
+          <li><a href="#calculator">Price calculator</a></li>
         </ul>
       </nav>
 
@@ -492,6 +495,19 @@
               </tr>
             </tbody>
           </table>
+          <div class="cta-row">
+            <a class="btn btn--primary" href="https://ig.me/m/lingualatina_halyna">Message me in Direct</a>
+            <a class="btn btn--secondary" href="#todo-google-form-en" data-placeholder="GOOGLE_FORM_EN_URL">Fill in the form</a>
+          </div>
+        </section>
+
+        <section class="course calc" id="calculator" aria-labelledby="calc-title">
+          <span class="eyebrow">Calculator</span>
+          <h2 id="calc-title">Work out the price</h2>
+          <p class="prose">Choose a course and a format to see its price from this page.</p>
+          <p class="prose muted calc__fallback">The calculator needs JavaScript. All the prices are above on this page.</p>
+          <div class="calc__app" hidden></div>
+          <script type="application/json" class="calc__data">{"courses":[{"id":"main","name":"Main course “Medical Latin”","note":"The next group starts on 11 January 2027.","fields":[{"id":"format","label":"Format","options":[["group","Mini-group, 3–5 people"],["solo","One-to-one"],["rec","Recorded"]]},{"id":"level","label":"Level","when":{"format":["group","solo"]},"options":[["basis","Basis · 8 lessons"],["medium","Medium · 12 lessons"],["maxi","Maxi · 16 lessons"]]}],"prices":{"group.basis":{"p":110,"n":8},"group.medium":{"p":165,"n":12},"group.maxi":{"p":225,"n":16},"solo.basis":{"p":200,"n":8},"solo.medium":{"p":275,"n":12},"solo.maxi":{"p":400,"n":16},"rec":{"p":22,"note":"Only the noun module: recorded lessons on Telegram, with questions in the Telegram chat."}}},{"id":"express","name":"Express course","note":"Groups start on 8 and 22 February and 9 March 2027. Booking in advance, with prepayment.","fields":[{"id":"format","label":"Format","options":[["group","Mini-group, 4 or more"],["solo","One-to-one, 6 lessons"]]},{"id":"book","label":"When you book","options":[["early","By 30 January"],["late","From 31 January"]]}],"prices":{"group.early":{"p":56,"n":6},"group.late":{"p":63,"from":true,"note":"From 31 January the price goes up each week."},"solo.early":{"p":150,"n":6},"solo.late":{"p":175,"n":6}}},{"id":"pronunciation","name":"“Confident Pronunciation” intensive","fields":[{"id":"format","label":"Format","options":[["group","Group intensive"],["solo","One-to-one"]]}],"prices":{"group":{"p":12,"note":"3 days. A new group starts once a month."},"solo":{"p":75,"note":"3 days. Start by arrangement."}}},{"id":"trial","name":"Trial lesson with a level test","fields":[],"prices":{"":{"p":15,"note":"50–55 min: getting to know each other, and a level test."}}},{"id":"individual","name":"One-to-one lessons","note":"Paid in advance, for at least 3 lessons.","fields":[{"id":"who","label":"Who is studying","options":[["school","A schoolchild"],["student","A student"],["entry","University entrance preparation"]]},{"id":"packSchool","label":"Number of lessons","when":{"who":["school"]},"options":[["1","1 lesson"],["5","5 lessons"],["8","8 lessons"],["10","10 lessons"]]},{"id":"packStudent","label":"Number of lessons","when":{"who":["student"]},"options":[["1","1 lesson"],["5","5 lessons"],["10","10 lessons"],["16","16 lessons"]]},{"id":"season","label":"When you start","when":{"who":["student"],"packStudent":["5","10","16"]},"options":[["jun","June–November"],["dec","December–May"]]}],"prices":{"school.1":{"p":18,"n":1},"school.5":{"p":85,"n":5},"school.8":{"p":133,"n":8},"school.10":{"p":168,"n":10},"student.1":{"p":25,"n":1,"from":true},"student.5.jun":{"p":109,"n":5},"student.5.dec":{"p":116,"n":5},"student.10.jun":{"p":213,"n":10},"student.10.dec":{"p":225,"n":10},"student.16.jun":{"p":333,"n":16},"student.16.dec":{"p":344,"n":16},"entry":{"p":null,"note":"Specialised preparation for university entrance: the price depends on your request and the time available, and we agree it individually."}}}]}</script>
           <div class="cta-row">
             <a class="btn btn--primary" href="https://ig.me/m/lingualatina_halyna">Message me in Direct</a>
             <a class="btn btn--secondary" href="#todo-google-form-en" data-placeholder="GOOGLE_FORM_EN_URL">Fill in the form</a>
